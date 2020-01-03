@@ -101,7 +101,7 @@ class Banco
 
     public function insertar()
     {
-        $sql = "insert into caja_bancos values ('$this->id_banco', '$this->nombre', '$this->efectivo', '$this->virtual', '$this->id_empresa')";
+        $sql = "insert into caja_bancos values ('$this->id_banco', '$this->nombre', '$this->nrocuenta', '$this->monto')";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 
