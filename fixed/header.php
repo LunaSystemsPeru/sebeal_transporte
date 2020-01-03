@@ -289,23 +289,6 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="has-submenu">
-                        <a href="ver_prestamos.php">
-                            <i class="fe-user"></i>Prestamos de Dinero
-                        </a>
-                    </li>
-
-                    <li class="has-submenu">
-                        <a href="index.html">
-                            <i class="fe-dollar-sign"></i>Movimientos Dinero
-                        </a>
-                    </li>
-
-                    <li class="has-submenu">
-                        <a href="ver_movimientos_tipo.php">
-                            <i class="fe-briefcase"></i>Tipos Movimientos
-                        </a>
-                    </li>
 
                 </ul>
                 <!-- End navigation menu -->
