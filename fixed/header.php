@@ -224,23 +224,34 @@
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
-                                    <li><a href="ver_envios.php">Ver Envios</a></li>
-                                    <li><a href="ver_mis_bancos.php">Ver hoja de Ruta</a></li>
-                                    <li class="has-submenu">
-                                        <a href="#">Reportes Envio <div class="arrow-down"></div></a>
-                                        <ul class="submenu">
-                                            <li><a href="form-elements.html">Form Elements</a></li>
-                                            <li><a href="form-advanced.html">Form Advanced</a></li>
-                                            <li><a href="form-validation.html">Form Validation</a></li>
-                                            <li><a href="form-pickers.html">Form Pickers</a></li>
-                                            <li><a href="form-wizard.html">Form Wizard</a></li>
-                                            <li><a href="form-mask.html">Form Masks</a></li>
-                                            <li><a href="form-summernote.html">Summernote</a></li>
-                                            <li><a href="form-quilljs.html">Quilljs Editor</a></li>
-                                            <li><a href="form-uploads.html">Multiple File Upload</a></li>
+                                    <li><a href="ver_clientes.php">Ver Clientes</a></li>
+                                    <li><a href="ver_envios.php">Ver Encomiendas de Hoy</a></li>
+                                    <li><a href="ver_mis_bancos.php">Hoja de Ruta</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">
+                            <i class="fe-briefcase"></i>Compras y Pagos
+                            <div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="ver_proveedores.php">Ver Proveedores</a></li>
+                                    <li><a href="ver_contratos.php">Ver Contratos</a></li>
+                                    <li><a href="ver_compras.php">Ver Compras</a></li>
+                                    <li><a href="ver_pagos_frecuentes.php">Pagos Frecuentes</a></li>
+                                    <li><a href="ver_gastos.php">Gastos</a></li>
+                                    <li><a href="ver_clasificacion_movimiento.php">Clasificacion de compra</a></li>
+                                    <li>
+                                        <a href="#"><span class="nav-label">Reportes Compras</span><span
+                                                    class="fa arrow"></span> </a>
+                                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                                            <li><a href="ver_compras_mensual.php">Compras x Mes</a></li>
                                         </ul>
                                     </li>
-
                                 </ul>
                             </li>
                         </ul>
@@ -260,29 +271,20 @@
                             </li>
                         </ul>
                     </li>
-
                     <li class="has-submenu">
                         <a href="#">
-                            <i class="fe-briefcase"></i>Compras y Pagos
+                            <i class="fa-envelope-open"></i>Configuracion
                             <div class="arrow-down"></div>
                         </a>
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
-                                    <li><a href="ver_proveedores.php">Ver Proveedores</a></li>
-                                    <li><a href="ver_clientes.php">Ver clientes</a></li>
-                                    <li><a href="ver_contratos.php">Ver Contratos</a></li>
-                                    <li><a href="ver_compras.php">Ver Compras</a></li>
-                                    <li><a href="ver_pagos_frecuentes.php">Pagos Frecuentes</a></li>
-                                    <li><a href="ver_gastos.php">Gastos</a></li>
-                                    <li><a href="ver_clasificacion_movimiento.php">Clasificacion de compra</a></li>
-                                    <li>
-                                        <a href="#"><span class="nav-label">Reportes Compras</span><span
-                                                    class="fa arrow"></span> </a>
-                                        <ul class="nav nav-third-level collapse" aria-expanded="false">
-                                            <li><a href="ver_compras_mensual.php">Compras x Mes</a></li>
-                                        </ul>
-                                    </li>
+                                    <li><a href="ver_mis_prestamos.php">Destinos</a></li>
+                                    <li><a href="ver_mis_bancos.php">Documentos Sunat</a></li>
+                                    <li><a href="ver_mis_bancos.php">Mis Documentos SUNAT</a></li>
+                                    <li><a href="ver_mis_bancos.php">Unidad Medida</a></li>
+                                    <li><a href="ver_mis_bancos.php">Usuarios</a></li>
+
                                 </ul>
                             </li>
                         </ul>

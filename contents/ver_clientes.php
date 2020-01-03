@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +8,7 @@ $c_banco = new Banco();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Mis Bancos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -52,7 +49,7 @@ $c_banco = new Banco();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis Bancos</li>
+                            <li class="breadcrumb-item active">Clientes</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -65,9 +62,9 @@ $c_banco = new Banco();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Clientes</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Clientes (Remitentes - Destinatarios)</h2>
                         <div class="table-responsive">
-                            <table id="table-clientes" class="table table-striped table-bordered table-hover">
+                            <table id="table-clientes" class="table m-0">
                                 <thead>
                                 <tr>
                                     <th>Id.</th>
