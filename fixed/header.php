@@ -283,7 +283,7 @@
                                     <li><a href="ver_mis_bancos.php">Documentos Sunat</a></li>
                                     <li><a href="ver_mis_bancos.php">Mis Documentos SUNAT</a></li>
                                     <li><a href="ver_mis_bancos.php">Unidad Medida</a></li>
-                                    <li><a href="ver_mis_bancos.php">Usuarios</a></li>
+                                    <li><a href="ver_usuarios.php">Usuarios</a></li>
 
                                 </ul>
                             </li>

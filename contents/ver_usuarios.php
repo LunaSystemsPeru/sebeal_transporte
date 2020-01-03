@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+require '../models/Usuario.php';
+$c_usuario = new Usuario();
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ $c_banco = new Banco();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
+    <title>Usuarios - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -52,7 +52,7 @@ $c_banco = new Banco();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis Bancos</li>
+                            <li class="breadcrumb-item active">Usuarios</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -65,31 +65,35 @@ $c_banco = new Banco();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Bancos</h2>
-                        <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                            </i><span>Nuevo Banco</span></button>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Usuarios</h2>
+                        <a href="reg_usuario.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                            </i><span>Nuevo usuario</span></a>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">Username</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Nro. Cuenta</th>
-                                    <th scope="col">Monto S/.</th>
+                                    <th scope="col">F. Nac.</th>
+                                    <th scope="col">Agencia</th>
+                                    <th scope="col">F. Ingreso</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $a_bancos = $c_banco->verFilas();
-                                foreach ($a_bancos as $filas) {
+                                $a_usuarios = $c_usuario->verFilas();
+                                foreach ($a_usuarios as $filas) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $filas['id_banco'] ?></td>
-                                        <td><?php echo $filas['nombre'] ?></td>
-                                        <td><?php echo $filas['nro_cuenta'] ?></td>
-                                        <td><?php echo $filas['monto'] ?></td>
+                                        <td><?php echo $filas['id_usuario'] ?></td>
+                                        <td><?php echo $filas['usuario'] ?></td>
+                                        <td><?php echo $filas['datos'] ?></td>
+                                        <td><?php echo $filas['fecha_nacimiento'] ?></td>
+                                        <td><?php echo $filas['agencia'] ?></td>
+                                        <td><?php echo $filas['fecha_ingreso'] ?></td>
                                         <td class="text-center">
                                             <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
                                             <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
@@ -100,14 +104,6 @@ $c_banco = new Banco();
                                 }
                                 ?>
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th scope="row" colspan="4">
-                                    </td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-center"></td>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
