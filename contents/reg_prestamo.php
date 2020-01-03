@@ -57,18 +57,37 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                     <li class="breadcrumb-item active">Registrar</li>
                                 </ol>
                             </div>
-                            <h4 class="page-title">Registro de Prestamo Inicial</h4>
+                            <h4 class="page-title">Registro de Prestamo </h4>
                         </div>
                     </div>
                 </div>
-                <!-- end page title --> 
+                <!-- end page title -->
 
                 <div class="row">
                     <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
-                                <h2 class="page-title col-md-12" style="text-align: center; margin-bottom: 25px;">Datos Generales</h2>
+
+
+
+
                                 <form class="" method="post" action="../controller/prestamo.php">
+                                    <div class="form-group row">
+                                        <label class="col-md-2"  for="inputProbedor">Proveedor</label>
+                                        <div class="col-md-8">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                                </div>
+                                                <input type="text" id="inputProbedor" name="inputProbedor" class="form-control" value="">
+                                                <span class="input-group-append">
+                                                    <a href="reg_proveedor.php">
+                                                        <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-plus"></i></button>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group row">
                                         <label class="col-md-2"  for="inputFecha">Fecha</label>
                                         <div class="col-md-4">
@@ -78,37 +97,39 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-2"  for="inputCliente">Cliente</label>
-                                        <div class="col-md-10">
-                                            <div class="input-group">
-                                                <input type="text" id="inputCliente" name="inputCliente" class="form-control" placeholder="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2"  for="inputEfectivo">Efectivo:</label>
+                                        <label class="col-md-2"  for="inputMonto">Monto</label>
                                         <div class="col-md-4">
                                             <div class="input-group">
-                                                <input type="text" id="inputEfectivo" name="inputEfectivo" class="form-control text-right" placeholder="">
+                                                <input type="number" id="inputMonto" name="inputMonto" class="form-control" >
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-2"  for="inputVirtual">Agente - Banco</label>
-                                        <div class="col-md-10">
+                                        <label class="col-md-2"  for="inputCuotas">Cuotas</label>
+                                        <div class="col-md-4">
                                             <div class="input-group">
-                                                <select class="form-control" name="selectBanco">
-                                                    <?php
-                                                    foreach ($c_banco->verFilas() as $fila) {
-                                                        ?>
-                                                        <option value="<?php echo $fila['id_banco']?>"><?php echo $fila['nombre']?></option>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </select>
+                                                <input type="number" id="inputCuotas" name="inputCuotas" class="form-control" >
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-2"  for="inputFechaPago">Fecha de pago</label>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input type="date" id="inputFechaPago" name="inputFechaPago" class="form-control" value="<?php echo date("Y-m-d")?>">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-md-2"  for="inputMontoCuotas">Monto de Couta</label>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input type="number" id="inputMontoCuotas" name="inputMontoCuotas" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <input type="hidden" value="0" name="inputCodigo">
                                     <button  type="submit" class="btn btn-purple waves-effect waves-light mt-3">Guardar</button>
                                 </form>

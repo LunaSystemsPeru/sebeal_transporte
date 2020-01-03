@@ -52,7 +52,7 @@ $c_banco = new Banco();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis Bancos</li>
+                            <li class="breadcrumb-item active">Mis Gastos no Documentados</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -65,10 +65,12 @@ $c_banco = new Banco();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Bancos</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Gastos no Documentados</h2>
+                            <a href="reg_gasto.php">
+                                <button style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                                    </i><span>Nuevo Gastos</span></button>
+                            </a>
 
-                            <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                                </i><span>Nuevo Banco</span></button>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
@@ -76,22 +78,25 @@ $c_banco = new Banco();
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Nro. Cuenta</th>
-                                    <th scope="col">Monto S/.</th>
+                                    <th scope="col">Fecha</th>
+                                    <th scope="col">Caja/Banco</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Monto</th>
+                                    <th scope="col">Clasificacion</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>BANCO DE CREDITO - SOLES</td>
-                                    <td>310-37799463-0-66</td>
-                                    <td>30.00</td>
-                                    <td class="text-center">
-                                        <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
-                                        <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
-                                        <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
+                                    <td style="">47</td>
+                                    <td style="text-align: center; ">2019-12-19</td>
+                                    <td style="text-align: center; ">EFECTIVO</td>
+                                    <td style="text-align: left; ">SILLAS</td>
+                                    <td style="text-align: right; ">200.00</td>
+                                    <td style="text-align: center; ">EQUIPOS Y MOVILIARIOS</td>
+                                    <td style="text-align: center; ">
+                                        <button type="button" onclick="eliminar(47)" class="btn btn-sm btn-icon btn-danger"
+                                                title="Eliminar Gasto"><i class="fa fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
