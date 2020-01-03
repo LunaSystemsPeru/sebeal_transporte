@@ -34,7 +34,8 @@
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle  waves-effect waves-light" data-toggle="dropdown" href="#"
+                       role="button" aria-haspopup="false" aria-expanded="false">
                         <i class="fe-bell noti-icon"></i>
                         <span class="badge badge-danger rounded-circle noti-icon-badge">9</span>
                     </a>
@@ -66,7 +67,8 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item active">
                                 <div class="notify-icon">
-                                    <img src="../public/assets/images/users/avatar-1.jpg" class="img-fluid rounded-circle" alt=""/></div>
+                                    <img src="../public/assets/images/users/avatar-1.jpg"
+                                         class="img-fluid rounded-circle" alt=""/></div>
                                 <p class="notify-details">Cristina Pride</p>
                                 <p class="text-muted mb-0 user-msg">
                                     <small>Hi, How are you? What about our next meeting</small>
@@ -87,7 +89,8 @@
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item notify-item">
                                 <div class="notify-icon">
-                                    <img src="../public/assets/images/users/avatar-4.jpg" class="img-fluid rounded-circle" alt=""/></div>
+                                    <img src="../public/assets/images/users/avatar-4.jpg"
+                                         class="img-fluid rounded-circle" alt=""/></div>
                                 <p class="notify-details">Karen Robinson</p>
                                 <p class="text-muted mb-0 user-msg">
                                     <small>Wow ! this admin looks good and awesome design</small>
@@ -127,7 +130,8 @@
                         </div>
 
                         <!-- All-->
-                        <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                        <a href="javascript:void(0);"
+                           class="dropdown-item text-center text-primary notify-item notify-all">
                             View all
                             <i class="fi-arrow-right"></i>
                         </a>
@@ -136,7 +140,8 @@
                 </li>
 
                 <li class="dropdown notification-list">
-                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect waves-light" data-toggle="dropdown"
+                       href="#" role="button" aria-haspopup="false" aria-expanded="false">
                         <img src="../public/assets/images/users/avatar-1.jpg" alt="user-image" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
@@ -211,14 +216,43 @@
                             <i class="fe-airplay"></i>Panel
                         </a>
                     </li>
-
                     <li class="has-submenu">
                         <a href="#">
-                            <i class="fe-layers"></i>Mis Bancos <div class="arrow-down"></div>
+                            <i class=""></i>Envios
+                            <div class="arrow-down"></div>
                         </a>
                         <ul class="submenu megamenu">
                             <li>
-                                <ul >
+                                <ul>
+                                    <li><a href="ver_envios.php">Ver Envios</a></li>
+                                    <li><a href="ver_mis_bancos.php">Ver hoja de Ruta</a></li>
+                                    <li class="has-submenu">
+                                        <a href="#">Reportes Envio <div class="arrow-down"></div></a>
+                                        <ul class="submenu">
+                                            <li><a href="form-elements.html">Form Elements</a></li>
+                                            <li><a href="form-advanced.html">Form Advanced</a></li>
+                                            <li><a href="form-validation.html">Form Validation</a></li>
+                                            <li><a href="form-pickers.html">Form Pickers</a></li>
+                                            <li><a href="form-wizard.html">Form Wizard</a></li>
+                                            <li><a href="form-mask.html">Form Masks</a></li>
+                                            <li><a href="form-summernote.html">Summernote</a></li>
+                                            <li><a href="form-quilljs.html">Quilljs Editor</a></li>
+                                            <li><a href="form-uploads.html">Multiple File Upload</a></li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">
+                            <i class="fe-layers"></i>Mis Bancos
+                            <div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
                                     <li><a href="ver_mis_prestamos.php">Prestamo</a></li>
                                     <li><a href="ver_mis_bancos.php">Caja - Banco</a></li>
 
@@ -229,11 +263,12 @@
 
                     <li class="has-submenu">
                         <a href="#">
-                            <i class="fe-briefcase"></i>Compras y Pagos <div class="arrow-down"></div>
+                            <i class="fe-briefcase"></i>Compras y Pagos
+                            <div class="arrow-down"></div>
                         </a>
                         <ul class="submenu megamenu">
                             <li>
-                                <ul >
+                                <ul>
                                     <li><a href="ver_proveedores.php">Ver Proveedores</a></li>
                                     <li><a href="ver_clientes.php">Ver clientes</a></li>
                                     <li><a href="ver_contratos.php">Ver Contratos</a></li>
@@ -242,7 +277,8 @@
                                     <li><a href="ver_gastos.php">Gastos</a></li>
                                     <li><a href="ver_clasificacion_movimiento.php">Clasificacion de compra</a></li>
                                     <li>
-                                        <a href="#"><span class="nav-label">Reportes Compras</span><span class="fa arrow"></span> </a>
+                                        <a href="#"><span class="nav-label">Reportes Compras</span><span
+                                                    class="fa arrow"></span> </a>
                                         <ul class="nav nav-third-level collapse" aria-expanded="false">
                                             <li><a href="ver_compras_mensual.php">Compras x Mes</a></li>
                                         </ul>
