@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+require '../models/Clasificacion.php';
+$c_clasificacion = new Clasificacion();
 
 ?>
 <!DOCTYPE html>
@@ -67,8 +67,10 @@ $c_banco = new Banco();
                     <div class="card-body">
                         <h2 class="page-title col-md-12" style="text-align: center;">Mis clasificaciones</h2>
 
-                            <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                                </i><span>Nueva Clasificaciones</span></button>
+                        <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;"
+                                type="button" class="btn btn-info waves-effect waves-light"><i
+                                    class="dripicons-plus mr-1">
+                            </i><span>Nueva Clasificaciones</span></button>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
@@ -81,14 +83,24 @@ $c_banco = new Banco();
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th>1</th>
-                                    <th>Alimentos</th>
-                                    <th><span href="ver_detalle_contrato.php?id_contrato=4"
-                                              class="btn btn-icon btn-success"
-                                              title="Ver Detalle del Contrato"><i
-                                                    class="fa fa-eye"></i></span></th>
-                                </tr>
+                                <?php
+                                $a_clasificacion = $c_clasificacion->verFilas();
+                                foreach ($a_clasificacion as $fila) {
+                                    ?>
+                                    <tr>
+                                        <th><?php echo $fila['id_clasificacion']?></th>
+                                        <th><?php echo $fila['nombre']?></th>
+                                        <th>
+                                            <a href=""
+                                                  class="btn btn-icon btn-success"
+                                                  title="Ver Detalle del Contrato"><i
+                                                        class="fa fa-eye"></i></a>
+                                        </th>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+
                                 </tbody>
 
                             </table>
@@ -115,20 +127,22 @@ $c_banco = new Banco();
                 <h4 class="custom-modal-title">Registrar</h4>
 
             </div>
+            <form id="reg-banco" method="post" action="../controller/reg_clasificacion.php">
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="reg-banco">
+
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="input_nombre">
                         </div>
-                    </form>
+
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>

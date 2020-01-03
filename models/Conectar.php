@@ -13,10 +13,10 @@ class Conectar
     private static $_instancia;
     private $_connection;
     private $_host = "192.168.1.248";
-    private $_user = "lsp_agentes";
-    private $_pass = "zhbCkr6RtGSji4kc";
+    private $_user = "root_lsp";
+    private $_pass = "root/*123";
     // Almacenar una unica instancia
-    private $_db = "control_agentes";
+    private $_db = "sebeal";
 
     /**
      * constructor de la clase Base de datos
