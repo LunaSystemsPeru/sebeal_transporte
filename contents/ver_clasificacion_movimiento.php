@@ -52,7 +52,7 @@ $c_banco = new Banco();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis Bancos</li>
+                            <li class="breadcrumb-item active">Mis clasificaciones</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -60,48 +60,37 @@ $c_banco = new Banco();
             </div>
         </div>
         <!-- end page title -->
-        <div class="row">
+        <div class="row justify-content-md-center">
 
-            <div class="col-lg-12">
+            <div class="col-md-7 col-md-offset-2">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Bancos</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Mis clasificaciones</h2>
 
                             <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                                </i><span>Nuevo Banco</span></button>
+                                </i><span>Nueva Clasificaciones</span></button>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <caption></caption>
                                 <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Nro. Cuenta</th>
-                                    <th scope="col">Monto S/.</th>
-                                    <th scope="col">Acciones</th>
+                                    <th width="10%">ID</th>
+                                    <th width="60%">Nombre</th>
+                                    <th class="text-center"></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>BANCO DE CREDITO - SOLES</td>
-                                    <td>310-37799463-0-66</td>
-                                    <td>30.00</td>
-                                    <td class="text-center">
-                                        <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
-                                        <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
-                                        <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
-                                    </td>
+                                    <th>1</th>
+                                    <th>Alimentos</th>
+                                    <th><span href="ver_detalle_contrato.php?id_contrato=4"
+                                              class="btn btn-icon btn-success"
+                                              title="Ver Detalle del Contrato"><i
+                                                    class="fa fa-eye"></i></span></th>
                                 </tr>
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th scope="row" colspan="4"></td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-center"></td>
-                                </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>
@@ -133,20 +122,11 @@ $c_banco = new Banco();
                             <label class="control-label">Nombre</label>
                             <input type="text" class="form-control">
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Monto</label>
-                            <input type="text" class="form-control">
-                        </div>
                     </form>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>

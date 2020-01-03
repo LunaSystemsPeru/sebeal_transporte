@@ -213,11 +213,43 @@
                     </li>
 
                     <li class="has-submenu">
-                        <a href="ver_mis_bancos.php">
-                            <i class="fe-layers"></i>Mis Bancos
+                        <a href="#">
+                            <i class="fe-layers"></i>Mis Bancos <div class="arrow-down"></div>
                         </a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul >
+                                    <li><a href="ver_mis_prestamos.php">Prestamo</a></li>
+                                    <li><a href="ver_mis_bancos.php">Caja - Banco</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
                     </li>
 
+                    <li class="has-submenu">
+                        <a href="#">
+                            <i class="fe-briefcase"></i>Compras y Pagos <div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul >
+                                    <li><a href="ver_proveedores.php">Ver Proveedores</a></li>
+                                    <li><a href="ver_contratos.php">Ver Contratos</a></li>
+                                    <li><a href="ver_compras.php">Ver Compras</a></li>
+                                    <li><a href="ver_pagos_frecuentes.php">Pagos Frecuentes</a></li>
+                                    <li><a href="ver_gastos.php">Gastos</a></li>
+                                    <li><a href="ver_clasificacion_movimiento.php">Clasificacion de compra</a></li>
+                                    <li>
+                                        <a href="#"><span class="nav-label">Reportes Compras</span><span class="fa arrow"></span> </a>
+                                        <ul class="nav nav-third-level collapse" aria-expanded="false">
+                                            <li><a href="ver_compras_mensual.php">Compras x Mes</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="has-submenu">
                         <a href="ver_prestamos.php">
                             <i class="fe-user"></i>Prestamos de Dinero

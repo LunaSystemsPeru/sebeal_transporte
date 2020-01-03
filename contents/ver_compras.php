@@ -52,7 +52,7 @@ $c_banco = new Banco();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis Bancos</li>
+                            <li class="breadcrumb-item active">Mis Compras</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -65,43 +65,42 @@ $c_banco = new Banco();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Bancos</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Lista de Compras</h2>
+                            <a href="reg_compra.php">
+                                <button style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                                    </i><span>Agregar Compra</span></button>
+                            </a>
 
-                            <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                                </i><span>Nuevo Banco</span></button>
 
                         <div class="table-responsive">
-                            <table class="table mb-0 table-hover">
-                                <caption></caption>
+                            <table id="tabla-ingresos" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Nro. Cuenta</th>
-                                    <th scope="col">Monto S/.</th>
-                                    <th scope="col">Acciones</th>
+                                    <th width="8%">Id.</th>
+                                    <th width="11%">Fecha</th>
+                                    <th width="25%">Proveedor</th>
+                                    <th width="15%">Documento</th>
+                                    <th width="11%">Usuario</th>
+                                    <th width="10%">Total</th>
+                                    <th width="10%">Pagado</th>
+                                    <th width="18%">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>BANCO DE CREDITO - SOLES</td>
-                                    <td>310-37799463-0-66</td>
-                                    <td>30.00</td>
+                                    <td>201903001</td>
+                                    <td class="text-center">2019-03-15</td>
+                                    <td>10469932091 | OYANGUREN GIRON LUIS ENRIQUE</td>
+                                    <td>FT | F001-25</td>
+                                    <td class="text-center">loyangureng</td>
+                                    <td class="text-right">570.00</td>
+                                    <td class="text-right">570.00</td>
                                     <td class="text-center">
-                                        <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
-                                        <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
-                                        <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
+                                        <button class="btn btn-info btn-sm" title="Ver Documento"><i class="fa fa-eye-slash"></i></button>
+                                        <button class="btn btn-danger btn-sm" title="Eliminar Documento"><i class="dripicons-trash"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th scope="row" colspan="4"></td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-center"></td>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>

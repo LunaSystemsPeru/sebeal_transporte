@@ -65,43 +65,34 @@ $c_banco = new Banco();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Bancos</h2>
-
-                            <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                                </i><span>Nuevo Banco</span></button>
-
+                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Proveedores</h2>
                         <div class="table-responsive">
-                            <table class="table mb-0 table-hover">
-                                <caption></caption>
+                            <table id="table-proveedores" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Nro. Cuenta</th>
-                                    <th scope="col">Monto S/.</th>
-                                    <th scope="col">Acciones</th>
+                                    <th>Id.</th>
+                                    <th>Documento</th>
+                                    <th>Nombre / Razon Social</th>
+                                    <th>Direccion</th>
+                                    <th>Nombre Comercial</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 <tr>
                                     <td>1</td>
-                                    <td>BANCO DE CREDITO - SOLES</td>
-                                    <td>310-37799463-0-66</td>
-                                    <td>30.00</td>
+                                    <td class="text-center">201522615210</td>
+                                    <td>OYANGUREN GIRON LUIS ENRIQUE</td>
+                                    <td >AV. HONORIO DELGADO NRO. 602 URB. EL BOSQUE LA LIBERTAD - TRUJILLO - TRUJILLO</td>
+                                    <td>LunaSystemsPeru</td>
                                     <td class="text-center">
-                                        <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
-                                        <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
-                                        <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
+                                        <a href="mod_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
+
                                     </td>
                                 </tr>
+
                                 </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th scope="row" colspan="4"></td>
-                                    <td class="text-right">0</td>
-                                    <td class="text-center"></td>
-                                </tr>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
