@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
@@ -256,7 +256,7 @@
                                         <tr>
                                             <th width="4%">Item</th>
                                             <th width="40%">Descripcion</th>
-                                            <th width="11%">Cant.</th>
+                                            <th width="11%">Cantidad</th>
                                             <th width="10%">Peso Total</th>
                                             <th width="10%">P. Unit.</th>
                                             <th width="10%">Parcial</th>
