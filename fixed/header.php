@@ -270,9 +270,10 @@
                             <li>
                                 <ul>
                                     <li><a href="ver_proveedores.php">Ver Proveedores</a></li>
-                                    <li><a href="ver_clientes.php">Ver clientes</a></li>
+                                    <li><a href="ver_clientes.php">Ver Clientes</a></li>
                                     <li><a href="ver_contratos.php">Ver Contratos</a></li>
                                     <li><a href="ver_compras.php">Ver Compras</a></li>
+                                    <li><a href="ver_ventas.php">Ver Ventas</a></li>
                                     <li><a href="ver_pagos_frecuentes.php">Pagos Frecuentes</a></li>
                                     <li><a href="ver_gastos.php">Gastos</a></li>
                                     <li><a href="ver_clasificacion_movimiento.php">Clasificacion de compra</a></li>
