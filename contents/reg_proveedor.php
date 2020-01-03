@@ -7,7 +7,7 @@ $c_banco = new Banco();
 $c_banco->setIdEmpresa($_SESSION['id_empresa']);
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
@@ -76,8 +76,8 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                                  class="body current" aria-hidden="false">
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="userName2">NUMERO DE
-                                                    DOCUMENTO:</label>
-                                                <div class="col-lg-4">
+                                                    DOCUMENTO</label>
+                                                <div class="col-lg-3">
                                                     <input class="form-control" id="userName2" name="userName"
                                                            type="text">
                                                 </div>

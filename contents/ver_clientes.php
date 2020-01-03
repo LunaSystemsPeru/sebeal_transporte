@@ -61,19 +61,22 @@ $c_banco = new Banco();
         </div>
         <!-- end page title -->
         <div class="row">
-            <h1 class="page-title col-md-1" style="text-align: center; margin-bottom: 25px;">PROVEEDORES:</h1>
+            <h1 class="page-title col-md-1" style="text-align: center; margin-bottom: 25px;">CLIENTES</h1>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Proveedores</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Clientes</h2>
                         <div class="table-responsive">
-                            <table id="table-proveedores" class="table table-striped table-bordered table-hover">
+                            <table id="table-clientes" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
                                     <th>Id.</th>
                                     <th>Documento</th>
                                     <th>Nombre / Razon Social</th>
-                                    <th>Tipo</th>
+                                    <th>Tipo Entidad</th>
+                                    <th>Tot. Ventas</th>
+                                    <th>Tot. Cobrado</th>
+                                    <th>Ult. Envio</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
@@ -83,7 +86,10 @@ $c_banco = new Banco();
                                     <td>1</td>
                                     <td class="text-center">201522615210</td>
                                     <td>OYANGUREN GIRON LUIS ENRIQUE</td>
-                                    <td>Transportista</td>
+                                    <td>PROVEEDOR DE MI CLIENTE</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>0000-00-00</td>
                                     <td class="text-center">
                                         <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
