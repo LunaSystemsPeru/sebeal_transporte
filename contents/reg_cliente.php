@@ -25,6 +25,7 @@ session_start();
     <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../public/assets/libs/sweetalert2/sweetalert2.min.css"/>
 
 </head>
 
@@ -61,24 +62,35 @@ session_start();
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="wizard-validation-form" action="#" method="post" novalidate="novalidate">
+                        <form id="fmr_registro_cliente" action="../controller/reg_cliente.php" method="post"
+                              novalidate="novalidate">
                             <div role="application" class="wizard clearfix" id="steps-uid-1">
                                 <div class="row">
                                     <div class="content clearfix col-md-12">
-                                        <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0" class="body current" aria-hidden="false">
+                                        <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0"
+                                                 class="body current" aria-hidden="false">
+                                            <div class="form-group" id="error_ruc">
+                                                <div v-if="estado_consulta==1" class="alert alert-success"><strong> Espere! </strong> Estamos procesando su peticion.</div>
+                                                <div v-if="estado_consulta==2" class="alert alert-danger"><strong> Error! </strong> El numero de RUC es incorrecto.</div>
+                                                <div v-if="estado_consulta==3" class="alert alert-warning"><strong> Error! </strong> Ocurrio un error al procesar.</div>
+                                            </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 col-form-label" for="userName2">RUC / DNI</label>
                                                 <div class="col-lg-3">
-                                                    <input class="form-control" id="userName2" name="userName" type="text" required maxlength="11">
+                                                    <input v-model="documento" class="form-control" id="userName2" name="userName"
+                                                           type="text" required maxlength="11">
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <button type="button" class="btn waves-effect waves-light btn-primary">Validar DOC</button>
+                                                    <button @click="validar_documento()" type="button"
+                                                            class="btn waves-effect waves-light btn-primary">Validar DOC
+                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-2 col-form-label " for="password2">Nombre - Razon Social:</label>
+                                                <label class="col-lg-2 col-form-label " for="password2">Nombre - Razon
+                                                    Social:</label>
                                                 <div class="col-lg-9">
-                                                    <input id="" name="" type="text"
+                                                    <input v-model="razon_social" id="" name="" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -87,7 +99,7 @@ session_start();
                                                 <label class="col-lg-2 col-form-label "
                                                        for="password2">Direccion Fiscal:</label>
                                                 <div class="col-lg-9">
-                                                    <input id="" name="" type="text"
+                                                    <input v-model="direcion" id="" name="" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -96,7 +108,7 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 col-form-label " for="">Telefono:</label>
                                                 <div class="col-lg-9">
-                                                    <input id="" name="" type="text"
+                                                    <input v-model="telefono" id="" name="" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -117,7 +129,7 @@ session_start();
                                                 <label class="col-lg-2 col-form-label "
                                                        for="password2">Direccion Entrega:</label>
                                                 <div class="col-lg-9">
-                                                    <input id="" name="" type="text"
+                                                    <input v-model="direcion" id="" name="" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -132,22 +144,21 @@ session_start();
                                                 </div>
                                             </div>
                                         </section>
-                                        <button  type="submit" class="btn btn-purple waves-effect waves-light mt-3">Guardar</button>
+                                        <button type="submit" class="btn btn-purple waves-effect waves-light mt-3">
+                                            Guardar
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-
-
+                        </form>
                     </div>
-                    </form>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- end row -->
+        <!-- end row -->
 
-</div> <!-- end container-fluid -->
+    </div> <!-- end container-fluid -->
 </div>
 <!-- end wrapper -->
 
@@ -174,15 +185,89 @@ session_start();
 <!-- Bootstrap select plugin -->
 <script src="../public/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
 
-<!-- plugins -->
+<!-- plugins
 <script src="../public/assets/libs/c3/c3.min.js"></script>
-<script src="../public/assets/libs/d3/d3.min.js"></script>
+<script src="../public/assets/libs/d3/d3.min.js"></script>-->
 
-<!-- dashboard init -->
-<script src="../public/assets/js/pages/dashboard.init.js"></script>
+<!-- dashboard init
+<script src="../public/assets/js/pages/dashboard.init.js"></script>-->
 
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
+
+<script src="../public/assets/libs/vue-swal/vue-swal.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script>
+
+    /*
+    * estado
+    *   0 => inactivo
+    *   1 => procesando
+    *   2 => error
+    * */
+    const alerta = swal;
+
+    const app = new Vue({
+        el: "#fmr_registro_cliente",
+        data: {
+            documento: "",
+            razon_social: "",
+            telefono:'',
+            direcion: "",
+            ciudad: "",
+            estado_consulta: 0
+        },
+        methods: {
+            validar_documento() {
+                if (app._data.documento.length == 8 || app._data.documento.length == 11) {
+                    this.estado_consulta = 1;
+                    $.ajax({
+                        type: "POST",
+                        url: "../controller/ajax/validar_documento.php",
+                        data: {"numero": this.documento},
+                        success: function (data) {
+                            console.log(data);
+                            var json = JSON.parse(data);
+                            if (app._data.documento.length == 11) {
+                                if (json.success === false) {
+                                    app._data.estado_consulta = 2;
+                                }
+                                if (json.success === true) {
+                                    app._data.estado_consulta = 0;
+                                    app._data.razon_social = json.result.RazonSocial;
+                                    app._data.direcion = json.result.Direccion;
+                                }
+                            } else {
+
+                                if (json.success === false) {
+                                    app._data.estado_consulta = 2;
+                                }
+                                if (json.success === true) {
+                                    app._data.estado_consulta = 0;
+                                    app._data.razon_social = json.result.apellidos + " " + json.result.Nombres;
+                                    app._data.direcion = "";
+                                }
+
+                            }
+
+
+                        },
+                        error: function () {
+                            app._data.estado_consulta = 3;
+                            $("#nombre_comercial").focus();
+                        }
+                    });
+                } else {
+                    alerta("SOLO PUEDEN INGRESAR 11 O 8 DIGITOS");
+                }
+
+            }
+        }
+    });
+</script>
 
 </body>
 

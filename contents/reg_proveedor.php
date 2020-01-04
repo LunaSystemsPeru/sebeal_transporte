@@ -1,10 +1,6 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-
-$c_banco = new Banco();
-$c_banco->setIdEmpresa($_SESSION['id_empresa']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -235,7 +231,16 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                     app._data.direcion = json.result.Direccion;
                                 }
                             }else{
-                                app._data.razon_social =json.result.apellidos +" "+ json.result.Nombres;
+                                if (json.success === false) {
+                                    app._data.estado_consulta = 2;
+                                }
+                                if (json.success === true) {
+                                    app._data.estado_consulta = 0;
+                                    app._data.razon_social =json.result.apellidos +" "+ json.result.Nombres;
+                                    app._data.nombre_comercial = "";
+                                    app._data.direcion = "";
+                                }
+
                             }
 
 
