@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+require '../models/Proveedor.php';
 
+$proveedor=new Proveedor();
+$lista =$proveedor->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -79,16 +80,23 @@ $c_banco = new Banco();
                                 </thead>
                                 <tbody>
 
-                                <tr>
-                                    <td>1</td>
-                                    <td class="text-center">201522615210</td>
-                                    <td>OYANGUREN GIRON LUIS ENRIQUE</td>
-                                    <td>Transportista</td>
-                                    <td class="text-center">
-                                        <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
-                                    </td>
-                                </tr>
+
+                                    <?php
+                                        foreach ($lista  as $item){?>
+                                         <tr>
+                                            <td><?php echo $item["id_proveedor"] ;?></td>
+                                            <td class="text-center"><?php echo $item["documento"] ;?></td>
+                                            <td><?php echo $item["razon_social"] ;?></td>
+                                            <td><?php echo ($item["tipo"]==1)?"NORMAL":"TRANSPORTISTA" ;?></td>
+                                            <td class="text-center">
+                                                <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
+                                            </td>
+                                        </tr>
+                                        <?php    }
+                                    ?>
+
+
 
                                 </tbody>
                             </table>
