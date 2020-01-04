@@ -108,7 +108,8 @@ class Banco
     public function verFilas()
     {
         $sql = "select * 
-        from caja_bancos ";
+        from caja_bancos 
+        order by monto desc";
         return $this->c_conectar->get_Cursor($sql);
     }
 
