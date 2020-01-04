@@ -16,8 +16,7 @@ class Conectar
     private $_user = "root_lsp";
     private $_pass = "root/*123";
     // Almacenar una unica instancia
-    private $_db = "sebeal";
-
+    private $_db = "control_agentes";
 
     /**
      * constructor de la clase Base de datos

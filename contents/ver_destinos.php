@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../models/Clasificacion.php';
-$c_clasificacion = new Clasificacion();
+require '../models/Destino.php';
+$c_destino = new Destino();
 
 ?>
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ $c_clasificacion = new Clasificacion();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis clasificaciones</li>
+                            <li class="breadcrumb-item active">Mis Bancos</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -60,49 +60,55 @@ $c_clasificacion = new Clasificacion();
             </div>
         </div>
         <!-- end page title -->
-        <div class="row justify-content-md-center">
-
-            <div class="col-md-7 col-md-offset-2">
+        <div class="row">
+            <h1 class="page-title col-md-1" style="text-align: center; margin-bottom: 25px;">DESTINOS:</h1>
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Mis clasificaciones</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Destinos</h2>
 
                         <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;"
                                 type="button" class="btn btn-info waves-effect waves-light"><i
-                                    class="dripicons-plus mr-1">
-                            </i><span>Nueva Clasificaciones</span></button>
-
+                                class="dripicons-plus mr-1">
+                            </i><span>Nuevo Destino</span></button>
                         <div class="table-responsive">
-                            <table class="table mb-0 table-hover">
-                                <caption></caption>
+                            <table id="table-proveedores" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th width="10%">ID</th>
-                                    <th width="60%">Nombre</th>
-                                    <th class="text-center"></th>
+                                    <th>Id.</th>
+                                    <th>Nombre</th>
+                                    <th>Direccion</th>
+                                    <th>Ubigeo</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $a_clasificacion = $c_clasificacion->verFilas();
-                                foreach ($a_clasificacion as $fila) {
+                                $a_destino = $c_destino->verFilas();
+                                foreach ($a_destino as $fila){
                                     ?>
                                     <tr>
-                                        <th><?php echo $fila['id_clasificacion']?></th>
-                                        <th><?php echo $fila['nombre']?></th>
-                                        <th>
-                                            <a href=""
-                                                  class="btn btn-icon btn-success"
-                                                  title="Ver Detalle del Contrato"><i
-                                                        class="fa fa-eye"></i></a>
-                                        </th>
+                                        <td><?php echo $fila['id_destino']?></td>
+                                        <td class="text-center"><?php echo $fila['nombre']?></td>
+                                        <td><?php echo $fila['direccion']?></td>
+                                        <td><?php echo $fila['ubigeo']?></td>
+                                        <td class="text-center">
+                                            <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;"
+                                                    title="Editar Destino" type="button" class="btn btn-success btn-sm"><i
+                                                    class="fa fa-edit">
+                                                </i></button>
+                                            <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;"
+                                                    title="Editar Destino" type="button" class="btn btn-danger btn-sm"><i
+                                                    class="fa fa-trash">
+                                                </i></button>
+                                        </td>
                                     </tr>
-                                    <?php
+                                <?php
                                 }
                                 ?>
 
-                                </tbody>
 
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -127,22 +133,29 @@ $c_clasificacion = new Clasificacion();
                 <h4 class="custom-modal-title">Registrar</h4>
 
             </div>
-            <form id="reg-banco" method="post" action="../controller/reg_clasificacion.php">
             <div class="modal-body">
                 <div class="panel-body">
-
+                    <form id="reg-destino" method="post" action="../controller/reg_destino.php">
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control" name="input_nombre">
+                            <input type="text" class="form-control" name="inputNombre" required>
                         </div>
-
+                        <div class="form-group">
+                            <label class="control-label">Direccion</label>
+                            <input type="text" class="form-control" name="inputDireccion" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Ubigeo</label>
+                            <input type="text" class="form-control" name="inputUbigeo" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </form>
                 </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
-            </form>
+
         </div>
     </div>
 </div>

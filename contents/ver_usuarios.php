@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../models/Clasificacion.php';
-$c_clasificacion = new Clasificacion();
+require '../models/Usuario.php';
+$c_usuario = new Usuario();
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ $c_clasificacion = new Clasificacion();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Usuarios - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -52,7 +52,7 @@ $c_clasificacion = new Clasificacion();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis clasificaciones</li>
+                            <li class="breadcrumb-item active">Usuarios</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -60,49 +60,50 @@ $c_clasificacion = new Clasificacion();
             </div>
         </div>
         <!-- end page title -->
-        <div class="row justify-content-md-center">
+        <div class="row">
 
-            <div class="col-md-7 col-md-offset-2">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Mis clasificaciones</h2>
-
-                        <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;"
-                                type="button" class="btn btn-info waves-effect waves-light"><i
-                                    class="dripicons-plus mr-1">
-                            </i><span>Nueva Clasificaciones</span></button>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Usuarios</h2>
+                        <a href="reg_usuario.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                            </i><span>Nuevo usuario</span></a>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
-                                <caption></caption>
                                 <thead>
                                 <tr>
-                                    <th width="10%">ID</th>
-                                    <th width="60%">Nombre</th>
-                                    <th class="text-center"></th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">F. Nac.</th>
+                                    <th scope="col">Agencia</th>
+                                    <th scope="col">F. Ingreso</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $a_clasificacion = $c_clasificacion->verFilas();
-                                foreach ($a_clasificacion as $fila) {
+                                $a_usuarios = $c_usuario->verFilas();
+                                foreach ($a_usuarios as $filas) {
                                     ?>
                                     <tr>
-                                        <th><?php echo $fila['id_clasificacion']?></th>
-                                        <th><?php echo $fila['nombre']?></th>
-                                        <th>
-                                            <a href=""
-                                                  class="btn btn-icon btn-success"
-                                                  title="Ver Detalle del Contrato"><i
-                                                        class="fa fa-eye"></i></a>
-                                        </th>
+                                        <td><?php echo $filas['id_usuario'] ?></td>
+                                        <td><?php echo $filas['usuario'] ?></td>
+                                        <td><?php echo $filas['datos'] ?></td>
+                                        <td><?php echo $filas['fecha_nacimiento'] ?></td>
+                                        <td><?php echo $filas['agencia'] ?></td>
+                                        <td><?php echo $filas['fecha_ingreso'] ?></td>
+                                        <td class="text-center">
+                                            <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
+                                            <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
+                                            <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
+                                        </td>
                                     </tr>
                                     <?php
                                 }
                                 ?>
-
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -123,23 +124,29 @@ $c_clasificacion = new Clasificacion();
 <div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
+            <form id="reg-banco" method="post" action="../controller/banco.php">
             <div class="modal-header custom-modal-title" style="padding: 15px;">
                 <h4 class="custom-modal-title">Registrar</h4>
-
             </div>
-            <form id="reg-banco" method="post" action="../controller/reg_clasificacion.php">
             <div class="modal-body">
                 <div class="panel-body">
-
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control" name="input_nombre">
+                            <input type="text" class="form-control" name="inputNombre" required>
                         </div>
-
+                        <div class="form-group">
+                            <label class="control-label">Nro. Cuenta</label>
+                            <input type="text" class="form-control" name="inputCuenta" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Monto</label>
+                            <input type="text" class="form-control" name="inputMonto" value="0" required>
+                        </div>
                 </div>
 
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
             </form>

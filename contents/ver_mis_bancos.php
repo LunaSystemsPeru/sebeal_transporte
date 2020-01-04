@@ -11,7 +11,7 @@ $c_banco = new Banco();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Mis Bancos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -66,13 +66,11 @@ $c_banco = new Banco();
                 <div class="card">
                     <div class="card-body">
                         <h2 class="page-title col-md-12" style="text-align: center;">Bancos</h2>
-
-                            <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                                </i><span>Nuevo Banco</span></button>
+                        <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                            </i><span>Nuevo Banco</span></button>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
-                                <caption></caption>
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
@@ -83,21 +81,29 @@ $c_banco = new Banco();
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>BANCO DE CREDITO - SOLES</td>
-                                    <td>310-37799463-0-66</td>
-                                    <td>30.00</td>
-                                    <td class="text-center">
-                                        <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
-                                        <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
-                                        <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
-                                    </td>
-                                </tr>
+                                <?php
+                                $a_bancos = $c_banco->verFilas();
+                                foreach ($a_bancos as $filas) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $filas['id_banco'] ?></td>
+                                        <td><?php echo $filas['nombre'] ?></td>
+                                        <td><?php echo $filas['nro_cuenta'] ?></td>
+                                        <td><?php echo $filas['monto'] ?></td>
+                                        <td class="text-center">
+                                            <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
+                                            <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
+                                            <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th scope="row" colspan="4"></td>
+                                    <th scope="row" colspan="4">
+                                    </td>
                                     <td class="text-right">0</td>
                                     <td class="text-center"></td>
                                 </tr>
@@ -122,33 +128,32 @@ $c_banco = new Banco();
 <div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
+            <form id="reg-banco" method="post" action="../controller/banco.php">
             <div class="modal-header custom-modal-title" style="padding: 15px;">
                 <h4 class="custom-modal-title">Registrar</h4>
-
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="reg-banco">
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="inputNombre" required>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="inputCuenta" required>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Monto</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="inputMonto" value="0" required>
                         </div>
-                    </form>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
