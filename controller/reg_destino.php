@@ -8,4 +8,5 @@ $destino->setUbigeo(filter_input(INPUT_POST, inputUbigeo));
 
 $destino->generarCodigo();
 $destino->insertar();
+$destino->eliminar();
 header("Location: ../contents/ver_destinos.php");

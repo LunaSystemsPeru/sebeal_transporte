@@ -104,7 +104,7 @@ private $c_conectar;
         return $this->c_conectar->get_Cursor($sql);
     }
     public function eliminar(){
-        $sql = "delete from destinos_empresa where id_destino n= '$this->id'";
+        $sql = "delete from destinos_empresa where id_destino = '$this->id'";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 

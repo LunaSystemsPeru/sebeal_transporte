@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+require '../models/Contrato.php';
+$c_contrato = new Contrato();
 
 ?>
 <!DOCTYPE html>
