@@ -106,8 +106,6 @@ $c_destino = new Destino();
                                 <?php
                                 }
                                 ?>
-
-
                                 </tbody>
                             </table>
                         </div>

@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
+require '../models/Contrato.php';
 
-$c_banco = new Banco();
-$c_banco->setIdEmpresa($_SESSION['id_empresa']);
+$c_contrato = new Contrato();
+
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
