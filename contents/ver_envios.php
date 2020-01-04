@@ -11,7 +11,7 @@ $c_banco = new Banco();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Envios - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Mis Envios - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -66,15 +66,12 @@ $c_banco = new Banco();
                 <div class="card">
                     <div class="card-body">
                         <h2 class="page-title col-md-12" style="text-align: center;">Envios</h2>
-                        <div class="btn-group">
-                            <a href="reg_envio.php" class="btn btn-success">Recepcionar Mercaderia</a>
-                        </div>
-                        <div class="btn-group">
-                            <a href="reg_hoja_ruta.php" class="btn btn-info">Generar Hoja de Ruta</a>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-warning" data-toggle="modal" data-target="#modalbuscar">Buscar Documento</button>
-                        </div>
+                        <a href="reg_envio.php" style="margin-bottom: 10px;" type="button" class="btn btn-success waves-effect waves-light"><i class="dripicons-box mr-1">
+                            </i><span>Recibir Encomienda</span></a>
+                        <a href="reg_hoja_ruta.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-cart mr-1">
+                            </i><span>Asignar a Vehiculo</span></a>
+                        <button data-toggle="modal" data-target="#modalbuscar" style="margin-bottom: 10px;" type="button" class="btn btn-warning waves-effect waves-light"><i class="dripicons-search mr-1">
+                            </i><span>Asignar a Vehiculo</span></button>
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <caption></caption>

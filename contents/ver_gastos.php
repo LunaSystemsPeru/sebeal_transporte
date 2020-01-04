@@ -1,8 +1,19 @@
 <?php
 session_start();
 
+require '../models/Gasto.php';
 require '../models/Banco.php';
+require '../models/Clasificacion.php';
+
+$c_gasto = new Gasto();
 $c_banco = new Banco();
+$c_clasificacion = new Clasificacion();
+
+$periodo = filter_input(INPUT_GET, 'periodo');
+
+if (!$periodo) {
+    $periodo = date("Ym");
+}
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +22,7 @@ $c_banco = new Banco();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Gastos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -66,12 +77,8 @@ $c_banco = new Banco();
                 <div class="card">
                     <div class="card-body">
                         <h2 class="page-title col-md-12" style="text-align: center;">Mis Gastos no Documentados</h2>
-                            <a href="reg_gasto.php">
-                                <button style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                                <button style="margin-bottom: 10px;" type="button" data-toggle="modal" data-target="#modal-add-bank"  class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
                                     </i><span>Nuevo Gastos</span></button>
-                            </a>
-
-
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <caption></caption>
@@ -87,23 +94,35 @@ $c_banco = new Banco();
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td style="">47</td>
-                                    <td style="text-align: center; ">2019-12-19</td>
-                                    <td style="text-align: center; ">EFECTIVO</td>
-                                    <td style="text-align: left; ">SILLAS</td>
-                                    <td style="text-align: right; ">200.00</td>
-                                    <td style="text-align: center; ">EQUIPOS Y MOVILIARIOS</td>
-                                    <td style="text-align: center; ">
-                                        <button type="button" onclick="eliminar(47)" class="btn btn-sm btn-icon btn-danger"
-                                                title="Eliminar Gasto"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                <?php
+                                $a_movimientos = $c_gasto->verFilas($periodo);
+                                $item = 1;
+                                $suma = 0;
+                                foreach ($a_movimientos as $fila) {
+                                    $suma += $fila['sale'];
+                                    ?>
+                                    <tr>
+                                        <td style=""><?php echo $item?></td>
+                                        <td style="text-align: center; "><?php echo $fila['fecha']?></td>
+                                        <td style="text-align: center; "><?php echo $fila['banco']?></td>
+                                        <td style="text-align: left; "><?php echo $fila['descripcion']?></td>
+                                        <td style="text-align: right; "><?php echo number_format($fila['sale'],2)?></td>
+                                        <td style="text-align: center; "><?php echo $fila['clasificacion']?></td>
+                                        <td style="text-align: center; ">
+                                            <button type="button" onclick="eliminar(47)" class="btn btn-sm btn-icon btn-danger"
+                                                    title="Eliminar Gasto"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                    $item++;
+                                }
+                                ?>
                                 </tbody>
                                 <tfoot>
                                 <tr>
                                     <th scope="row" colspan="4"></td>
-                                    <td class="text-right">0</td>
+                                    <td class="text-right"><?php echo number_format($suma, 2)?></td>
+                                    <td class="text-center"></td>
                                     <td class="text-center"></td>
                                 </tr>
                                 </tfoot>
@@ -125,35 +144,63 @@ $c_banco = new Banco();
 
 <!-- modales-->
 <div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm">
+    <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header custom-modal-title" style="padding: 15px;">
-                <h4 class="custom-modal-title">Registrar</h4>
-
+            <div class="modal-header">
+                <h4 class="modal-title mt-0">Agregar Gasto</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <form method="post" action="../controller/gastos.php" >
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="reg-banco">
                         <div class="form-group">
-                            <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control">
+                            <label class="control-label">Fecha</label>
+                            <input type="date" class="form-control" name="inputFecha" value="<?php echo date("Y-m-d")?>" required>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control">
+                            <label class="control-label">Banco</label>
+                            <select class="form-control" name="selectBanco">
+                                <?php
+                                $a_bancos = $c_banco->verFilas();
+                                foreach ($a_bancos as $fila) {
+                                    ?>
+                                    <option value="<?php echo $fila['id_banco'] ?>"><?php echo $fila['nombre'] . " - S/ " . $fila['monto']?></option>
+                                <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Descripcion</label>
+                            <input type="text" class="form-control" name="inputDescripcion" required>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Monto</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="inputMonto" required>
                         </div>
-                    </form>
+                        <div class="form-group">
+                            <label class="control-label">Clasificacion</label>
+                            <select class="form-control" name="selectClasificacion">
+                                <?php
+                                $a_clasificacion = $c_clasificacion->verFilas();
+                                foreach ($a_clasificacion as $fila) {
+                                    ?>
+                                    <option value="<?php echo $fila['id_clasificacion'] ?>"><?php echo $fila['nombre']?></option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
