@@ -5,8 +5,8 @@ require  "../models/ClienteDireccion.php";
 $c_cliente=new Cliente();
 $c_direccion = new ClienteDireccion();
 
-$c_cliente->setRazonSocial(filter_input(INPUT_POST, 'inputRuc'));
-$c_cliente->setDocumento(filter_input(INPUT_POST, 'inputRazonSocial'));
+$c_cliente->setRazonSocial(filter_input(INPUT_POST, 'inputRazonSocial'));
+$c_cliente->setDocumento(filter_input(INPUT_POST, 'inputRuc'));
 $c_cliente->setTelefono(filter_input(INPUT_POST, 'inputTelefono'));
 $c_cliente->setCostoCaja(0);
 $c_cliente->setCostoKilo(0);

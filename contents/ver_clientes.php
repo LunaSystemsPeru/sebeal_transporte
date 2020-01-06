@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+require '../models/Cliente.php';
+$c_cliente = new Cliente();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -8,7 +9,7 @@ session_start();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
+    <title>Clientes - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -71,28 +72,39 @@ session_start();
                                     <th>Documento</th>
                                     <th>Nombre / Razon Social</th>
                                     <th>Tipo Entidad</th>
-                                    <th>Tot. Ventas</th>
-                                    <th>Tot. Cobrado</th>
+                                    <th>Costo x Kg</th>
+                                    <th>Costo x Und.</th>
                                     <th>Ult. Envio</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td class="text-center">201522615210</td>
-                                    <td>OYANGUREN GIRON LUIS ENRIQUE</td>
-                                    <td>PROVEEDOR DE MI CLIENTE</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0000-00-00</td>
-                                    <td class="text-center">
-                                        <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
-                                    </td>
-                                </tr>
-
+                                <?php
+                                foreach ($c_cliente->verFilas() as $item) {
+                                    $tipo = $item['tipo_cliente'];
+                                    $vtipo= "";
+                                    if ($tipo == 1) {
+                                        $vtipo = "MI CLIENTE";
+                                    } else {
+                                        $vtipo = "PROVEEDOR DE MI CLIENTE";
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $item['id_clientes']?></td>
+                                        <td class="text-center"><?php echo $item['documento']?></td>
+                                        <td><?php echo $item['razon_social']?></td>
+                                        <td><?php echo $vtipo?></td>
+                                        <td class="text-right">0</td>
+                                        <td class="text-right">0</td>
+                                        <td class="text-center">0000-00-00</td>
+                                        <td class="text-center">
+                                            <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
+                                            <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>

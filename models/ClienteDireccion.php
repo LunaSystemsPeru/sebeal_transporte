@@ -84,7 +84,7 @@ class ClienteDireccion
     public function generarCodigo()
     {
         $sql = "select ifnull(max(id_direccion) +1, 1) as codigo from clientes_direccion";
-        $this->id_cliente = $this->c_conectar->get_valor_query($sql, "codigo");
+        $this->id_direccion = $this->c_conectar->get_valor_query($sql, "codigo");
     }
 
     public function verFilas()

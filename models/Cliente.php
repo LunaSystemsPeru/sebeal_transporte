@@ -179,7 +179,7 @@ class Cliente
 
     public function verFilas()
     {
-        $sql = "SELECT * FROM clientes";
+        $sql = "SELECT * FROM clientes order by razon_social asc";
         return $this->c_conectar->get_Cursor($sql);
     }
 

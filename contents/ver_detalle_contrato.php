@@ -66,24 +66,24 @@
 
                         <form>
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputFecha">Fecha</label>
+                                <label class="col-md-4 col-form-label" for="inputFecha"></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input type="date" id="inputFecha" name="inputFecha" class="form-control" placeholder="">
+                                        <input type="text" id="inputFecha" name="inputFecha" class="form-control" placeholder="">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputDocumento">Documento</label>
+                                <label class="col-md-4 col-form-label" for="inputDocumento"></label>
                                 <div class="col-md-8">
                                     <select class="form-control" name="select_documento" id="select_documento">
-                                        <option>Nota de Recepcion</option>
-                                        <option>Guia de Remision</option>
+                                        <option></option>
+                                        <option></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputSerie">Serie - Numero</label>
+                                <label class="col-md-4 col-form-label" for="inputSerie"></label>
                                 <div class="col-md-4">
                                     <div class="input-group">
                                         <input type="txt" id="inputNumero" name="inputNumero" class="form-control" placeholder="">
@@ -97,18 +97,16 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputDocumento">Destino</label>
+                                <label class="col-md-4 col-form-label" for="inputDocumento"></label>
                                 <div class="col-md-8">
                                     <div class="input-group">
                                         <select class="form-control" name="select_documento" id="select_documento">
-                                            <option>Chimbote</option>
-                                            <option>Trujillo</option>
+                                            <option></option>
+                                            <option></option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" value="0" name="inputCodigo">
-                            <button type="submit" class="btn btn-purple waves-effect waves-light mt-3">Guardar</button>
                         </form>
                     </div>
                 </div>
@@ -123,36 +121,36 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="input_remitente">Remitente</label>
+                                        <label class="col-md-2 col-form-label" for="input_remitente"></label>
                                         <div class="col-md-1">
                                             <a class="btn btn-success" type="button" href="reg_cliente.php" target="_blank"><i class="fa fa-plus"></i> </a>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" placeholder="buscar Remitente" class="form-control" id="input_remitente" name="input_remitente">
+                                            <input type="text" placeholder="" class="form-control" id="input_remitente" name="input_remitente">
                                             <input type="hidden" id="hidden_id_remitente" name="hidden_id_remitente" value="0">
                                             <input type="hidden" id="hidden_ruc_remitente" name="hidden_ruc_remitente" value="0">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="input_remitente">Destinatario</label>
+                                        <label class="col-md-2 col-form-label" for="input_remitente"></label>
                                         <div class="col-md-1">
                                         <a class="btn btn-success" type="button" href="reg_cliente.php" target="_blank"><i class="fa fa-plus"></i> </a>
                                         </div>
                                         <div class="col-md-9">
-                                            <input type="text" placeholder="buscar Destinatario" class="form-control" id="input_destinatario" name="input_destinatario">
+                                            <input type="text" placeholder="" class="form-control" id="input_destinatario" name="input_destinatario">
                                             <input type="hidden" id="hidden_id_destinatario" name="hidden_id_destinatario" value="0">
                                             <input type="hidden" id="hidden_ruc_destinatario" name="hidden_ruc_destinatario" value="0">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="input_remitente">Direccion</label>
+                                        <label class="col-md-2 col-form-label" for="input_remitente"></label>
                                         <div class="col-md-10">
-                                            <input type="text" placeholder="Direccion entrega" class="form-control" id="input_destino" name="input_destino">
+                                            <input type="text" placeholder="" class="form-control" id="input_destino" name="input_destino">
                                             <input type="hidden" id="hidden_id_destino" name="hidden_id_destino" value="0">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="inputPeso">Peso</label>
+                                        <label class="col-md-2 col-form-label" for="inputPeso"></label>
                                         <div class="col-md-2">
                                             <div class="input-group">
                                                 <input type="txt" id="inputPeso" name="inputPeso" class="form-control" placeholder="">
@@ -160,7 +158,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="inputTotal">Total</label>
+                                        <label class="col-md-2 col-form-label" for="inputTotal"></label>
                                         <div class="col-md-2">
                                             <div class="input-group">
                                                 <input type="txt" id="inputTotal" name="inputTotal" class="form-control" placeholder="">
