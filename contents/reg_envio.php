@@ -65,7 +65,7 @@
                                 <label class="col-md-4 col-form-label" for="inputFecha">Fecha</label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input type="date" id="inputFecha" name="inputFecha" class="form-control" placeholder="">
+                                        <input type="date" id="inputFecha" name="inputFecha" class="form-control" value="<?php echo date("Y-m-d")?>">
                                     </div>
                                 </div>
                             </div>

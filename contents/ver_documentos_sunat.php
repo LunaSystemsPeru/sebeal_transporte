@@ -1,10 +1,9 @@
 <?php
 session_start();
 
-require '../models/Proveedor.php';
+require '../models/Banco.php';
+$c_banco = new Banco();
 
-$proveedor=new Proveedor();
-$lista =$proveedor->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +11,7 @@ $lista =$proveedor->verFilas();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Mis Bancos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -62,43 +61,53 @@ $lista =$proveedor->verFilas();
         </div>
         <!-- end page title -->
         <div class="row">
-            <h1 class="page-title col-md-1" style="text-align: center; margin-bottom: 25px;">PROVEEDORES:</h1>
+
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Proveedores</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Bancos</h2>
+                        <button data-toggle="modal" data-target="#modal-add-bank" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                            </i><span>Nuevo Banco</span></button>
+
                         <div class="table-responsive">
-                            <table id="table-proveedores" class="table table-striped table-bordered table-hover">
+                            <table class="table mb-0 table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Id.</th>
-                                    <th>Documento</th>
-                                    <th>Nombre / Razon Social</th>
-                                    <th>Tipo</th>
-                                    <th>Acciones</th>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Nro. Cuenta</th>
+                                    <th scope="col">Monto S/.</th>
+                                    <th scope="col">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
-
-                                    <?php
-                                        foreach ($lista  as $item){?>
-                                         <tr>
-                                            <td><?php echo $item["id_proveedor"] ;?></td>
-                                            <td class="text-center"><?php echo $item["documento"] ;?></td>
-                                            <td><?php echo $item["razon_social"] ;?></td>
-                                            <td><?php echo ($item["tipo"]==1)?"NORMAL":"TRANSPORTISTA" ;?></td>
-                                            <td class="text-center">
-                                                <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
-                                                <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
-                                            </td>
-                                        </tr>
-                                        <?php    }
+                                <?php
+                                $a_bancos = $c_banco->verFilas();
+                                foreach ($a_bancos as $filas) {
                                     ?>
-
-
-
+                                    <tr>
+                                        <td><?php echo $filas['id_banco'] ?></td>
+                                        <td><?php echo $filas['nombre'] ?></td>
+                                        <td><?php echo $filas['nro_cuenta'] ?></td>
+                                        <td><?php echo $filas['monto'] ?></td>
+                                        <td class="text-center">
+                                            <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
+                                            <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
+                                            <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th scope="row" colspan="4">
+                                    </td>
+                                    <td class="text-right">0</td>
+                                    <td class="text-center"></td>
+                                </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -119,33 +128,32 @@ $lista =$proveedor->verFilas();
 <div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
+            <form id="reg-banco" method="post" action="../controller/banco.php">
             <div class="modal-header custom-modal-title" style="padding: 15px;">
                 <h4 class="custom-modal-title">Registrar</h4>
-
             </div>
             <div class="modal-body">
                 <div class="panel-body">
-                    <form id="reg-banco">
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="inputNombre" required>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="inputCuenta" required>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Monto</label>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" name="inputMonto" value="0" required>
                         </div>
-                    </form>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
