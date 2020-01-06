@@ -1,7 +1,6 @@
 <?php
 session_start();
 require '../models/Cliente.php';
-
 $c_cliente = new Cliente();
 ?>
 <!DOCTYPE html>
@@ -10,7 +9,7 @@ $c_cliente = new Cliente();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
+    <title>Clientes - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -72,35 +71,38 @@ $c_cliente = new Cliente();
                                     <th>Id.</th>
                                     <th>Documento</th>
                                     <th>Nombre / Razon Social</th>
-                                    <th>Direccion de factura</th>
-                                    <th>Telefono</th>
-                                    <th>Tipo de Cliente</th>
+                                    <th>Tipo Entidad</th>
+                                    <th>Costo x Kg</th>
+                                    <th>Costo x Und.</th>
                                     <th>Ult. Envio</th>
-                                    <th>Costo Kilo</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $a_cliente = $c_cliente->verFilas();
-                                foreach ($a_cliente as $fila){
-                                ?>
-                                <tr>
-                                    <td><?php echo  $fila ['id_clientes']?></td>
-                                    <td class="text-center"><?php echo $fila ['documento']?></td>
-                                    <td><?php echo $fila['razon_social']?></td>
-                                    <td><?php echo $fila['direccion_factura'] ?></td>
-                                    <td><?php echo $fila['telefono']?></td>
-                                    <td><?php echo $fila['tipo_cliente']?></td>
-                                    <td><?php echo $fila['ultimo_envio'] ?></td>
-                                    <td><?php echo $fila['costo_kilo'] ?></td>
-                                    <td><?php echo $fila['costo_caja'] ?></td>
-                                    <td class="text-center">
-                                        <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
-                                        <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
-                                    </td>
-                                </tr>
-                                <?php
+                                foreach ($c_cliente->verFilas() as $item) {
+                                    $tipo = $item['tipo_cliente'];
+                                    $vtipo= "";
+                                    if ($tipo == 1) {
+                                        $vtipo = "MI CLIENTE";
+                                    } else {
+                                        $vtipo = "PROVEEDOR DE MI CLIENTE";
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $item['id_clientes']?></td>
+                                        <td class="text-center"><?php echo $item['documento']?></td>
+                                        <td><?php echo $item['razon_social']?></td>
+                                        <td><?php echo $vtipo?></td>
+                                        <td class="text-right">0</td>
+                                        <td class="text-right">0</td>
+                                        <td class="text-center">0000-00-00</td>
+                                        <td class="text-center">
+                                            <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
+                                            <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php
                                 }
                                 ?>
                                 </tbody>

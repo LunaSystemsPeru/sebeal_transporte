@@ -132,7 +132,7 @@ $c_destino = new Destino();
                                                 <label class="col-lg-2 col-form-label "
                                                        for="password2">Direccion Entrega:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="direcion" id="inputEntrega" name="inputEntrega" type="text"
+                                                    <input v-model="direcion_entrega" id="inputEntrega" name="inputEntrega" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -226,6 +226,7 @@ $c_destino = new Destino();
             razon_social: "",
             telefono:'',
             direcion: "",
+            direcion_entrega: "",
             ciudad: "",
             estado_consulta: 0
         },
@@ -248,6 +249,7 @@ $c_destino = new Destino();
                                     app._data.estado_consulta = 0;
                                     app._data.razon_social = json.result.RazonSocial;
                                     app._data.direcion = json.result.Direccion;
+                                    app._data.direcion_entrega = json.result.Direccion;
                                 }
                             } else {
 
