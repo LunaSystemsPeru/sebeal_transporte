@@ -1,5 +1,8 @@
 <?php
 session_start();
+require '../models/Destino.php';
+$c_destino = new Destino();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -77,7 +80,7 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 col-form-label" for="userName2">RUC / DNI</label>
                                                 <div class="col-lg-3">
-                                                    <input v-model="documento" class="form-control" id="userName2" name="userName"
+                                                    <input v-model="documento" class="form-control" id="inputRuc" name="inputRuc"
                                                            type="text" required maxlength="11">
                                                 </div>
                                                 <div class="col-lg-2">
@@ -90,7 +93,7 @@ session_start();
                                                 <label class="col-lg-2 col-form-label " for="password2">Nombre - Razon
                                                     Social:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="razon_social" id="" name="" type="text"
+                                                    <input v-model="razon_social" id="inputRazonSocial" name="inputRazonSocial" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -99,7 +102,7 @@ session_start();
                                                 <label class="col-lg-2 col-form-label "
                                                        for="password2">Direccion Fiscal:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="direcion" id="" name="" type="text"
+                                                    <input v-model="direcion" id="inputDireccion" name="inputDireccion" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -108,7 +111,7 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 col-form-label " for="">Telefono:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="telefono" id="" name="" type="text"
+                                                    <input v-model="telefono" id="inputTelefono" name="inputTelefono" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -117,10 +120,10 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 col-form-label " for="confirm2">Tipo:</label>
                                                 <div class="col-lg-3">
-                                                    <select id="select_documento" name="select_documento"
+                                                    <select id="selectTipo" name="selectTipo"
                                                             class="form-control">
-                                                        <option value="4">MI CLIENTE</option>
-                                                        <option value="3">PROVEEDOR DE MI CLIENTE</option>
+                                                        <option value="1">MI CLIENTE</option>
+                                                        <option value="2">PROVEEDOR DE MI CLIENTE</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -129,7 +132,7 @@ session_start();
                                                 <label class="col-lg-2 col-form-label "
                                                        for="password2">Direccion Entrega:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="direcion" id="" name="" type="text"
+                                                    <input v-model="direcion" id="inputEntrega" name="inputEntrega" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -138,8 +141,14 @@ session_start();
                                                 <label class="col-lg-2 col-form-label "
                                                        for="password2">Ciudad:</label>
                                                 <div class="col-lg-9">
-                                                    <select class="form-control">
-                                                        <option>Chimbote</option>
+                                                    <select class="form-control" name="selectDestino">
+                                                        <?php
+                                                        foreach ($c_destino->verFilas() as $item) {
+                                                            ?>
+                                                            <option value="<?php echo $item['id_destino']?>"><?php echo $item['nombre']?></option>
+                                                            <?php
+                                                        }
+                                                        ?>
                                                     </select>
                                                 </div>
                                             </div>

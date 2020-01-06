@@ -173,7 +173,7 @@ class Cliente
 
     public function generarCodigo()
     {
-        $sql = "select ifnull(max(id_cliente) +1, 1) as codigo from clientes";
+        $sql = "select ifnull(max(id_clientes) +1, 1) as codigo from clientes";
         $this->id_cliente = $this->c_conectar->get_valor_query($sql, "codigo");
     }
 
@@ -192,7 +192,7 @@ class Cliente
                         '$this->direccion_factura',
                         '$this->telefono',
                         '$this->tipo_cliente',
-                        '$this->ultimo_envio',
+                        '1000-01-01',
                         '$this->costo_kilo',
                         '$this->costo_caja');";
         return $this->c_conectar->ejecutar_idu($sql);

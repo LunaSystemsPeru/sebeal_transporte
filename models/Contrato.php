@@ -1,5 +1,4 @@
 <?php
-<<<<<<< HEAD
 require_once 'Conectar.php';
 
 class Contrato
@@ -201,11 +200,4 @@ private $c_conectar;
     {
         $this->idClasificacion = $idClasificacion;
     }
-=======
-
-
-class Contrato
-{
->>>>>>> origin/master
-
 }
