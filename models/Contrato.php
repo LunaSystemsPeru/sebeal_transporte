@@ -1,5 +1,7 @@
 <?php
+
 require_once 'Conectar.php';
+
 class Contrato
 {
     private $id;
@@ -15,6 +17,7 @@ class Contrato
     private $idClasificacion;
 
     private $c_conectar;
+
     /**
      * Contrato constructor.
      */

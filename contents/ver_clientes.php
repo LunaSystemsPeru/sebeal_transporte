@@ -1,6 +1,8 @@
 <?php
 session_start();
+require '../models/Cliente.php';
 
+$c_cliente = new Cliente();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -70,29 +72,37 @@ session_start();
                                     <th>Id.</th>
                                     <th>Documento</th>
                                     <th>Nombre / Razon Social</th>
-                                    <th>Tipo Entidad</th>
-                                    <th>Tot. Ventas</th>
-                                    <th>Tot. Cobrado</th>
+                                    <th>Direccion de factura</th>
+                                    <th>Telefono</th>
+                                    <th>Tipo de Cliente</th>
                                     <th>Ult. Envio</th>
+                                    <th>Costo Kilo</th>
                                     <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
+                                <?php
+                                $a_cliente = $c_cliente->verFilas();
+                                foreach ($a_cliente as $fila){
+                                ?>
                                 <tr>
-                                    <td>1</td>
-                                    <td class="text-center">201522615210</td>
-                                    <td>OYANGUREN GIRON LUIS ENRIQUE</td>
-                                    <td>PROVEEDOR DE MI CLIENTE</td>
-                                    <td>0</td>
-                                    <td>0</td>
-                                    <td>0000-00-00</td>
+                                    <td><?php echo  $fila ['id_clientes']?></td>
+                                    <td class="text-center"><?php echo $fila ['documento']?></td>
+                                    <td><?php echo $fila['razon_social']?></td>
+                                    <td><?php echo $fila['direccion_factura'] ?></td>
+                                    <td><?php echo $fila['telefono']?></td>
+                                    <td><?php echo $fila['tipo_cliente']?></td>
+                                    <td><?php echo $fila['ultimo_envio'] ?></td>
+                                    <td><?php echo $fila['costo_kilo'] ?></td>
+                                    <td><?php echo $fila['costo_caja'] ?></td>
                                     <td class="text-center">
                                         <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
                                         <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
                                     </td>
                                 </tr>
-
+                                <?php
+                                }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
