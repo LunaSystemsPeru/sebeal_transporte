@@ -1,28 +1,29 @@
 <?php
-
+<<<<<<< HEAD
 require_once 'Conectar.php';
 
 class Contrato
 {
-    private $id;
-    private $fechaInicio;
-    private $fechaFin;
-    private $duracion;
-    private $idProveedor;
-    private $servicio;
-    private $montoPactado;
-    private $montoPagado;
-    private $MontoFacturado;
-    private $estado;
-    private $idClasificacion;
+private $id;
+private $fechaInicio;
+private $fechaFin;
+private $duracion;
+private $idProveedor;
+private $servicio;
+private $montoPactado;
+private $montoPagado;
+private $MontoFacturado;
+private $estado;
+private $idClasificacion;
 
-    private $c_conectar;
+private $c_conectar;
 
     /**
      * Contrato constructor.
      */
     public function __construct()
     {
+        $this->c_conectar= Conectar::getInstancia();
     }
 
     /**
@@ -200,5 +201,11 @@ class Contrato
     {
         $this->idClasificacion = $idClasificacion;
     }
+=======
+
+
+class Contrato
+{
+>>>>>>> origin/master
 
 }
