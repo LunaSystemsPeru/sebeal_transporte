@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+require '../models/';
+?>
 <!DOCTYPE html>
 <html lang="es">
 

@@ -1,6 +1,12 @@
 <?php
 session_start();
+require "../models/Clasificacion.php";
+require "../models/DocumentoSunat.php";
+$clasificacion = new Clasificacion();
+$documentoSunat = new DocumentoSunat();
 
+$listaClasificaciones = $clasificacion->verFilas();
+$listaDocumento = $documentoSunat->verFilas();
 /*require '../models/Banco.php';
 
 $c_banco = new Banco();
@@ -68,7 +74,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                 <div class="card">
                     <div class="card-body">
 
-                        <form id="redistro_compra" action="#" novalidate="novalidate">
+                        <form id="redistro_compra" action="../controller/reg_compra_sunat.php" method="post" novalidate="novalidate">
                             <div role="application" class="wizard clearfix" id="steps-uid-1">
                                 <div class="row">
                                     <div class="content clearfix col-md-8" style="border-right: #BFBFBF solid 1px;">
@@ -80,8 +86,9 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                                        for="userName2">Proveedor </label>
                                                 <div class="col-lg-3">
                                                     <input v-on:keyup.enter="validar_documento" v-model="documento"
-                                                           class="form-control" id="documento" name="documento"
+                                                           class="form-control" id="documento" name="documento_ruc"
                                                            type="text">
+                                                    <input type="hidden" name="id_proveedor" v-model="id_proveedor">
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <input v-model="razon_social" disabled class="form-control"
@@ -114,21 +121,24 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="confirm2">Documento</label>
                                                 <div class="col-lg-3">
-                                                    <select id="select_documento" name="select_documento"
+                                                    <select disabled @change="obtener_datos_docuemntos"
+                                                            v-model="id_documento" id="select_documento"
+                                                            name="select_documento"
                                                             class="form-control">
-                                                        <option value="4">Nota de venta</option>
-                                                        <option value="3">Guia de Remision</option>
-                                                        <option value="3">Factura</option>
-                                                        <option value="3">Boleta</option>
+                                                        <?php
+                                                        foreach ($listaDocumento as $item)
+                                                            echo "<option value='{$item['id_documento']}'>{$item['nombre']}</option>";
+                                                        ?>
+
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <input id="" name="" type="text"
+                                                    <input v-model="serie_doc" name="serie" type="text"
                                                            class="required form-control">
 
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input id="" name="" type="text"
+                                                    <input v-model="numero_doc"  name="numero" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -138,20 +148,21 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label ">Fecha</label>
-                                                <div class="col-lg-4">
-                                                    <input id="" name="" type="date"
+                                                <div class="col-lg-3">
+                                                    <input id="" name="fecha" type="date"
                                                            class="required form-control">
 
                                                 </div>
                                                 <label class="col-lg-2 control-label ">Clasificacion</label>
                                                 <div class="col-lg-4">
 
-                                                    <select id="select_documento" name="select_documento"
+                                                    <select id="select_clasificacion" name="select_clasificacion"
                                                             class="form-control">
-                                                        <option value="4">Nota de venta</option>
-                                                        <option value="3">Guia de Remision</option>
-                                                        <option value="3">Factura</option>
-                                                        <option value="3">Boleta</option>
+                                                        <?php
+                                                        foreach ($listaClasificaciones as $item)
+                                                            echo "<option value='{$item['id_clasificacion']}'>{$item['nombre']}</option>";
+                                                        ?>
+
                                                     </select>
 
                                                 </div>
@@ -163,7 +174,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                         <div class="form-group row">
                                             <label class="col-lg-3 control-label">Total</label>
                                             <div class="col-lg-7">
-                                                <input id="" name="" type="text"
+                                                <input v-on:keyup="calculo" v-model="total" name="total" type="text"
                                                        class="required form-control">
 
                                             </div>
@@ -171,7 +182,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                         <div class="form-group row">
                                             <label class="col-lg-3 control-label">IGV</label>
                                             <div class="col-lg-7">
-                                                <input id="" name="" type="text"
+                                                <input v-model="igv" disabled  name="igv" type="text"
                                                        class="required form-control">
 
                                             </div>
@@ -179,13 +190,13 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                         <div class="form-group row">
                                             <label class="col-lg-3 control-label">Sub Total</label>
                                             <div class="col-lg-7">
-                                                <input id="" name="" type="text"
+                                                <input v-model="sub_total" disabled  name="sub_total" type="text"
                                                        class="required form-control">
 
                                             </div>
                                         </div>
                                         <div class="actions clearfix">
-                                            <button type="button"
+                                            <button @click="enviar_formulario"
                                                     class="btn btn-primary btn-rounded waves-effect waves-light form-control">
                                                 Guardar
                                             </button>
@@ -205,6 +216,8 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
 
     </div> <!-- end container-fluid -->
 </div>
+
+
 <!-- end wrapper -->
 
 <!-- ============================================================== -->
@@ -230,12 +243,12 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
 <!-- Bootstrap select plugin -->
 <script src="../public/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
 
-<!-- plugins -->
+<!-- plugins
 <script src="../public/assets/libs/c3/c3.min.js"></script>
-<script src="../public/assets/libs/d3/d3.min.js"></script>
+<script src="../public/assets/libs/d3/d3.min.js"></script> -->
 
-<!-- dashboard init -->
-<script src="../public/assets/js/pages/dashboard.init.js"></script>
+<!-- dashboard init
+<script src="../public/assets/js/pages/dashboard.init.js"></script> -->
 
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
@@ -245,34 +258,89 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
 <script src="../public/assets/libs/Vue/vue.js"></script>
 
 <script>
-    const app = new Vue({
-        el: "#redistro_compra",
-        data: {
-            documento: "",
-            razon_social: "",
-            direccion:""
 
-        },
-        methods: {
-            validar_documento() {
-                if (this.documento.length == 11) {
-                    $.ajax({
-                        type: "POST",
-                        url: "../controller/ajax/validar_documento.php",
-                        data: {"numero": this.documento},
-                        success: function (data) {
-                        }
-                    });
-                }else{
-                    alerta("SOLO PUEDEN INGRESAR RUC DE 11 DIGITOS");
+    const alerta = swal;
+    const app = new Vue({
+            el: "#redistro_compra",
+            data: {
+                id_proveedor: 0,
+                documento: "",
+                razon_social: "",
+                direccion: "",
+                id_documento: 0,
+                numero_doc: "",
+                serie_doc: "",
+                total:'',
+                igv:'',
+                sub_total:'',
+                enviar:false
+
+            },
+            methods: {
+                enviar_formulario(){
+                    this.enviar=true;
+                },
+                calculo () {
+                    this.sub_total = this.total /1.18;
+                    this.igv=this.total-this.sub_total;
+                    this.sub_total = parseFloat(this.sub_total).toFixed(2)
+                    this.igv=parseFloat(this.igv).toFixed(2)
+                },
+                obtener_datos_docuemntos() {
+                    this.numero_doc = "";
+                    this.serie_doc = "";
+                   /* if (this.id_documento != 0) {
+                        $.ajax({
+                            type: "POST",
+                            url: "../controller/ajax/datos_documento.php",
+                            data: {"id": this.id_documento},
+                            success: function (data) {
+                                console.log("<<" + data);
+                                var json = JSON.parse(data);
+                                app._data.numero_doc = json.numero;
+                                app._data.serie_doc = json.serie;
+                            }
+                        });
+                    }*/
+                },
+                validar_documento() {
+                    if (this.documento.length == 11) {
+
+                        $.ajax({
+                            type: "POST",
+                            url: "../controller/ajax/datos_proveedor.php",
+                            data: {"documento": this.documento},
+                            success: function (data) {
+                                console.log(data);
+                                var json = JSON.parse(data);
+                                if (-1 !== json.id_proveedor) {
+                                    app._data.id_proveedor = json.id_proveedor;
+                                    app._data.razon_social = json.razon_social;
+                                    app._data.direccion = json.direccion;
+                                    $('#select_documento').prop("disabled", false);
+                                    $("#select_documento").focus();
+                                } else {
+                                    app._data.id_proveedor = 0;
+                                    app._data.razon_social = "";
+                                    app._data.direccion = "";
+                                    alerta("NO SE ENCONTRO A ESTE PROVEEDOR");
+                                }
+                            }
+                        });
+                    } else {
+                        alerta("SOLO PUEDEN INGRESAR RUC DE 11 DIGITOS");
+                    }
                 }
             }
-        }
-    }
-    )
+
+        })
     ;
 </script>
-
+<script>
+    $("#redistro_compra").submit(function (e) {
+        return app._data.enviar;
+    });
+</script>
 </body>
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:59:12 GMT -->

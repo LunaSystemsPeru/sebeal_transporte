@@ -1,13 +1,10 @@
 <?php
 session_start();
-
-require '../models/Banco.php';
-
-$c_banco = new Banco();
-$c_banco->setIdEmpresa($_SESSION['id_empresa']);
+require '../models/PagoFrecuente.php';
+$c_pagofrecuente = new PagoFrecuente();
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
     
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
@@ -71,7 +68,26 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                 <div class="row">
                                     <div class="col-xl-6">
 
-                                        <form class="form-horizontal">
+                                        <form class="form-horizontal" method="post" action="../controller/reg_pago_frecuente.php">
+
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Fecha Recordatorio</label>
+                                                <div class="col-md-4">
+                                                    <input type="date" name="inputFecha" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Monto</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="inputMonto" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Pagado</label>
+                                                <div class="col-md-4">
+                                                    <input type="number" name="inputPagado" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
 
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Proveedor</label>
@@ -80,7 +96,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                                                         </div>
-                                                        <input type="text" id="example-input1-group1" name="Proveedor" class="form-control" placeholder="Proveedor">
+                                                        <input type="text" id="example-input1-group1" name="inputProveedor" class="form-control" placeholder="Proveedor">
                                                         <span class="input-group-append">
                                                             <a href="reg_proveedor.php">
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-plus"></i></button>
@@ -93,34 +109,19 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label" for="Servicio">Servicio</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" id="Servicio" name="Servicio" class="form-control" placeholder="Servicio">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Fecha Recordatorio</label>
-                                                <div class="col-md-4">
-                                                    <input type="date" class="form-control" placeholder="">
+                                                    <input type="text" id="Servicio" name="inputServicio" class="form-control" placeholder="Servicio">
                                                 </div>
                                             </div>
 
 
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Monto</label>
-                                                <div class="col-md-4">
-                                                    <input type="text" class="form-control" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Pagado</label>
-                                                <div class="col-md-4">
-                                                    <input type="number" class="form-control" placeholder="">
-                                                </div>
-                                            </div>
+
+
+
+
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Frecuencia</label>
                                                 <div class="col-md-4">
-                                                    <input type="number" class="form-control" placeholder="">
+                                                    <input type="number" name="inputFrecuencia" class="form-control" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -143,6 +144,12 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                                         <option value="3">TRANSPORTE</option>
                                                         <option value="1">VENTA</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Estado</label>
+                                                <div class="col-md-4">
+                                                    <input type="number" name="inputEstado" class="form-control" placeholder="">
                                                 </div>
                                             </div>
 
