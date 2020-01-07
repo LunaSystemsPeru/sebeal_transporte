@@ -139,6 +139,25 @@ class Proveedor
         $sql = "SELECT * FROM proveedor";
         return $this->c_conectar->get_Cursor($sql);
     }
+
+    public function obtenerDatos_documento()
+    {
+        $sql = "select * from proveedor 
+        where documento = '$this->documento'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        $this->id_proveedor=-1;
+        if ($resultado){
+            $this->id_proveedor= $resultado['id_proveedor'];
+            $this->razon_social= $resultado['razon_social'];
+            $this->direccion= $resultado['direccion'];
+            $this->nombre_comercial= $resultado['nombre_comercial'];
+            $this->tipo= $resultado['tipo'];
+        }
+
+
+
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO proveedor 

@@ -2,8 +2,12 @@
 session_start();
 
 require '../models/Banco.php';
+require '../models/CompraSunat.php';
 $c_banco = new Banco();
 
+$compra=new CompraSunat();
+
+$listaCompra=$compra->verFilas_mostrar();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -29,6 +33,7 @@ $c_banco = new Banco();
     <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../public/assets/libs/sweetalert2/sweetalert2.min.css"/>
 
 </head>
 
@@ -76,30 +81,31 @@ $c_banco = new Banco();
                             <table id="tabla-ingresos" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th width="8%">Id.</th>
+                                    <th width="6%">Id.</th>
                                     <th width="11%">Fecha</th>
-                                    <th width="25%">Proveedor</th>
-                                    <th width="15%">Documento</th>
-                                    <th width="11%">Usuario</th>
+                                    <th width="48%">Proveedor</th>
+                                    <th width="10%">Documento</th>
                                     <th width="10%">Total</th>
-                                    <th width="10%">Pagado</th>
-                                    <th width="18%">Acciones</th>
+                                    <th width="23%">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td>201903001</td>
-                                    <td class="text-center">2019-03-15</td>
-                                    <td>10469932091 | OYANGUREN GIRON LUIS ENRIQUE</td>
-                                    <td>FT | F001-25</td>
-                                    <td class="text-center">loyangureng</td>
-                                    <td class="text-right">570.00</td>
-                                    <td class="text-right">570.00</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-info btn-sm" title="Ver Documento"><i class="fa fa-eye-slash"></i></button>
-                                        <button class="btn btn-danger btn-sm" title="Eliminar Documento"><i class="dripicons-trash"></i></button>
-                                    </td>
-                                </tr>
+
+                                    <?php  foreach ($listaCompra as $item){?>
+                                    <tr>
+                                        <td><?php echo $item["id_compras"] ;?></td>
+                                        <td class="text-center"><?php echo $item["fecha"] ;?></td>
+                                        <td><?php echo $item["documento"] . " | ". $item["razon_social"] ;?></td>
+                                        <td><?php echo $item["serie"] . " | ". $item["numero"] ;?></td>
+                                        <td class="text-right"><?php echo $item["total"] ;?></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-info btn-sm" title="Ver Documento"><i class="fa fa-eye-slash"></i></button>
+                                            <button onclick="eliminar (<?php echo $item["id_compras"] ;?>)" class="btn btn-danger btn-sm" title="Eliminar Documento"><i class="dripicons-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php    } ?>
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -117,40 +123,7 @@ $c_banco = new Banco();
 <!-- ============================================================== -->
 
 
-<!-- modales-->
-<div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header custom-modal-title" style="padding: 15px;">
-                <h4 class="custom-modal-title">Registrar</h4>
 
-            </div>
-            <div class="modal-body">
-                <div class="panel-body">
-                    <form id="reg-banco">
-                        <div class="form-group">
-                            <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Monto</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Footer Start -->
 <?php require '../fixed/footer.php' ?>
@@ -167,19 +140,59 @@ $c_banco = new Banco();
 <!-- Vendor js -->
 <script src="../public/assets/js/vendor.min.js"></script>
 
-<!-- plugins -->
+<!-- plugins
 <script src="../public/assets/libs/c3/c3.min.js"></script>
-<script src="../public/assets/libs/d3/d3.min.js"></script>
+<script src="../public/assets/libs/d3/d3.min.js"></script> -->
 
-<!-- dashboard init -->
-<script src="../public/assets/js/pages/dashboard.init.js"></script>
+<!-- dashboard init
+<script src="../public/assets/js/pages/dashboard.init.js"></script>-->
 
 <!-- Sweet Alerts js -->
 <script src="../public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
+<script src="../public/assets/libs/vue-swal/vue-swal.js"></script>
 
+<script>
+    function eliminar (id) {
+        swal({
+            title: "¿Desea eliminar esta compra?",
+            text: "",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $(location).attr('href',"../controller/del_compra_sunat.php?id="+id);
+                    /*swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    });
+                    window.location.href = href;*/
+                } else {
+                    //swal("Your imaginary file is safe!");
+                }
+            });
+        /*swal({
+            title: "Compra",
+            text: "¿Desea eliminar este compra?",
+            type: "success",
+            showCancelButton: false,
+            //cancelButtonClass: 'btn-secondary ',
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Ver Ticket",
+            //cancelButtonText: "No, cancel plx!",
+            closeOnConfirm: false,
+            //closeOnCancel: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+
+
+            }
+        });*/
+    }
+</script>
 </body>
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:59:12 GMT -->
