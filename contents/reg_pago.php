@@ -1,10 +1,7 @@
 <?php
 session_start();
-
 require '../models/PagoFrecuente.php';
-
 $c_pagofrecuente = new PagoFrecuente();
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -74,13 +71,32 @@ $c_pagofrecuente = new PagoFrecuente();
                                         <form class="form-horizontal" method="post" action="../controller/reg_pago_frecuente.php">
 
                                             <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Fecha Recordatorio</label>
+                                                <div class="col-md-4">
+                                                    <input type="date" name="inputFecha" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Monto</label>
+                                                <div class="col-md-4">
+                                                    <input type="text" name="inputMonto" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Pagado</label>
+                                                <div class="col-md-4">
+                                                    <input type="number" name="inputPagado" class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Proveedor</label>
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                                                         </div>
-                                                        <input type="text" id="example-input1-group1" name="inputId_Prov" class="form-control" placeholder="Proveedor">
+                                                        <input type="text" id="example-input1-group1" name="inputProveedor" class="form-control" placeholder="Proveedor">
                                                         <span class="input-group-append">
                                                             <a href="reg_proveedor.php">
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-plus"></i></button>
@@ -97,30 +113,15 @@ $c_pagofrecuente = new PagoFrecuente();
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Fecha Recordatorio</label>
-                                                <div class="col-md-4">
-                                                    <input type="date" class="form-control" placeholder="" name="inputFecha_rec">
-                                                </div>
-                                            </div>
 
 
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Monto</label>
-                                                <div class="col-md-4">
-                                                    <input type="text" class="form-control" placeholder="" name="inputMonto">
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3 col-form-label">Pagado</label>
-                                                <div class="col-md-4">
-                                                    <input type="number" class="form-control" placeholder="" name="inputPagado">
-                                                </div>
-                                            </div>
+
+
+
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Frecuencia</label>
                                                 <div class="col-md-4">
-                                                    <input type="number" class="form-control" placeholder="" name="inputFrecuencia">
+                                                    <input type="number" name="inputFrecuencia" class="form-control" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -143,6 +144,12 @@ $c_pagofrecuente = new PagoFrecuente();
                                                         <option value="3">TRANSPORTE</option>
                                                         <option value="1">VENTA</option>
                                                     </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3 col-form-label">Estado</label>
+                                                <div class="col-md-4">
+                                                    <input type="number" name="inputEstado" class="form-control" placeholder="">
                                                 </div>
                                             </div>
 

@@ -168,23 +168,24 @@ Private $c_conectar;
     public function generarCodigo()
     {
         $sql = "select ifnull(max(id_frecuente) +1, 1) as codigo from pagos_frecuentes";
-        $this->id = $this->c_conectar->get_valor_query($sql, "codigo");
+        $this->idfrecuente = $this->c_conectar->get_valor_query($sql, "codigo");
     }
     public function insertar()
     {
-        $sql = "INSERT INTO pagos_frecuentes 
+        $sql = "INSERT INTO pagos_frecuentes
                 VALUES
                   (
-                    '$this->id_frecuente',
+                    '$this->idfrecuente',
                     '$this->fecha_recordatorio',
                     '$this->monto',
-                    '$this->pagadon',
+                    '$this->pagado',
                     '$this->id_proveedor',
                     '$this->servicio',
-                    '$this->frecuencia'
+                    '$this->frecuencia',
+                    
+                    
+                    '$this->id_clasificacion',
                     '$this->estado'
-                    '$this->estado'
-                    '$this->id_clasificacion'
                   ) ;";
         return $this->c_conectar->ejecutar_idu($sql);
     }
