@@ -112,4 +112,5 @@ private $c_conectar;
         $sql = "update destinos_empresa set nombre, direccion, ubigeo = '$this->nombre', '$this->direccion', '$this->ubigeo' where id_destino = '$this->id'";
         return $this->c_conectar->ejecutar_idu($sql);
     }
+
 }

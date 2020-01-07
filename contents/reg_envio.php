@@ -22,6 +22,7 @@
     <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
 </head>
 
@@ -284,6 +285,9 @@
 
 
 <!-- Vendor js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 <script src="../public/assets/js/vendor.min.js"></script>
 
 <!-- Bootstrap select plugin -->
@@ -293,11 +297,79 @@
 <script src="../public/assets/libs/c3/c3.min.js"></script>
 <script src="../public/assets/libs/d3/d3.min.js"></script>
 
-<!-- dashboard init -->
-<script src="../public/assets/js/pages/dashboard.init.js"></script>
-
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
+
+<script lang="javascript">
+    $( document ).ready(function() {
+        $("#input_remitente").autocomplete({
+
+        });
+    });
+
+    /*
+    $(function () {
+        //autocomplete
+        $("#input_remitente").autocomplete({
+            source: "../controller/ajax/buscar_clientes.php",
+            minLength: 2,
+            select: function (event, ui) {
+                event.preventDefault();
+                $('#hidden_id_remitente').val(ui.item.id);
+                $('#hidden_ruc_remitente').val(ui.item.ruc);
+                var tipo_remitente = ui.item.tipo;
+                if (tipo_remitente === "1") {
+                    $("#select_cliente").val(2).change();
+                    $('#hidden_id_cliente').val(ui.item.id);
+                }
+                $('#input_remitente').val(ui.item.razon_social);
+                $('#input_destinatario').focus();
+            }
+        });
+
+        $("#input_destinatario").autocomplete({
+            source: "../controller/ajax/buscar_clientes.php",
+            minLength: 2,
+            select: function (event, ui) {
+                event.preventDefault();
+                $('#hidden_id_destinatario').val(ui.item.id);
+                $('#hidden_ruc_destinatario').val(ui.item.ruc);
+                var tipo_remitente = ui.item.tipo;
+                if (tipo_remitente === "1") {
+                    $("#select_cliente").val(1).change();
+                    $('#hidden_id_cliente').val(ui.item.id);
+                }
+                $('#input_destinatario').val(ui.item.razon_social);
+                cargar_direccion();
+                $('#btn_finalizar_pedido').prop("disabled", false);
+                $('#input_destino').focus();
+            }
+        });
+
+        $("#input_producto").autocomplete({
+            source: "ajax_post/buscar_productos.php",
+            minLength: 2,
+            select: function (event, ui) {
+                event.preventDefault();
+                $('#input_cactual').val(ui.item.cantidad);
+                $('#input_precio').val(ui.item.precio);
+                $('#hidden_costo').val(ui.item.costo);
+                $('#input_lote').val(ui.item.lote);
+                $('#input_vencimiento').val(ui.item.vcto);
+                $('#hidden_id_producto').val(ui.item.id);
+                $('#hidden_descripcion_producto').val(ui.item.nombre);
+                $('#input_producto').val(ui.item.nombre);
+                $('#btn_add_producto').prop("disabled", false);
+                $('#btn_finalizar_pedido').prop("disabled", false);
+                $('#input_precio').prop("readonly", false);
+                $('#input_cventa').prop("readonly", false);
+                $('#input_cventa').focus();
+            }
+        });
+    });
+
+     */
+</script>
 
 </body>
 

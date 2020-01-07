@@ -183,6 +183,14 @@ class Cliente
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function buscarClientesJson($term)
+    {
+        $sql = "SELECT * FROM clientes
+        where razon_social like '%$term%' or documento like '%$term%' 
+        order by razon_social asc";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO clientes 
