@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require '../models/';
+require '../models/Envio.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -150,9 +150,12 @@ require '../models/';
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label" for="input_remitente">Direccion</label>
-                                        <div class="col-md-10">
+                                        <div class="col-md-9">
                                             <input type="text" placeholder="Direccion entrega" class="form-control" id="input_destino" name="input_destino">
                                             <input type="hidden" id="hidden_id_destino" name="hidden_id_destino" value="0">
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-info"><i class="fa fa-plus"></i></button>
                                         </div>
                                     </div>
 
@@ -290,30 +293,19 @@ require '../models/';
 
 
 <!-- Vendor js -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
 <script src="../public/assets/js/vendor.min.js"></script>
 
 <!-- Bootstrap select plugin -->
 <script src="../public/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
 
-<!-- plugins -->
-<script src="../public/assets/libs/c3/c3.min.js"></script>
-<script src="../public/assets/libs/d3/d3.min.js"></script>
-
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
 <script lang="javascript">
     $( document ).ready(function() {
-        $("#input_remitente").autocomplete({
-
-        });
-    });
-
-    /*
-    $(function () {
         //autocomplete
         $("#input_remitente").autocomplete({
             source: "../controller/ajax/buscar_clientes.php",
@@ -345,7 +337,7 @@ require '../models/';
                     $('#hidden_id_cliente').val(ui.item.id);
                 }
                 $('#input_destinatario').val(ui.item.razon_social);
-                cargar_direccion();
+              //  cargar_direccion();
                 $('#btn_finalizar_pedido').prop("disabled", false);
                 $('#input_destino').focus();
             }
@@ -373,7 +365,6 @@ require '../models/';
         });
     });
 
-     */
 </script>
 
 </body>
