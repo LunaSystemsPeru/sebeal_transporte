@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+require '../models/PagoFrecuente.php';
+$c_pago_frecuento = new PagoFrecuente();
 
 ?>
 <!DOCTYPE html>
@@ -88,21 +88,33 @@ $c_banco = new Banco();
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php
+                                $result = $c_pago_frecuento->verFilas();
+                                while ($fila = $result->fetch_assoc()){
+                                    $badge_estado ="badge-success";
+                                    if ($fila['estado'] == 1) {
+                                        $badge_estado ="badge-danger";
+                                    } else {
+                                        $badge_estado ="badge-info";
+                                    }
+                                    ?>
                                 <tr>
-                                    <td style="">4</td>
-                                    <td style="">MODIFICACION DE DOCUMENTACION PARA HOMOLOGACION SEGURIDAD DE SEGEBUCO |
-                                        MIGUEL ANGEL OYANGUREN GIRON | COMISION VENTA
-                                    </td>
-                                    <td style="">COMERCIAL D & CH SAC</td>
-                                    <td style="text-align: center; ">500</td>
-                                    <td style="text-align: center; ">2019-12-17</td>
-                                    <td style="text-align: center; ">200</td>
-                                    <td style="text-align: center; "><span class="label label-success">Activo</span></td>
-                                    <td style="text-align: center; "><a href="ver_detalle_contrato.php?id_contrato=4"
+                                    <td style=""><?php echo $fila['id_frecuente'] ?></td>
+                                    <td style=""><?php echo $fila['servicio'] ?></td>
+                                    <td style=""><?php echo $fila['razon_social'] ?></td>
+                                    <td style="text-align: center; "><?php echo $fila['monto'] ?></td>
+                                    <td style="text-align: center; " class="badge <?php echo $badge_estado?>">mes</td>
+                                    <td style="text-align: center; "><?php echo $fila['pagado']?></td>
+                                    <td style="text-align: center; "><span>Activo</span></td>
+                                    <td style="text-align: center; "><a href="ver_detalle_pago_frecuente.php?id_contrato=4"
                                                                         class="btn btn-icon btn-success"
                                                                         title="Ver Detalle del Contrato"><i
                                                     class="fa fa-eye"></i></a></td>
                                 </tr>
+                                <?php
+                                }
+                                ?>
+
                                 </tbody>
                                 <tfoot>
                                 <tr>
