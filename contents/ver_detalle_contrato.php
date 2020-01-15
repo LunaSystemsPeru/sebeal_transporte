@@ -2,9 +2,14 @@
 require  '../models/Contrato.php';
 require  '../models/Proveedor.php';
 require  '../models/Banco.php';
+require  '../models/ContratoPago.php';
+require  '../tools/cl_varios.php';
+
 $banco=new Banco();
+$contratoPago=new ContratoPago();
 $contrato =new Contrato();
 $proveedor=new Proveedor();
+$tools=new cl_varios();
 
 $idContrato=filter_input(INPUT_GET, 'contrato');
 $contrato->setId($idContrato);
@@ -14,6 +19,9 @@ $proveedor->obtenerDatos();
 
 
 $listaBancos=$banco->verFilas();
+$contratoPago->setIdContrato($idContrato);
+
+$listaPagos=$contratoPago->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -159,15 +167,23 @@ $listaBancos=$banco->verFilas();
                                 </thead>
                                 <tbody>
 
-                                <tr>
-                                    <td class="text-center">2020-01-20</td>
-                                    <td>efectivo</td>
-                                    <td class="text-right">500</td>
-                                    <td class="text-right">100</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-icons btn-danger" title="Eliminar Pago"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                <?php
+                                $saldo = $contrato->getMontoPactado();
+                                foreach ($listaPagos as $fila) {
+                                    $saldo -= $fila['sale'];
+                                    ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $tools->fecha_mysql_web($fila['fecha'])?></td>
+                                        <td><?php echo $fila['nombre']?></td>
+                                        <td class="text-right"><?php echo number_format($fila['sale'],2)?></td>
+                                        <td class="text-right"><?php echo number_format($saldo,2)?></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-icons btn-danger" title="Eliminar Pago"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
 
                                 </tbody>
                             </table>
@@ -188,6 +204,7 @@ $listaBancos=$banco->verFilas();
                             </tr>
                             </thead>
                             <tbody>
+
                             </tbody>
                         </table>
                     </div>
@@ -208,7 +225,7 @@ $listaBancos=$banco->verFilas();
      style="display: none;" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="formulario_modal_pago" action="../controller/reg_pago_contrato.php" method="post">
+            <form id="formulario_modal_pago" action="../controller/reg_pago_contrato.php" method="POST">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel-4">Agregar Pago</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -216,7 +233,7 @@ $listaBancos=$banco->verFilas();
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input type="hidden" name="id_pago" value="">
+                    <input id="id_contrato" type="hidden" name="id_contrato" value="<?php echo $contrato->getId()?>">
                     <div class="form-group">
                         <label for="banco" class="col-form-label">Banco:</label>
                         <select name="id_banco" class="form-control" id="banco">
@@ -247,7 +264,6 @@ $listaBancos=$banco->verFilas();
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="hidden" name="id_contrato" value="">
                     <button type="submit" class="btn btn-success">Registrar</button>
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
                 </div>
