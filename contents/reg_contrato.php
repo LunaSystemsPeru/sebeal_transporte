@@ -2,9 +2,11 @@
 session_start();
 
 require '../models/Contrato.php';
+require '../models/Clasificacion.php';
 
 $c_contrato = new Contrato();
-
+$clasificacion=new Clasificacion();
+$listaClasi=$clasificacion->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,7 +73,7 @@ $c_contrato = new Contrato();
                                 <div class="row">
                                     <div class="col-xl-6">
 
-                                        <form class="form-horizontal">
+                                        <form class="form-horizontal" method="post" action="../controller/reg_contrato.php">
 
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Proveedor</label>
@@ -80,7 +82,8 @@ $c_contrato = new Contrato();
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text"><i class="fa fa-user"></i></span>
                                                         </div>
-                                                        <input type="text" id="example-input1-group1" name="Proveedor" class="form-control" placeholder="Proveedor">
+                                                        <input autocomplete="off" type="text" id="input-b-proveedor" name="Proveedor" class="form-control" placeholder="Proveedor">
+                                                        <input type="hidden" value="" id="id_proveedor" name="id_proveedor">
                                                         <span class="input-group-append">
                                                             <a href="reg_proveedor.php">
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-plus"></i></button>
@@ -93,14 +96,14 @@ $c_contrato = new Contrato();
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label" for="Servicio">Servicio</label>
                                                 <div class="col-md-9">
-                                                    <input type="text" id="Servicio" name="Servicio" class="form-control" placeholder="Servicio">
+                                                    <input type="text" id="Servicio" name="servicio" class="form-control" placeholder="Servicio">
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Fecha Inicio</label>
                                                 <div class="col-md-4">
-                                                    <input type="date" class="form-control" placeholder="">
+                                                    <input required name="fecha-inicio" type="date" class="form-control" placeholder="">
                                                 </div>
                                             </div>
 
@@ -108,40 +111,31 @@ $c_contrato = new Contrato();
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Fecha Fin</label>
                                                 <div class="col-md-4">
-                                                    <input type="date" class="form-control" placeholder="">
+                                                    <input name="fecha-final" type="date" class="form-control" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Duracion</label>
                                                 <div class="col-md-4">
-                                                    <input type="number" class="form-control" placeholder="">
+                                                    <input name="duracion" type="number" class="form-control" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label">Monto</label>
                                                 <div class="col-md-4">
-                                                    <input type="number" class="form-control" placeholder="">
+                                                    <input name="monto" type="number" class="form-control" placeholder="">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-md-3 col-form-label" for="Servicio">Clasificacion</label>
                                                 <div class="col-md-9">
                                                     <select class="form-control" name="select_clasificacion">
-                                                        <option value="4">ALIMENTACION</option>
-                                                        <option value="12">COMISION VENTA</option>
-                                                        <option value="11">CUOTA PRESTAMO</option>
-                                                        <option value="8">DIEZMO</option>
-                                                        <option value="14">EQUIPOS Y MOVILIARIOS</option>
-                                                        <option value="9">GERENCIA</option>
-                                                        <option value="10">HOSTING Y DOMINIO</option>
-                                                        <option value="2">INGRESO PRESTAMO</option>
-                                                        <option value="13">MANTENIMIENTO</option>
-                                                        <option value="6">PAGO PERSONAL</option>
-                                                        <option value="7">PUBLICIDAD</option>
-                                                        <option value="5">SERVICIOS BASICOS</option>
-                                                        <option value="15">SUBCONTRATO</option>
-                                                        <option value="3">TRANSPORTE</option>
-                                                        <option value="1">VENTA</option>
+                                                        <?php
+                                                        foreach ($listaClasi as $item) {
+                                                            echo "<option value='{$item['id_clasificacion']}'>{$item['nombre']}</option>";
+                                                        }
+                                                        ?>
+
                                                     </select>
                                                 </div>
                                             </div>
@@ -185,15 +179,33 @@ $c_contrato = new Contrato();
         <!-- Bootstrap select plugin -->
         <script src="../public/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
 
-        <!-- plugins -->
-        <script src="../public/assets/libs/c3/c3.min.js"></script>
-        <script src="../public/assets/libs/d3/d3.min.js"></script>
 
-        <!-- dashboard init -->
-        <script src="../public/assets/js/pages/dashboard.init.js"></script>
+        <!-- plugins
+        <script src="../public/assets/libs/c3/c3.min.js"></script>
+        <script src="../public/assets/libs/d3/d3.min.js"></script>-->
+
+        <!-- dashboard init
+        <script src="../public/assets/js/pages/dashboard.init.js"></script> -->
 
         <!-- App js -->
-        <script src="../public/assets/js/app.min.js"></script>
+        <script src="../public/assets/js/app.min.js">
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        </script>
+    <script>
+        $( document ).ready(function() {
+            $( "#input-b-proveedor" ).autocomplete({
+                source: "../controller/ajax/buscar_proveedor.php",
+                minLength: 2,
+                select: function (event, ui) {
+                    event.preventDefault();
+                    console.log(ui);
+                    $("#id_proveedor").val(ui.item.id);
+                }
+            });
+        });
+    </script>
         
     </body>
 

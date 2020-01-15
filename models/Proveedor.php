@@ -158,6 +158,14 @@ class Proveedor
 
     }
 
+    public function buscarProveedorJson($term)
+    {
+        $sql = "SELECT * FROM proveedor
+        where razon_social like '%$term%' or documento like '%$term%' 
+        order by razon_social asc";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO proveedor 

@@ -3,7 +3,7 @@ session_start();
 
 require '../models/Contrato.php';
 $c_contrato = new Contrato();
-
+$listaContratos=$c_contrato->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -90,23 +90,32 @@ $c_contrato = new Contrato();
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr data-index="0">
-                                    <td>4</td>
-                                    <td >MODIFICACION DE DOCUMENTACION PARA HOMOLOGACION SEGURIDAD DE SEGEBUCO |
-                                        MIGUEL ANGEL OYANGUREN GIRON | COMISION VENTA
-                                    </td>
-                                    <td >COMERCIAL D & CH SAC</td>
-                                    <td style="text-align: center; ">2019-12-17</td>
-                                    <td style="text-align: center; ">2019-12-17</td>
-                                    <td style="text-align: center; "><span class="label label-info">13 dias</span></td>
-                                    <td style="text-align: right; ">500</td>
-                                    <td style="text-align: center; ">10</td>
-                                    <td style="text-align: center; "><span class="label label-success">Activo</span></td>
-                                    <td style="text-align: center; "><a href="ver_detalle_contrato.php?id_contrato=4"
-                                                                        class="btn btn-icon btn-success"
-                                                                        title="Ver Detalle del Contrato"><i
-                                                    class="fa fa-eye"></i></a></td>
-                                </tr>
+                                <?php
+                                foreach ($listaContratos as $item){ ?>
+                                    <tr data-index="0">
+                                        <td><?php echo $item["id_contrato"]?></td>
+                                        <td ><?php echo $item["servicio"]?>
+                                        </td>
+                                        <td ><?php echo $item["razon_social"]?></td>
+                                        <td style="text-align: center; "><?php echo $item["fecha_inicio"]?></td>
+                                        <td style="text-align: center; "><?php echo $item["fecha_fin"]?></td>
+                                        <td style="text-align: center; "><span class="label label-info"><?php echo $item["duracion"]?></span></td>
+                                        <td style="text-align: right; "><?php echo $item["monto_pactado"]?></td>
+                                        <td style="text-align: center; "><?php echo $item["monto_pagado"]?></td>
+                                        <td style="text-align: center; "><span class="label label-success"><?php if ($item["estado"]==1){
+                                            echo "<span class=\"badge badge-success\">Activo</span>";
+                                                }else{
+                                            echo "<span class=\"badge badge-pink\">Inactivo</span>";
+                                                } ?></span></td>
+                                        <td style="text-align: center; "><a href="ver_detalle_contrato.php?id_contrato=4"
+                                                                            class="btn btn-icon btn-success"
+                                                                            title="Ver Detalle del Contrato"><i
+                                                        class="fa fa-eye"></i></a></td>
+                                    </tr>
+
+                                <?php   }
+                                ?>
+
                                 </tbody>
                                 <tfoot>
                                 <tr>

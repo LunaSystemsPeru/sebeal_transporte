@@ -26,7 +26,7 @@ session_start();
     <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css"/>
-    <link  href="../public/assets/libs/sweetalert2/sweetalert2.min.css"/>
+    <link href="../public/assets/libs/sweetalert2/sweetalert2.min.css"/>
 
 </head>
 
@@ -64,7 +64,7 @@ session_start();
                 <div class="card">
                     <div class="card-body">
 
-                        <form id="fmr_registro_proveedor" method="post" action="../controller/reg_proveedor.php" novalidate="novalidate">
+                        <form id="fmr_registro_proveedor" method="post" action="../controller/reg_proveedor.php">
                             <div role="application" class="wizard clearfix" id="steps-uid-1">
                                 <div class="row">
                                     <div class="content clearfix col-md-12">
@@ -72,16 +72,22 @@ session_start();
                                         <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0"
                                                  class="body current" aria-hidden="false">
                                             <div class="form-group" id="error_ruc">
-                                                <div v-if="estado_consulta==1" class="alert alert-success"><strong> Espere! </strong> Estamos procesando su peticion.</div>
-                                                <div v-if="estado_consulta==2" class="alert alert-danger"><strong> Error! </strong> El numero de RUC es incorrecto.</div>
-                                                <div v-if="estado_consulta==3" class="alert alert-warning"><strong> Error! </strong> Ocurrio un error al procesar.</div>
+                                                <div v-if="estado_consulta==1" class="alert alert-success"><strong>
+                                                        Espere! </strong> Estamos procesando su peticion.
+                                                </div>
+                                                <div v-if="estado_consulta==2" class="alert alert-danger"><strong>
+                                                        Error! </strong> El numero de RUC es incorrecto.
+                                                </div>
+                                                <div v-if="estado_consulta==3" class="alert alert-warning"><strong>
+                                                        Error! </strong> Ocurrio un error al procesar.
+                                                </div>
                                             </div>
                                             <div class="form-group row">
 
                                                 <label class="col-lg-2 control-label " for="userName2">Numero de
                                                     Documento</label>
                                                 <div class="col-lg-3">
-                                                    <input v-model="documento" class="form-control" id="userName2"
+                                                    <input v-on:keyup.enter="validar_documento()"  required v-model="documento" class="form-control" id=""
                                                            name="documento"
                                                            type="text">
                                                 </div>
@@ -92,7 +98,8 @@ session_start();
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-2 control-label " for="password2">Razon Social:</label>
+                                                <label class="col-lg-2 control-label " for="password2">Razon
+                                                    Social:</label>
                                                 <div class="col-lg-9">
                                                     <input v-model="razon_social" name="razon_social" type="text"
                                                            class="required form-control">
@@ -102,7 +109,8 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Nombre Comercial:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="nombre_comercial" id="nombre_comercial" name="nombre_comercial" type="text"
+                                                    <input v-model="nombre_comercial" id="nombre_comercial"
+                                                           name="nombre_comercial" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -131,7 +139,7 @@ session_start();
                                             </div>
 
                                         </section>
-                                        <button type="submit" class="btn btn-purple waves-effect waves-light mt-3">
+                                        <button type="button" @click=" enviarFormulario" class="btn btn-purple waves-effect waves-light mt-3">
                                             Guardar
                                         </button>
                                     </div>
@@ -196,7 +204,21 @@ session_start();
     *   1 => procesando
     *   2 => error
     * */
-    const alerta=swal;
+    const alerta = swal;
+    var estado = false;
+
+
+    $(document).ready(function(){
+        $("#fmr_registro_proveedor").submit(function (e) {
+           // e.preventDefault();
+            console.log("........");
+            return estado;
+
+            //resto código
+
+        });
+    });
+
 
     const app = new Vue({
         el: "#fmr_registro_proveedor",
@@ -205,12 +227,16 @@ session_start();
             razon_social: "",
             nombre_comercial: "",
             direcion: "",
-            estado_consulta:0
+            estado_consulta: 0
         },
         methods: {
+            enviarFormulario(){
+                estado=true;
+                $("#fmr_registro_proveedor").submit();
+            },
             validar_documento() {
-                if (app._data.documento.length == 8||app._data.documento.length == 11){
-                    this.estado_consulta=1;
+                if (app._data.documento.length == 8 || app._data.documento.length == 11) {
+                    this.estado_consulta = 1;
                     $.ajax({
                         type: "POST",
                         url: "../controller/ajax/validar_documento.php",
@@ -218,25 +244,25 @@ session_start();
                         success: function (data) {
                             console.log(data);
                             var json = JSON.parse(data);
-                            if (app._data.documento.length == 11){
+                            if (app._data.documento.length == 11) {
 
 
-                                if (json.success === false) {
-                                    app._data.estado_consulta=2;
-                                }
-                                if (json.success === true) {
-                                    app._data.estado_consulta=0;
-                                    app._data.razon_social = json.result.RazonSocial;
-                                    app._data.nombre_comercial = json.result.NombreComercial;
-                                    app._data.direcion = json.result.Direccion;
-                                }
-                            }else{
                                 if (json.success === false) {
                                     app._data.estado_consulta = 2;
                                 }
                                 if (json.success === true) {
                                     app._data.estado_consulta = 0;
-                                    app._data.razon_social =json.result.apellidos +" "+ json.result.Nombres;
+                                    app._data.razon_social = json.result.RazonSocial;
+                                    app._data.nombre_comercial = json.result.NombreComercial;
+                                    app._data.direcion = json.result.Direccion;
+                                }
+                            } else {
+                                if (json.success === false) {
+                                    app._data.estado_consulta = 2;
+                                }
+                                if (json.success === true) {
+                                    app._data.estado_consulta = 0;
+                                    app._data.razon_social = json.result.apellidos + " " + json.result.Nombres;
                                     app._data.nombre_comercial = "";
                                     app._data.direcion = "";
                                 }
@@ -246,11 +272,11 @@ session_start();
 
                         },
                         error: function () {
-                            app._data.estado_consulta=3;
+                            app._data.estado_consulta = 3;
                             $("#nombre_comercial").focus();
                         }
                     });
-                }else{
+                } else {
                     alerta("SOLO PUEDEN INGRESAR 11 O 8 DIGITOS");
                 }
 
