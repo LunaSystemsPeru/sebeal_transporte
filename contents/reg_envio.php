@@ -79,8 +79,8 @@ require '../models/Envio.php';
                                 <label class="col-md-4 col-form-label" for="inputDocumento">Documento</label>
                                 <div class="col-md-8">
                                     <select class="form-control" name="select_documento" id="select_documento">
-                                        <option>Nota de Recepcion</option>
-                                        <option>Guia de Remision</option>
+                                        <option value="4">Nota de Recepcion</option>
+                                        <option value="5">Guia de Remision</option>
                                     </select>
                                 </div>
                             </div>
