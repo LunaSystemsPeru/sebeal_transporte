@@ -1,3 +1,20 @@
+<?php
+require  '../models/Contrato.php';
+require  '../models/Proveedor.php';
+require  '../models/Banco.php';
+$banco=new Banco();
+$contrato =new Contrato();
+$proveedor=new Proveedor();
+
+$idContrato=filter_input(INPUT_GET, 'contrato');
+$contrato->setId($idContrato);
+$contrato->obtener_datos();
+$proveedor->setIdProveedor($contrato->getIdProveedor());
+$proveedor->obtenerDatos();
+
+
+$listaBancos=$banco->verFilas();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -49,125 +66,130 @@
                             <li class="breadcrumb-item active">Registrar</li>
                         </ol>
                     </div>
-                    <h4 class="page-title">DETALLE DEL CONTRATO</h4>
+                    <h4 class="page-title">DETALLE DE CONTRATO</h4>
                 </div>
             </div>
         </div>
         <!-- end page title -->
 
         <div class="row">
-            <div class="col-xl-6">
+            <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="panel-title">DATOS DEL CONTRATO</h4>
-                        <div class="col-md-4 offset-0">
-                            <button type="button" class="btn btn-success" id="btn_add_producto" onclick="addProductos()"><i class="fa fa-place-of-worship"></i> Ver Contratos</button>
+                        <h4 class="card-title">Detalle de Pago Frecuente</h4>
+                        <div class="">
+                            <button data-toggle="modal" data-target="#modal_pago_frecuente"
+                                    class="btn btn-info"><i class="fa fa-edit"></i>Modificar Pago
+                            </button>
+                            <button onclick=""
+                                    class="btn btn-danger"><i class="fa fa-trash"></i>Eliminar
+                            </button>
                         </div>
+                        <div class="card-body">
+                            <label for="" class="font-weight-bold">Codigo Contrato:</label>
+                            <label for=""><?php echo $contrato->getId()?></label>
 
-                        <form>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputFecha"></label>
-                                <div class="col-md-8">
-                                    <div class="input-group">
-                                        <input type="text" id="inputFecha" name="inputFecha" class="form-control" placeholder="">
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Proveedor:</label>
+                                <label for=""><?php
+                                    echo $proveedor->getRazonSocial();
+                                    ?></label>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputDocumento"></label>
-                                <div class="col-md-8">
-                                    <select class="form-control" name="select_documento" id="select_documento">
-                                        <option></option>
-                                        <option></option>
-                                    </select>
-                                </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Duracion:</label>
+                                <label for=""><?php echo $contrato->getDuracion()?></label>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputSerie"></label>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="txt" id="inputNumero" name="inputNumero" class="form-control" placeholder="">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <input type="txt" id="inputSerie" name="inputSerie" class="form-control" placeholder="">
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Servicio:</label>
+                                <label for=""><?php echo $contrato->getServicio()?></label>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputDocumento"></label>
-                                <div class="col-md-8">
-                                    <div class="input-group">
-                                        <select class="form-control" name="select_documento" id="select_documento">
-                                            <option></option>
-                                            <option></option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Fecha Inicio:</label>
+                                <label for=""><?php echo $contrato->getFechaInicio()?></label>
                             </div>
-                        </form>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Fecha de termino:</label>
+                                <label for=""><?php echo $contrato->getFechaFin()?></label>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Total a Pagar:</label>
+                                <label for=""><?php echo $contrato->getMontoPactado()?></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Total Pagado:</label>
+                                <label for=""><?php echo $contrato->getMontoPagado()?></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Faltante:</label>
+                                <label for=""><?php echo $contrato->getMontoPactado()-$contrato->getMontoPagado()?></label>
+                            </div>
+                            <div class="form-group">
+                                <label for="" class="font-weight-bold">Estado:</label>
+                                <?php
+                                 if ($contrato->getEstado()==1){
+                                     echo "<label class='badge badge-success badge-lg' >Activo</label>";
+                                 }else{
+                                     echo "<label class='badge badge-danger badge-lg' >Finalizado</label>";
+                                 }
+                                ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-6">
+
+            <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <form>
-                            <div class="hpanel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">DATOS DE CONTRATO</h4>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="input_remitente"></label>
-                                        <div class="col-md-1">
-                                            <a class="btn btn-success" type="button" href="reg_cliente.php" target="_blank"><i class="fa fa-plus"></i> </a>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" placeholder="" class="form-control" id="input_remitente" name="input_remitente">
-                                            <input type="hidden" id="hidden_id_remitente" name="hidden_id_remitente" value="0">
-                                            <input type="hidden" id="hidden_ruc_remitente" name="hidden_ruc_remitente" value="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="input_remitente"></label>
-                                        <div class="col-md-1">
-                                        <a class="btn btn-success" type="button" href="reg_cliente.php" target="_blank"><i class="fa fa-plus"></i> </a>
-                                        </div>
-                                        <div class="col-md-9">
-                                            <input type="text" placeholder="" class="form-control" id="input_destinatario" name="input_destinatario">
-                                            <input type="hidden" id="hidden_id_destinatario" name="hidden_id_destinatario" value="0">
-                                            <input type="hidden" id="hidden_ruc_destinatario" name="hidden_ruc_destinatario" value="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="input_remitente"></label>
-                                        <div class="col-md-10">
-                                            <input type="text" placeholder="" class="form-control" id="input_destino" name="input_destino">
-                                            <input type="hidden" id="hidden_id_destino" name="hidden_id_destino" value="0">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="inputPeso"></label>
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                <input type="txt" id="inputPeso" name="inputPeso" class="form-control" placeholder="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="inputTotal"></label>
-                                        <div class="col-md-2">
-                                            <div class="input-group">
-                                                <input type="txt" id="inputTotal" name="inputTotal" class="form-control" placeholder="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+                        <h4 class="card-title">Ver detalle de Pago </h4>
+                        <div class="card-body">
+                            <span data-toggle="modal" data-target="#modal_pago_fre" class="btn btn-success"><i class="fa fa-plus"></i>Agregar</span>
+
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Banco</th>
+                                    <th>Monto</th>
+                                    <th>Deuda</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                <tr>
+                                    <td class="text-center">2020-01-20</td>
+                                    <td>efectivo</td>
+                                    <td class="text-right">500</td>
+                                    <td class="text-right">100</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-icons btn-danger" title="Eliminar Pago"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title text-bold">Ver Todos los Pagos</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Banco</th>
+                                <th>Monto</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -182,6 +204,57 @@
 <!-- End Page content -->
 <!-- ============================================================== -->
 
+<div class="modal fade" id="modal_pago_fre" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-4"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="formulario_modal_pago" action="../controller/reg_pago_contrato.php" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel-4">Agregar Pago</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id_pago" value="">
+                    <div class="form-group">
+                        <label for="banco" class="col-form-label">Banco:</label>
+                        <select name="id_banco" class="form-control" id="banco">
+                            <?php
+                            foreach ($listaBancos as $item){
+                                echo "<option value=\"{$item['id_banco']}\">{$item['nombre']} - S/.{$item['monto']}</option>";
+                            }
+                            ?>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="monto" class="col-form-label">Monto total:</label>
+                        <input type="text" name="monto_total" value="<?php echo $contrato->getMontoPactado()?>" class="form-control" id="monto_total" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="monto" class="col-form-label">Monto Pagado:</label>
+                        <input type="text" name="monto_pagado" value="<?php echo $contrato->getMontoPagado()?>" class="form-control" id="monto_pagado" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="monto" class="col-form-label">Monto:</label>
+                        <input required type="number" name="monto" class="form-control" id="monto">
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha" class="col-form-label">Fecha:</label>
+                        <input type="date" value="" name="fecha" class="form-control"
+                               id="fecha">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id_contrato" value="">
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Footer Start -->
 <?php require '../fixed/footer.php' ?>

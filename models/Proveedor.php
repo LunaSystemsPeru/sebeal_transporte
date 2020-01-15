@@ -153,6 +153,21 @@ class Proveedor
             $this->nombre_comercial= $resultado['nombre_comercial'];
             $this->tipo= $resultado['tipo'];
         }
+    }
+
+    public function obtenerDatos()
+    {
+        $sql = "select * from proveedor 
+        where id_proveedor = '$this->id_proveedor'";
+        $resultado = $this->c_conectar->get_Row($sql);
+
+        if ($resultado){
+            $this->documento= $resultado['documento'];
+            $this->razon_social= $resultado['razon_social'];
+            $this->direccion= $resultado['direccion'];
+            $this->nombre_comercial= $resultado['nombre_comercial'];
+            $this->tipo= $resultado['tipo'];
+        }
 
 
 

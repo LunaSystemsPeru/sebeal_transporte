@@ -230,4 +230,20 @@ class Contrato
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function obtener_datos()
+    {
+        $query = "SELECT * FROM contratos WHERE id_contrato = '" . $this->id . "' ";
+        $columna = $this->c_conectar->get_Row($query);
+        $this->fechaInicio=$columna["fecha_inicio"];
+        $this->fechaFin=$columna["fecha_fin"];
+        $this->duracion=$columna["duracion"];
+        $this->idProveedor=$columna["id_proveedor"];
+        $this->servicio=$columna["servicio"];
+        $this->montoPactado=$columna["monto_pactado"];
+        $this->montoPagado=$columna["monto_pagado"];
+        $this->montoFacturado=$columna["monto_facturado"];
+        $this->estado=$columna["estado"];
+        $this->idClasificacion=$columna["id_clasificacion"];
+    }
+
 }
