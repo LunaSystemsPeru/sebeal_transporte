@@ -12,7 +12,7 @@ class Contrato
     private $servicio;
     private $montoPactado;
     private $montoPagado;
-    private $MontoFacturado;
+    private $montoFacturado;
     private $estado;
     private $idClasificacion;
 
@@ -23,6 +23,7 @@ class Contrato
      */
     public function __construct()
     {
+        $this->c_conectar = Conectar::getInstancia();
     }
 
     /**
@@ -158,15 +159,15 @@ class Contrato
      */
     public function getMontoFacturado()
     {
-        return $this->MontoFacturado;
+        return $this->montoFacturado;
     }
 
     /**
-     * @param mixed $MontoFacturado
+     * @param mixed $montoFacturado
      */
-    public function setMontoFacturado($MontoFacturado)
+    public function setMontoFacturado($montoFacturado)
     {
-        $this->MontoFacturado = $MontoFacturado;
+        $this->montoFacturado = $montoFacturado;
     }
 
     /**
@@ -199,6 +200,34 @@ class Contrato
     public function setIdClasificacion($idClasificacion)
     {
         $this->idClasificacion = $idClasificacion;
+    }
+
+    public function generarCodigo()
+    {
+        $sql = "select ifnull(max(id_contrato) +1, 1) as codigo from contratos";
+        $this->id = $this->c_conectar->get_valor_query($sql, "codigo");
+    }
+
+    public function insertar()
+    {
+        $sql = "INSERT INTO contratos
+                VALUES ('$this->id',
+                        '$this->fechaInicio',
+                        '$this->fechaFin',
+                        '$this->duracion',
+                        '$this->idProveedor',
+                        '$this->servicio',
+                        '$this->montoPactado',
+                        '$this->montoPagado',
+                        '$this->montoFacturado',
+                        '$this->estado',
+                        '$this->idClasificacion');";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
+    public function verFilas()
+    {
+        $sql = "SELECT con.*,pro.razon_social FROM contratos AS con INNER JOIN proveedor AS pro ON con.id_proveedor=pro.id_proveedor";
+        return $this->c_conectar->get_Cursor($sql);
     }
 
 }

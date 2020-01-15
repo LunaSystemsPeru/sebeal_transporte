@@ -191,8 +191,8 @@ Private $c_conectar;
     }
 
     public function verFilas(){
-        $sql = "select * 
-        from pagos_frecuentes ";
+        $sql = "SELECT pf.id_frecuente, pf.servicio, p.razon_social, pf.monto, frecuencia, pagado, estado
+                FROM pagos_frecuentes AS pf INNER JOIN proveedor AS p ON p.id_proveedor = pf.id_proveedor";
         return $this->c_conectar->get_Cursor($sql);
     }
 }
