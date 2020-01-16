@@ -1,8 +1,11 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+require '../models/Envio.php';
+require '../tools/cl_varios.php';
+
+$c_envio = new Envio();
+$c_varios = new cl_varios();
 
 ?>
 <!DOCTYPE html>
@@ -77,16 +80,39 @@ $c_banco = new Banco();
                                 <caption></caption>
                                 <thead>
                                 <tr>
-                                    <th width="11%">Fecha</th>
-                                    <th width="12%">Doc. Remision</th>
-                                    <th width="10%">Remitente</th>
-                                    <th width="8%">Destinatario</th>
-                                    <th width="29%">Direccion</th>
-                                    <th width="11%">Usuario</th>
-                                    <th width="8%">Estado</th>
-                                    <th width="11%">Acciones</th>
+                                    <th width="8%">Fecha</th>
+                                    <th width="11%">Doc. Remision</th>
+                                    <th >Remitente</th>
+                                    <th >Destinatario</th>
+                                    <th >Direccion</th>
+                                    <th width="6%">Usuario</th>
+                                    <th width="5%">Estado</th>
+                                    <th width="10%">Acciones</th>
                                 </tr>
                                 </thead>
+                                <tbody>
+                                <?php
+                                foreach ($c_envio->verFilas() as $fila) {
+                                    $doc_remision = $fila['abreviatura'] . " | " . $c_varios->zerofill($fila['serie'], 4) . " - " . $c_varios->zerofill($fila['numero'], 4);
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $fila['fecha_recepcion']?></td>
+                                        <td class="text-center"><?php echo $doc_remision?></td>
+                                        <td><?php echo $fila['remitente']?></td>
+                                        <td><?php echo $fila['destinatario']?></td>
+                                        <td><?php echo $fila['destino'] . " - " . $fila['direntrega']?></td>
+                                        <td><?php echo $fila['usuario']?></td>
+                                        <td><span class="badge badge-success">Activo</span></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-success"><i class="fa fa-eye"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+
+                                </tbody>
 
                             </table>
                         </div>

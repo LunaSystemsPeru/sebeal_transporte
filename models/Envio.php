@@ -311,13 +311,15 @@ class Envio
 
     public function verFilas()
     {
-        $sql = "SELECT e.fecha_recepcion, ds.abreviatura, e.serie, e.numero, cd.razon_social as destinatario, cr.razon_social as remitente, c.direccion as direntrega, u.usuario, e.estado  
+        $sql = "SELECT e.fecha_recepcion, ds.abreviatura, e.serie, e.numero, cd.razon_social as destinatario, cr.razon_social as remitente, c.direccion as direntrega, u.usuario, e.estado, de.nombre as destino  
         FROM envios as e 
         inner join documentos_sunat ds on e.id_documento = ds.id_documento
         inner join clientes cr on e.id_remitente = cr.id_clientes
         inner join clientes cd on e.id_destinatario = cd.id_clientes
         inner join clientes_direccion c on cd.id_clientes = c.id_clientes 
-        inner join usuarios u on e.id_usuario = u.id_usuario";
+        inner join usuarios u on e.id_usuario = u.id_usuario 
+        inner join destinos_empresa de on c.id_destino = de.id_destino
+        where e.estado = 1";
         return $this->c_conectar->get_Cursor($sql);
     }
 
