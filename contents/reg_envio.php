@@ -1,7 +1,10 @@
 <?php
 session_start();
+$_SESSION['enviodetalle'] = array();
 
-require '../models/Envio.php';
+require '../models/Destino.php';
+$c_destino = new Destino();
+$c_destino->setId($_SESSION['id_origen']);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -22,6 +25,10 @@ require '../models/Envio.php';
 
     <!-- c3 plugin css -->
     <link rel="stylesheet" type="text/css" href="../public/assets/libs/c3/c3.min.css">
+
+
+    <!-- Sweet Alert-->
+    <link href="../public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
 
     <!-- App css -->
     <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -78,7 +85,7 @@ require '../models/Envio.php';
                             <div class="form-group row">
                                 <label class="col-md-4 col-form-label" for="inputDocumento">Documento</label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="select_documento" id="select_documento">
+                                    <select class="form-control" name="select_documento" id="select_documento" onchange="obtenerMisDocumentosSunat()">
                                         <option value="4">Nota de Recepcion</option>
                                         <option value="5">Guia de Remision</option>
                                     </select>
@@ -88,23 +95,28 @@ require '../models/Envio.php';
                                 <label class="col-md-4 col-form-label" for="inputSerie">Serie - Numero</label>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="txt" id="inputNumero" name="inputNumero" class="form-control" placeholder="">
+                                        <input type="txt" id="inputSerie" name="inputSerie" class="form-control text-center" placeholder="">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="input-group">
-                                        <input type="txt" id="inputSerie" name="inputSerie" class="form-control" placeholder="">
+                                        <input type="txt" id="inputNumero" name="inputNumero" class="form-control text-center" placeholder="">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-md-4 col-form-label" for="inputDocumento">Destino</label>
+                                <label class="col-md-4 col-form-label" for="selectDestino">Destino</label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <select class="form-control" name="select_documento" id="select_documento">
-                                            <option>Chimbote</option>
-                                            <option>Trujillo</option>
+                                        <select class="form-control" name="selectDestino" id="selectDestino">
+                                            <?php
+                                            foreach ($c_destino->verOtrosDestino() as $fila) {
+                                                ?>
+                                                <option value="<?php echo $fila['id_destino']?>"><?php echo $fila['nombre']?></option>
+                                                <?php
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                 </div>
@@ -112,7 +124,7 @@ require '../models/Envio.php';
 
 
                             <input type="hidden" value="0" name="inputCodigo">
-                            <button type="submit" class="btn btn-purple waves-effect waves-light mt-3">Guardar</button>
+                            <button type="button" onclick="guardarEnvio()" class="btn btn-purple waves-effect waves-light mt-3">Guardar</button>
                         </form>
                     </div>
                 </div>
@@ -151,8 +163,9 @@ require '../models/Envio.php';
                                     <div class="form-group row">
                                         <label class="col-md-2 col-form-label" for="input_remitente">Direccion</label>
                                         <div class="col-md-9">
-                                            <input type="text" placeholder="Direccion entrega" class="form-control" id="input_destino" name="input_destino">
-                                            <input type="hidden" id="hidden_id_destino" name="hidden_id_destino" value="0">
+                                            <select class="form-control" name="select_direccion" id="select_direccion">
+                                                <option>Seleccionar cliente</option>
+                                            </select>
                                         </div>
                                         <div class="col-md-1">
                                             <button class="btn btn-info"><i class="fa fa-plus"></i></button>
@@ -163,7 +176,7 @@ require '../models/Envio.php';
                                         <label class="col-md-2 col-form-label" for="inputPeso">Peso</label>
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                <input type="txt" id="inputPeso" name="inputPeso" class="form-control" placeholder="">
+                                                <input type="text" id="inputPeso" name="inputPeso" class="form-control text-right" placeholder="" value="0">
                                             </div>
                                         </div>
                                     </div>
@@ -172,7 +185,7 @@ require '../models/Envio.php';
                                         <label class="col-md-2 col-form-label" for="inputTotal">Total</label>
                                         <div class="col-md-2">
                                             <div class="input-group">
-                                                <input type="txt" id="inputTotal" name="inputTotal" class="form-control" placeholder="">
+                                                <input type="text" id="inputTotal" name="inputTotal" class="form-control" placeholder="" value="0">
                                             </div>
                                         </div>
                                     </div>
@@ -196,24 +209,25 @@ require '../models/Envio.php';
                                 <div class="form-group row">
                                     <label class="col-md-1 col-form-label" for="inputCantidad">Descripcion </label>
                                     <div class="col-md-11">
-                                        <textarea class="form-control"></textarea>
+                                        <!--<textarea class="form-control"></textarea>-->
+                                        <input type="text" class="form-control" name="inputDescripcion" id="inputDescripcion">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label class="col-md-1 col-form-label" for="inputCantidad">Cantidad</label>
                                     <div class="col-md-2">
-                                            <input type="txt" id="inputCantidad" name="inputCantidad" class="form-control" placeholder="">
+                                            <input type="text" id="inputCantidad" name="inputCantidad" class="form-control" placeholder="">
                                     </div>
                                     <label class="col-md-1 col-form-label">Und. Med</label>
                                     <div class="col-md-2">
                                         <select class="form-control" name="select_und_medida" id="select_und_medida">
-                                            <option>Cajas</option>
+                                            <option value="1">Cajas</option>
                                         </select>
                                     </div>
                                     <label class="col-md-1 col-form-label" for="inputPeso">Kgs. Total</label>
                                     <div class="col-md-2">
                                         <div class="input-group">
-                                            <input type="txt" id="inputPeso" name="inputTotal" class="form-control" placeholder="">
+                                            <input type="text" class="form-control text-center" id="inputPesoItem" name="inputPesoItem" value="0">
                                         </div>
                                     </div>
                                 </div>
@@ -221,16 +235,16 @@ require '../models/Envio.php';
                                 <div class="form-group row">
                                     <label class="col-md-1 col-form-label">P. Unit.</label>
                                     <div class="col-md-2">
-                                        <input type="text" class="form-control text-center" id="input_unitario" name="input_unitario">
+                                        <input type="text" class="form-control text-center" id="input_unitario" name="input_unitario" value="0">
                                     </div>
                                     <label class="col-md-1 col-form-label">Sub Total</label>
                                     <div class="col-md-2">
                                         <div class="input-group">
-                                            <input type="text" class="form-control text-right" id="input_subtotal" name="input_subtotal" required readonly>
+                                            <input type="text" class="form-control text-right" id="input_subtotal" name="input_subtotal" value="0" required readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-2 offset-4">
-                                        <button type="button" class="btn btn-success" id="btn_add_producto" onclick="addProductos()"><i class="fa fa-plus"></i> Agregar Item</button>
+                                        <button type="button" class="btn btn-success" id="btn_add_producto" onclick="agregarDetalle()"><i class="fa fa-plus"></i> Agregar Item</button>
                                     </div>
                                 </div>
 
@@ -304,68 +318,11 @@ require '../models/Envio.php';
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-<script lang="javascript">
-    $( document ).ready(function() {
-        //autocomplete
-        $("#input_remitente").autocomplete({
-            source: "../controller/ajax/buscar_clientes.php",
-            minLength: 2,
-            select: function (event, ui) {
-                event.preventDefault();
-                $('#hidden_id_remitente').val(ui.item.id);
-                $('#hidden_ruc_remitente').val(ui.item.ruc);
-                var tipo_remitente = ui.item.tipo;
-                if (tipo_remitente === "1") {
-                    $("#select_cliente").val(2).change();
-                    $('#hidden_id_cliente').val(ui.item.id);
-                }
-                $('#input_remitente').val(ui.item.razon_social);
-                $('#input_destinatario').focus();
-            }
-        });
+<script src="../public/assets/js/funciones_venta.js"></script>
 
-        $("#input_destinatario").autocomplete({
-            source: "../controller/ajax/buscar_clientes.php",
-            minLength: 2,
-            select: function (event, ui) {
-                event.preventDefault();
-                $('#hidden_id_destinatario').val(ui.item.id);
-                $('#hidden_ruc_destinatario').val(ui.item.ruc);
-                var tipo_remitente = ui.item.tipo;
-                if (tipo_remitente === "1") {
-                    $("#select_cliente").val(1).change();
-                    $('#hidden_id_cliente').val(ui.item.id);
-                }
-                $('#input_destinatario').val(ui.item.razon_social);
-              //  cargar_direccion();
-                $('#btn_finalizar_pedido').prop("disabled", false);
-                $('#input_destino').focus();
-            }
-        });
 
-        $("#input_producto").autocomplete({
-            source: "ajax_post/buscar_productos.php",
-            minLength: 2,
-            select: function (event, ui) {
-                event.preventDefault();
-                $('#input_cactual').val(ui.item.cantidad);
-                $('#input_precio').val(ui.item.precio);
-                $('#hidden_costo').val(ui.item.costo);
-                $('#input_lote').val(ui.item.lote);
-                $('#input_vencimiento').val(ui.item.vcto);
-                $('#hidden_id_producto').val(ui.item.id);
-                $('#hidden_descripcion_producto').val(ui.item.nombre);
-                $('#input_producto').val(ui.item.nombre);
-                $('#btn_add_producto').prop("disabled", false);
-                $('#btn_finalizar_pedido').prop("disabled", false);
-                $('#input_precio').prop("readonly", false);
-                $('#input_cventa').prop("readonly", false);
-                $('#input_cventa').focus();
-            }
-        });
-    });
-
-</script>
+<!-- Sweet Alerts js -->
+<script src="../public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
 
 </body>
 

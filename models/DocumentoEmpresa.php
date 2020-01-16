@@ -99,6 +99,19 @@ private $c_conectar;
         $this->tipo = $tipo;
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from documentos_empresa 
+        where id_documento = '$this->id_documento' and id_destino = '$this->id_destino'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        if (!empty($resultado)) {
+            $this->serie = $resultado["serie"];
+            $this->numero = $resultado["numero"];
+            $this->tipo = $resultado["tipo"];
+        }
+        return $resultado;
+    }
+
     public function verFilas()
     {
         $sql = "SELECT de.id_documento, de.id_destino, ds.abreviatura, ds.cod_sunat, ds.nombre, d.nombre as destino 

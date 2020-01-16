@@ -1,6 +1,7 @@
 <?php
 session_start();
 $_SESSION['id_usuario'] = 1;
+$_SESSION['id_origen'] = 2;
 ?>
 <!DOCTYPE html>
 <html lang="es">

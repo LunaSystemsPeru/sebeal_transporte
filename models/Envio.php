@@ -337,29 +337,18 @@ class Envio
                         '$this->id_aorigen',
                         '$this->id_adestino',
                         '$this->id_usuario',
-                        '$this->total_pagado',
+                        '$this->total_pactado',
                         '0',
                         '0',
                         '1');";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 
-    public function actualizar()
-    {
-        $sql = "UPDATE 
-                envios
-                SET nombre = '$this->nombre', 
-                abreviatura = '$this->abreviatura', 
-                cod_sunat = '$this->cod_sunat' 
-                where id_documento = '$this->id_documento'";
-        return $this->c_conectar->ejecutar_idu($sql);
-    }
-
     public function eliminar()
     {
         $sql = "DELETE
-                FROM documentos_sunat
-                WHERE id_documento = '$this->id_cliente';";
+                FROM envios
+                WHERE id_envio = '$this->id_envio'";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 }

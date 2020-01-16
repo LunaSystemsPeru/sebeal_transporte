@@ -93,6 +93,12 @@ class ClienteDireccion
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function verFilasJson()
+    {
+        $sql = "SELECT * FROM clientes_direccion where id_clientes = '$this->id_cliente'";
+        return $this->c_conectar->get_json_rows($sql);
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO clientes_direccion 

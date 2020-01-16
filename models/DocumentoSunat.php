@@ -82,12 +82,45 @@ class DocumentoSunat
         $this->cod_sunat = $cod_sunat;
     }
 
+    public function generarCodigo()
+    {
+        $sql = "select ifnull(max(id_documento) +1, 1) as codigo from documentos_sunat";
+        $this->id_documento = $this->c_conectar->get_valor_query($sql, "codigo");
+    }
+
     public function verFilas()
     {
-        $sql = "select * 
-        from documentos_sunat 
-        order by nombre asc";
+        $sql = "SELECT * FROM documentos_sunat order by nombre asc";
         return $this->c_conectar->get_Cursor($sql);
+    }
+
+    public function insertar()
+    {
+        $sql = "INSERT INTO documentos_sunat 
+                VALUES ('$this->id_documento',
+                        '$this->nombre',
+                        '$this->abreviatura',
+                        '$this->cod_sunat');";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
+
+    public function actualizar()
+    {
+        $sql = "UPDATE 
+                documentos_sunat
+                SET nombre = '$this->nombre', 
+                abreviatura = '$this->abreviatura', 
+                cod_sunat = '$this->cod_sunat' 
+                where id_documento = '$this->id_documento'";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
+
+    public function eliminar()
+    {
+        $sql = "DELETE
+                FROM documentos_sunat
+                WHERE id_documento = '$this->id_cliente';";
+        return $this->c_conectar->ejecutar_idu($sql);
     }
 
 

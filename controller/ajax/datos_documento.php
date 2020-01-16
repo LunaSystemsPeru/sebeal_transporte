@@ -1,7 +1,8 @@
 <?php
-require  "../../models/DocumentosEmpresa.php";
+session_start();
+require '../../models/DocumentoEmpresa.php';
+$c_tido = new DocumentoEmpresa();
 
-$documentosEmpresa=new DocumentosEmpresa();
-
-$documentosEmpresa->setIdDocumento(filter_input(INPUT_POST, 'id'));
-echo $documentosEmpresa->obtenerDatos_json();
+$c_tido->setIdDestino(1);
+$c_tido->setIdDocumento(filter_input(INPUT_POST, 'id_tido'));
+echo json_encode($c_tido->obtenerDatos());

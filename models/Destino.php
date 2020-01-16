@@ -3,12 +3,13 @@ require_once 'Conectar.php';
 
 class Destino
 {
-private $id;
-private $nombre;
-private $direccion;
-private $ubigeo;
+    private $id;
+    private $nombre;
+    private $direccion;
+    private $ubigeo;
 
-private $c_conectar;
+    private $c_conectar;
+
     /**
      * Destino constructor.
      */
@@ -80,11 +81,13 @@ private $c_conectar;
     {
         $this->ubigeo = $ubigeo;
     }
+
     public function generarCodigo()
     {
         $sql = "select ifnull(max(id_destino) +1, 1) as codigo from destinos_empresa";
         $this->id = $this->c_conectar->get_valor_query($sql, "codigo");
     }
+
     public function obtenerDatos()
     {
         $sql = "select * from destinos_empresa 
@@ -94,21 +97,36 @@ private $c_conectar;
         $this->nombre = $resultado['direccion'];
         $this->nombre = $resultado['ubigeo'];
     }
-    public function insertar(){
+
+    public function insertar()
+    {
         $sql = "insert into destinos_empresa values ('$this->id', '$this->nombre', '$this->direccion', '$this->ubigeo')";
         return $this->c_conectar->ejecutar_idu($sql);
     }
-    public function verFilas(){
+
+    public function verFilas()
+    {
         $sql = "select * 
         from destinos_empresa ";
         return $this->c_conectar->get_Cursor($sql);
     }
-    public function eliminar(){
+
+    public function verOtrosDestino()
+    {
+        $sql = "select * 
+        from destinos_empresa 
+        where id_destino != '$this->id'";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
+    public function eliminar()
+    {
         $sql = "delete from destinos_empresa where id_destino = '$this->id'";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 
-    public function modificar(){
+    public function modificar()
+    {
         $sql = "update destinos_empresa set nombre, direccion, ubigeo = '$this->nombre', '$this->direccion', '$this->ubigeo' where id_destino = '$this->id'";
         return $this->c_conectar->ejecutar_idu($sql);
     }
