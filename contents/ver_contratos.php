@@ -107,7 +107,7 @@ $listaContratos=$c_contrato->verFilas();
                                                 }else{
                                             echo "<span class=\"badge badge-pink\">Inactivo</span>";
                                                 } ?></span></td>
-                                        <td style="text-align: center; "><a href="ver_detalle_contrato.php?id_contrato=4"
+                                        <td style="text-align: center; "><a href="ver_detalle_contrato.php?contrato=<?php echo $item["id_contrato"]?>"
                                                                             class="btn btn-icon btn-success"
                                                                             title="Ver Detalle del Contrato"><i
                                                         class="fa fa-eye"></i></a></td>
