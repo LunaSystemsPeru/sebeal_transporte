@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+require '../models/Prestamo.php';
+$prestamo = new Prestamo();
 
+$listaPrestamos=$prestamo->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -76,11 +77,11 @@ $c_banco = new Banco();
                             <table id="tabla-ingresos" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
+                                    <th width="11%">ID</th>
                                     <th width="11%">Fecha</th>
                                     <th width="20%">Proveedor</th>
                                     <th width="10%">Monto</th>
                                     <th width="6%">Cuotas</th>
-                                    <th width="11%">Pago</th>
                                     <th width="10%">M. Cuoto</th>
                                     <th width="10%">T. Pagado</th>
                                     <th width="10%">Estado</th>
@@ -88,23 +89,32 @@ $c_banco = new Banco();
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-center">2019-03-20</td>
-                                    <td>LUNA SYSTEMS PERU</td>
-                                    <td class="text-center">500</td>
-                                    <td class="text-center">12</td>
-                                    <td class="text-center">2019-03-20</td>
-                                    <td class="text-center">1000</td>
-                                    <td class="text-center">1000</td>
-                                    <td class="text-center">
-                                        <span class="badge badge-success">Pagado</span>
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-info btn-sm" title="Ver Detalle" onclick="obtener_detalle('<?php echo $fila['id_venta']?>', '<?php echo $fila['periodo']?>')"><i class="fa fa-eye-slash"></i></button>
-                                        <!--<button class="btn btn-success btn-sm" title="Ver Pagos"><i class="fa fa-money"></i></button>-->
-                                        <button class="btn btn-icon btn-sm waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
-                                    </td>
-                                </tr>
+                                <?php
+                                foreach ($listaPrestamos as $item){?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $item["id_prestamo"]?></td>
+                                        <td class="text-center"><?php echo $item["fecha"]?></td>
+                                        <td><?php echo $item["razon_social"]?></td>
+                                        <td class="text-center"><?php echo $item["monto"]?></td>
+                                        <td class="text-center"><?php echo $item["tot_cuotas"]?></td>
+                                        <td class="text-center"><?php echo $item["monto_cuota"]?></td>
+                                        <td class="text-center"><?php echo $item["total_pagado"]?></td>
+                                        <td class="text-center"><?php
+                                            if($item["estado"]==1){
+                                                echo '<span class="badge badge-warning">Por Pagar</span>';
+                                            }else{
+                                                echo '<span class="badge badge-success">Pagado</span>';
+                                            } ?>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="ver_detalle_prestamo.php?prestamo=<?php echo $item["id_prestamo"]?>" class="btn btn-info btn-sm" title="Ver Detalle" ><i class="fa fa-eye-slash"></i></a>
+                                            <!--<button class="btn btn-success btn-sm" title="Ver Pagos"><i class="fa fa-money"></i></button>-->
+                                            <button onclick="eliminar(<?php echo $item["id_prestamo"]?>)" class="btn btn-icon btn-sm waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                <?php  }
+                                ?>
+
                                 </tbody>
                             </table>
                         </div>
@@ -186,6 +196,53 @@ $c_banco = new Banco();
 <script src="../public/assets/js/app.min.js"></script>
 
 </body>
+<script>
+    function eliminar(idC) {
+
+        Swal.fire({
+            title: '¿Desea eliminar este Prestamo?',
+            text: "escoja una opcion",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText:'Cancelar',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/del_prestamo.php",
+                    data: {inputIdPrestamo:idC},
+                    success: function (data) {
+                        console.log(data);
+                        if (IsJsonString(data)){
+                            Swal.fire(
+                                'Eliminado!',
+                                'El contrato fue eliminado con Exito',
+                                'success'
+                            ).then((result) => {
+                                location.href="ver_mis_prestamos.php";
+                            });
+
+                        }else{
+                            Swal.fire("Este Contrato no se puede eliminar!!");
+                        }
+                    }
+                });
+            }
+        })
+    }
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+
+</script>
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:59:12 GMT -->
 </html>

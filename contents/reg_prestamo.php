@@ -3,8 +3,8 @@ session_start();
 
 require '../models/Banco.php';
 
-$c_banco = new Banco();
-$c_banco->setIdEmpresa($_SESSION['id_empresa']);
+$banco = new Banco();
+$listaBancos=$banco->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,11 +67,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                     <div class="col-xl-8">
                         <div class="card">
                             <div class="card-body">
-
-
-
-
-                                <form class="" method="post" action="../controller/prestamo.php">
+                                <form class="" method="post" action="../controller/reg_prestamo.php">
                                     <div class="form-group row">
                                         <label class="col-md-2"  for="inputProbedor">Proveedor</label>
                                         <div class="col-md-8">
@@ -79,7 +75,8 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                                 </div>
-                                                <input type="text" id="inputProbedor" name="inputProbedor" class="form-control" value="">
+                                                <input type="text" id="input-b-proveedor" name="inputProveedor" class="form-control" value="">
+                                                <input type="hidden" id="id_proveedor"  name="id_proveedor" value="">
                                                 <span class="input-group-append">
                                                     <a href="reg_proveedor.php">
                                                         <button type="button" class="btn waves-effect waves-light btn-primary"><i class="fa fa-plus"></i></button>
@@ -101,6 +98,20 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
                                         <div class="col-md-4">
                                             <div class="input-group">
                                                 <input type="number" id="inputMonto" name="inputMonto" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-md-2"  for="inputMonto">Banco</label>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <select class="form-control" name="select_banco">
+                                                    <?php
+                                                    foreach ($listaBancos as $item){
+                                                        echo "<option value=\"{$item['id_banco']}\">{$item['nombre']} - S/.{$item['monto']}</option>";
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -167,16 +178,30 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);
         <!-- Bootstrap select plugin -->
         <script src="../public/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
 
-        <!-- plugins -->
+        <!-- plugins
         <script src="../public/assets/libs/c3/c3.min.js"></script>
-        <script src="../public/assets/libs/d3/d3.min.js"></script>
+        <script src="../public/assets/libs/d3/d3.min.js"></script> -->
 
-        <!-- dashboard init -->
-        <script src="../public/assets/js/pages/dashboard.init.js"></script>
+        <!-- dashboard init
+        <script src="../public/assets/js/pages/dashboard.init.js"></script> -->
 
         <!-- App js -->
         <script src="../public/assets/js/app.min.js"></script>
-        
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $( document ).ready(function() {
+                $( "#input-b-proveedor" ).autocomplete({
+                    source: "../controller/ajax/buscar_proveedor.php",
+                    minLength: 2,
+                    select: function (event, ui) {
+                        event.preventDefault();
+                        console.log(ui);
+                        $("#id_proveedor").val(ui.item.id);
+                    }
+                });
+            });
+        </script>
     </body>
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:59:12 GMT -->

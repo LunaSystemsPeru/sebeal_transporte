@@ -188,7 +188,7 @@ $listaClasi=$clasificacion->verFilas();
         <script src="../public/assets/js/pages/dashboard.init.js"></script> -->
 
         <!-- App js -->
-        <script src="../public/assets/js/app.min.js">
+        <script src="../public/assets/js/app.min.js"></script>
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
