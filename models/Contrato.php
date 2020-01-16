@@ -246,4 +246,27 @@ class Contrato
         $this->idClasificacion=$columna["id_clasificacion"];
     }
 
+    public function eliminar()
+    {
+        $sql = "DELETE
+                FROM sebeal.contratos
+                WHERE id_contrato = '$this->id';";
+
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
+
+    public function actualizarContrato()
+    {
+        $sql = "UPDATE contratos
+                SET 
+                  fecha_inicio = '$this->fechaInicio',
+                  duracion = '$this->duracion',
+                  monto_pactado = '$this->montoPactado'
+                WHERE id_contrato = '$this->id';";
+
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
+
+
+
 }

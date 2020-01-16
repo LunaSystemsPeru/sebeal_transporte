@@ -64,5 +64,14 @@ class ContratoPago
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function eliminar()
+    {
+        $sql = "DELETE
+                    FROM sebeal.contratos_pagos
+                    WHERE id_movimiento = '$this->idMovimiento'
+                        AND id_contrato = '$this->idContrato'";
+
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
 
 }

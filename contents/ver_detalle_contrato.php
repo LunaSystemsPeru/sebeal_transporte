@@ -47,6 +47,7 @@ $listaPagos=$contratoPago->verFilas();
     <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../public/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
 
 </head>
 
@@ -84,12 +85,12 @@ $listaPagos=$contratoPago->verFilas();
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Detalle de Pago Frecuente</h4>
+                        <h4 class="card-title">Detalle del Contrato</h4>
                         <div class="">
-                            <button data-toggle="modal" data-target="#modal_pago_frecuente"
+                            <button data-toggle="modal" data-target="#modal_contrato"
                                     class="btn btn-info"><i class="fa fa-edit"></i>Modificar Pago
                             </button>
-                            <button onclick=""
+                            <button onclick=" eliminarContrato(<?php echo $contrato->getId()?>)"
                                     class="btn btn-danger"><i class="fa fa-trash"></i>Eliminar
                             </button>
                         </div>
@@ -178,7 +179,7 @@ $listaPagos=$contratoPago->verFilas();
                                         <td class="text-right"><?php echo number_format($fila['sale'],2)?></td>
                                         <td class="text-right"><?php echo number_format($saldo,2)?></td>
                                         <td class="text-center">
-                                            <button class="btn btn-icons btn-danger" title="Eliminar Pago"><i class="fa fa-trash"></i></button>
+                                            <button onclick="eliminarPago(<?php echo $contrato->getId() .",".$fila["id_movimiento"]?>)" class="btn btn-icons btn-danger" title="Eliminar Pago"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>
                                     <?php
@@ -190,25 +191,7 @@ $listaPagos=$contratoPago->verFilas();
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="card-title text-bold">Ver Todos los Pagos</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Banco</th>
-                                <th>Monto</th>
-                            </tr>
-                            </thead>
-                            <tbody>
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -259,7 +242,7 @@ $listaPagos=$contratoPago->verFilas();
                     </div>
                     <div class="form-group">
                         <label for="fecha" class="col-form-label">Fecha:</label>
-                        <input type="date" value="" name="fecha" class="form-control"
+                        <input type="date" value="<?php echo date("Y-m-d");?>" name="fecha" class="form-control"
                                id="fecha">
                     </div>
                 </div>
@@ -268,6 +251,45 @@ $listaPagos=$contratoPago->verFilas();
                     <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal_contrato" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-4"
+     style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel-4">Contrato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formulario_modal_mod_pago"  method="post">
+
+                    <input type="hidden" name="idContrato" value="<?php echo $idContrato ?>">
+                    <div class="form-group">
+                        <label for="monto" class="col-form-label">Monto:</label>
+                        <input value="<?php echo $contrato->getMontoPactado()?>" required type="number" name="monto" class="form-control" id="montoUDt">
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha" class="col-form-label">Fecha:</label>
+                        <input type="date" value="<?php echo date("Y-m-d"); ?>" name="fecha" class="form-control"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha" class="col-form-label">Duracion:</label>
+                        <input type="number" value="<?php echo $contrato->getDuracion()?>"  name="duracion" class="form-control"
+                        >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="actualizarFrecuencia()">Registrar</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
@@ -290,16 +312,120 @@ $listaPagos=$contratoPago->verFilas();
 <!-- Bootstrap select plugin -->
 <script src="../public/assets/libs/bootstrap-select/bootstrap-select.min.js"></script>
 
-<!-- plugins -->
+<!-- plugins
 <script src="../public/assets/libs/c3/c3.min.js"></script>
-<script src="../public/assets/libs/d3/d3.min.js"></script>
+<script src="../public/assets/libs/d3/d3.min.js"></script>-->
 
-<!-- dashboard init -->
-<script src="../public/assets/js/pages/dashboard.init.js"></script>
+<!-- dashboard init
+<script src="../public/assets/js/pages/dashboard.init.js"></script> -->
 
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
+<script src="../public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script>
+    function isnumero(numero) {
+        return !isNaN(parseInt(numero));
+    }
 
+    function actualizarFrecuencia() {
+        if (isnumero($("#montoUDt").val())){
+            $.ajax({
+                type: "POST",
+                url: "../controller/upd_contrato.php",
+                data: $("#formulario_modal_mod_pago").serialize(),
+                success: function (data) {
+                    console.log(data);
+                    if (IsJsonString(data)){
+                        location.reload();
+
+                    }else{
+                        Swal.fire(
+                            'Error al actualizar el pago frecuente'
+                        );
+                    }
+                }
+            });
+        } else {
+            Swal.fire(
+                'Monto no valido'
+            );
+        }
+
+
+    }
+    function eliminarContrato(idC) {
+
+        Swal.fire({
+            title: '¿Desea eliminar este Contrato?',
+            text: "escoja una opcion",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText:'Cancelar',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/del_contrato.php",
+                    data: {inputIcontrato:idC},
+                    success: function (data) {
+                        console.log(data);
+                        if (IsJsonString(data)){
+                            Swal.fire(
+                                'Eliminado!',
+                                'El contrato fue eliminado con Exito',
+                                'success'
+                            ).then((result) => {
+                                location.href="ver_contratos.php";
+                            });
+
+                        }else{
+                            Swal.fire("Este Contrato no se puede eliminar!!");
+                        }
+                    }
+                });
+            }
+        })
+    }
+    function eliminarPago(idC,idM) {
+
+        Swal.fire({
+            title: '¿Desea eliminar el pago?',
+            text: "escoja una opcion",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar',
+            cancelButtonText:'Cancelar',
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "POST",
+                    url: "../controller/del_pago_contrato.php",
+                    data: {id_movimiento: idM,id_contrato:idC},
+                    success: function (data) {
+                        console.log(data);
+                        if (IsJsonString(data)){
+                           location.reload();
+                        }
+                    }
+                });
+            }
+        })
+    }
+
+    function IsJsonString(str) {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:59:12 GMT -->
