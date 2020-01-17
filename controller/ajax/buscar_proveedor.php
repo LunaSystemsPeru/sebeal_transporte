@@ -10,6 +10,7 @@ foreach ($resultados as $value) {
     $fila['id'] = $value['id_proveedor'];
     $fila['ruc'] = $value['documento'];
     $fila['razon_social'] = $value['razon_social'];
+    $fila['direccion'] = $value['direccion'];
     $fila['tipo'] = $value['tipo'];
     array_push($array_resultado, $fila);
 }

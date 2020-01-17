@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
 require '../models/CompraSunat.php';
-$c_banco = new Banco();
+require '../tools/cl_varios.php';
 
 $compra=new CompraSunat();
+$varios = new cl_varios();
 
 $listaCompra=$compra->verFilas_mostrar();
 ?>
@@ -15,7 +15,7 @@ $listaCompra=$compra->verFilas_mostrar();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Bancos - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Mis Compras - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -81,25 +81,30 @@ $listaCompra=$compra->verFilas_mostrar();
                             <table id="tabla-ingresos" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th width="6%">Id.</th>
+                                    <th width="4%">Id.</th>
                                     <th width="11%">Fecha</th>
-                                    <th width="48%">Proveedor</th>
-                                    <th width="10%">Documento</th>
-                                    <th width="10%">Total</th>
-                                    <th width="23%">Acciones</th>
+                                    <th width="">Proveedor</th>
+                                    <th width="12%">Documento</th>
+                                    <th width="8%">Total</th>
+                                    <th width="10%">Clasificacion</th>
+                                    <th width="10%">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                    <?php  foreach ($listaCompra as $item){?>
+                                    <?php
+                                    $itemv = 0;
+                                    foreach ($listaCompra as $item){
+                                        $itemv++;
+                                        ?>
                                     <tr>
-                                        <td><?php echo $item["id_compras"] ;?></td>
+                                        <td class="text-center"><?php echo $itemv ;?></td>
                                         <td class="text-center"><?php echo $item["fecha"] ;?></td>
                                         <td><?php echo $item["documento"] . " | ". $item["razon_social"] ;?></td>
-                                        <td><?php echo $item["serie"] . " | ". $item["numero"] ;?></td>
-                                        <td class="text-right"><?php echo $item["total"] ;?></td>
+                                        <td><?php echo $item["abreviatura"] . " | " . $varios->zerofill($item["serie"],4) . " - ". $varios->zerofill($item["numero"], 7) ;?></td>
+                                        <td class="text-right"><?php echo number_format($item["total"],2) ;?></td>
+                                        <td class="text-center"><?php echo $item['clasificacion'] ;?></td>
                                         <td class="text-center">
-                                            <button class="btn btn-info btn-sm" title="Ver Documento"><i class="fa fa-eye-slash"></i></button>
+                                            <button class="btn btn-info btn-sm" title="Ver Detalle de Pago"><i class="fa fa-eye"></i></button>
                                             <button onclick="eliminar (<?php echo $item["id_compras"] ;?>)" class="btn btn-danger btn-sm" title="Eliminar Documento"><i class="dripicons-trash"></i></button>
                                         </td>
                                     </tr>
@@ -166,31 +171,10 @@ $listaCompra=$compra->verFilas_mostrar();
             .then((willDelete) => {
                 if (willDelete) {
                     $(location).attr('href',"../controller/del_compra_sunat.php?id="+id);
-                    /*swal("Poof! Your imaginary file has been deleted!", {
-                        icon: "success",
-                    });
-                    window.location.href = href;*/
                 } else {
-                    //swal("Your imaginary file is safe!");
                 }
             });
-        /*swal({
-            title: "Compra",
-            text: "¿Desea eliminar este compra?",
-            type: "success",
-            showCancelButton: false,
-            //cancelButtonClass: 'btn-secondary ',
-            confirmButtonColor: "#DD6B55",
-            confirmButtonText: "Ver Ticket",
-            //cancelButtonText: "No, cancel plx!",
-            closeOnConfirm: false,
-            //closeOnCancel: false
-        }, function (isConfirm) {
-            if (isConfirm) {
 
-
-            }
-        });*/
     }
 </script>
 </body>

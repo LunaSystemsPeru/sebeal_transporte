@@ -2,11 +2,15 @@
 session_start();
 require "../models/Clasificacion.php";
 require "../models/DocumentoSunat.php";
+require "../models/Banco.php";
+
 $clasificacion = new Clasificacion();
 $documentoSunat = new DocumentoSunat();
+$banco = new Banco();
 
 $listaClasificaciones = $clasificacion->verFilas();
 $listaDocumento = $documentoSunat->verFilas();
+$listaBancos = $banco->verFilas();
 /*require '../models/Banco.php';
 
 $c_banco = new Banco();
@@ -18,7 +22,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Agregar Prestamo - Mi Agente - desarrollado por Luna Systems Peru</title>
+    <title>Agregar Doc. Compra - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -31,6 +35,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
 
     <!-- c3 plugin css -->
     <link rel="stylesheet" type="text/css" href="../public/assets/libs/c3/c3.min.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
     <!-- App css -->
     <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
@@ -85,17 +90,17 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                                 <label class="col-lg-2 control-label "
                                                        for="userName2">Proveedor </label>
                                                 <div class="col-lg-3">
-                                                    <input v-on:keyup.enter="validar_documento" v-model="documento"
+                                                    <input
                                                            class="form-control" id="documento" name="documento_ruc"
                                                            type="text">
-                                                    <input type="hidden" name="id_proveedor" v-model="id_proveedor">
+                                                    <input type="hidden" id="id_proveedor" name="id_proveedor" >
                                                 </div>
                                                 <div class="col-lg-6">
-                                                    <input v-model="razon_social" disabled class="form-control"
+                                                    <input disabled class="form-control"
                                                            id="razon_social" name="razon_social" type="text">
                                                 </div>
                                                 <div class="col-lg-1">
-                                                    <a href="reg_proveedor.php">
+                                                    <a href="reg_proveedor.php" target="_blank">
                                                         <button type="button"
                                                                 class="btn waves-effect waves-light btn-primary"><i
                                                                     class="fa fa-plus"></i></button>
@@ -106,7 +111,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                                 <label class="col-lg-2 control-label " for="password2">
                                                     Direccion</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="direccion" id="direccion" disabled name="direccion"
+                                                    <input id="direccion" disabled name="direccion"
                                                            type="text"
                                                            class="form-control">
 
@@ -121,8 +126,7 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="confirm2">Documento</label>
                                                 <div class="col-lg-3">
-                                                    <select disabled @change="obtener_datos_docuemntos"
-                                                            v-model="id_documento" id="select_documento"
+                                                    <select id="select_documento"
                                                             name="select_documento"
                                                             class="form-control">
                                                         <?php
@@ -133,23 +137,23 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <input v-model="serie_doc" name="serie" type="text"
+                                                    <input name="serie" type="text"
                                                            class="required form-control">
 
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <input v-model="numero_doc"  name="numero" type="text"
+                                                    <input name="numero" type="text"
                                                            class="required form-control">
 
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <button class="btn btn-warning">Validar</button>
+                                                    <button type="button" class="btn btn-warning">Validar</button>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label ">Fecha</label>
                                                 <div class="col-lg-3">
-                                                    <input id="" name="fecha" type="date"
+                                                    <input id="fecha" name="fecha" type="date"
                                                            class="required form-control">
 
                                                 </div>
@@ -161,6 +165,21 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                                                         <?php
                                                         foreach ($listaClasificaciones as $item)
                                                             echo "<option value='{$item['id_clasificacion']}'>{$item['nombre']}</option>";
+                                                        ?>
+
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 control-label ">Caja - Banco</label>
+                                                <div class="col-lg-10">
+
+                                                    <select id="select_banco" name="select_banco"
+                                                            class="form-control">
+                                                        <?php
+                                                        foreach ($listaBancos as $item)
+                                                            echo "<option value='{$item['id_banco']}'>".$item['nombre'] . " | S/ " .$item['monto'] ."</option>";
                                                         ?>
 
                                                     </select>
@@ -253,9 +272,15 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<script src="../public/assets/js/funciones_compra.js"></script>
+
 <script src="../public/assets/libs/vue-swal/vue-swal.js"></script>
 
-<script src="../public/assets/libs/Vue/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <script>
 
@@ -286,51 +311,6 @@ $c_banco->setIdEmpresa($_SESSION['id_empresa']);*/
                     this.sub_total = parseFloat(this.sub_total).toFixed(2)
                     this.igv=parseFloat(this.igv).toFixed(2)
                 },
-                obtener_datos_docuemntos() {
-                    this.numero_doc = "";
-                    this.serie_doc = "";
-                   /* if (this.id_documento != 0) {
-                        $.ajax({
-                            type: "POST",
-                            url: "../controller/ajax/datos_documento.php",
-                            data: {"id": this.id_documento},
-                            success: function (data) {
-                                console.log("<<" + data);
-                                var json = JSON.parse(data);
-                                app._data.numero_doc = json.numero;
-                                app._data.serie_doc = json.serie;
-                            }
-                        });
-                    }*/
-                },
-                validar_documento() {
-                    if (this.documento.length == 11) {
-
-                        $.ajax({
-                            type: "POST",
-                            url: "../controller/ajax/datos_proveedor.php",
-                            data: {"documento": this.documento},
-                            success: function (data) {
-                                console.log(data);
-                                var json = JSON.parse(data);
-                                if (-1 !== json.id_proveedor) {
-                                    app._data.id_proveedor = json.id_proveedor;
-                                    app._data.razon_social = json.razon_social;
-                                    app._data.direccion = json.direccion;
-                                    $('#select_documento').prop("disabled", false);
-                                    $("#select_documento").focus();
-                                } else {
-                                    app._data.id_proveedor = 0;
-                                    app._data.razon_social = "";
-                                    app._data.direccion = "";
-                                    alerta("NO SE ENCONTRO A ESTE PROVEEDOR");
-                                }
-                            }
-                        });
-                    } else {
-                        alerta("SOLO PUEDEN INGRESAR RUC DE 11 DIGITOS");
-                    }
-                }
             }
 
         })

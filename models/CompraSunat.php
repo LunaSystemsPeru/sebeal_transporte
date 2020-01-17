@@ -10,6 +10,8 @@ class CompraSunat
     private $numero;
     private $id_proveedor;
     private $total;
+    private $pagado;
+    private $id_clasificacion;
 
     private $c_conectar;
 
@@ -130,6 +132,38 @@ class CompraSunat
         $this->total = $total;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPagado()
+    {
+        return $this->pagado;
+    }
+
+    /**
+     * @param mixed $pagado
+     */
+    public function setPagado($pagado)
+    {
+        $this->pagado = $pagado;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdClasificacion()
+    {
+        return $this->id_clasificacion;
+    }
+
+    /**
+     * @param mixed $id_clasificacion
+     */
+    public function setIdClasificacion($id_clasificacion)
+    {
+        $this->id_clasificacion = $id_clasificacion;
+    }
+
     public function generarCodigo()
     {
         $sql = "select ifnull(max(id_compras) +1, 1) as codigo from compras_sunat";
@@ -145,7 +179,10 @@ class CompraSunat
                         '$this->serie',
                         '$this->numero',
                         '$this->id_proveedor',
-                        '$this->total');";
+                        '$this->total',
+                        '0',
+                        '$this->id_clasificacion'
+                        )";
         return $this->c_conectar->ejecutar_idu($sql);
     }
     public function eliminar()
@@ -158,18 +195,20 @@ class CompraSunat
 
     public function verFilas_mostrar()
     {
-        $sql = "SELECT 
-                  co.id_compras,
-                  co.fecha,
-                  co.total,
-                  pro.documento,
-                  pro.razon_social,
-                  co.numero,
-                  co.serie 
-                FROM
-                  compras_sunat AS co 
-                  INNER JOIN proveedor AS pro 
-                    ON co.id_proveedor = pro.id_proveedor ";
+        $sql = "SELECT co.id_compras,
+                       co.fecha,
+                       co.total,
+                       co.pagado,
+                       cm.nombre as clasificacion,
+                       ds.abreviatura,
+                       pro.documento,
+                       pro.razon_social,
+                       co.numero,
+                       co.serie
+                FROM compras_sunat AS co
+                         INNER JOIN documentos_sunat as ds on ds.id_documento = co.id_documento
+                         INNER JOIN proveedor AS pro ON co.id_proveedor = pro.id_proveedor
+                         INNER JOIN clasificacion_movimientos as cm on cm.id_clasificacion = co.id_clasificacion";
         return $this->c_conectar->get_Cursor($sql);
     }
 }
