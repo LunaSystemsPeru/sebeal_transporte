@@ -68,7 +68,7 @@ $c_varios = new cl_varios();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Envios</h2>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Recepcion de Mercaderia</h2>
                         <a href="reg_envio.php" style="margin-bottom: 10px;" type="button" class="btn btn-success waves-effect waves-light"><i class="dripicons-box mr-1">
                             </i><span>Recibir Encomienda</span></a>
                         <a href="reg_hoja_ruta.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-cart mr-1">
@@ -102,7 +102,7 @@ $c_varios = new cl_varios();
                                         <td><?php echo $fila['destinatario']?></td>
                                         <td><?php echo $fila['destino'] . " - " . $fila['direntrega']?></td>
                                         <td><?php echo $fila['usuario']?></td>
-                                        <td><span class="badge badge-success">Activo</span></td>
+                                        <td><span class="badge badge-success">por Enviar</span></td>
                                         <td class="text-center">
                                             <button class="btn btn-success"><i class="fa fa-eye"></i></button>
                                             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>

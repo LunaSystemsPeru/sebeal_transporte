@@ -226,6 +226,8 @@
                                 <ul>
                                     <li><a href="ver_clientes.php">Ver Clientes</a></li>
                                     <li><a href="ver_envios.php">Ver Encomiendas de Hoy</a></li>
+                                    <li><a href="ver_ventas.php">Ver Cobranzas</a></li>
+                                    <li><a href="ver_ventas_sunat.php">Ver Ventas SUNAT</a></li>
                                     <li><a href="ver_mis_bancos.php">Hoja de Ruta</a></li>
                                 </ul>
                             </li>
@@ -241,7 +243,7 @@
                                 <ul>
                                     <li><a href="ver_proveedores.php">Ver Proveedores</a></li>
                                     <li><a href="ver_contratos.php">Ver Contratos</a></li>
-                                    <li><a href="ver_compras.php">Ver Compras</a></li>
+                                    <li><a href="ver_compras.php">Ver Compras SUNAT</a></li>
                                     <li><a href="ver_pagos_frecuentes.php">Pagos Frecuentes</a></li>
                                     <li><a href="ver_gastos.php">Gastos</a></li>
                                     <li><a href="ver_clasificacion_movimiento.php">Clasificacion de compra</a></li>
@@ -279,10 +281,10 @@
                         <ul class="submenu megamenu">
                             <li>
                                 <ul>
-                                    <li><a href="ver_mis_prestamos.php">Destinos</a></li>
-                                    <li><a href="ver_mis_bancos.php">Documentos Sunat</a></li>
-                                    <li><a href="ver_mis_bancos.php">Mis Documentos SUNAT</a></li>
-                                    <li><a href="ver_mis_bancos.php">Unidad Medida</a></li>
+                                    <li><a href="ver_destinos.php">Destinos</a></li>
+                                    <li><a href="ver_documentos_sunat.php">Documentos Sunat</a></li>
+                                    <li><a href="ver_mis_documentos_sunat.php">Mis Documentos SUNAT</a></li>
+                                    <li><a href="ver_unidades.php">Unidad Medida</a></li>
                                     <li><a href="ver_usuarios.php">Usuarios</a></li>
 
                                 </ul>
