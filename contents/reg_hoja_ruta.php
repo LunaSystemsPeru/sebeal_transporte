@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+require '../models/Envio.php';
+require '../tools/cl_varios.php';
+
+$c_envio = new Envio();
+$c_varios = new cl_varios();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -22,6 +31,7 @@
         <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+
 
     </head>
 
@@ -120,63 +130,59 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="page-title-box">
-                            <h4 class="page-title">Agregar Encomienda</h4>
-                        </div>
-                    </div>
-                    <div class="col-xl-12">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                        <form role="form" class="form-horizontal" name="frm_envio" id="frm_envio" method="post" action="procesos/reg_envio.php">
-                            <div class="hpanel">
-                                <div class="panel-body">
-                                    <form class="form-horizontal" name="frm_agregar" method="POST">
-                                        <div class="form-group row">
-                                            <label class="col-md-2 control-label">Buscar Guia</label>
-                                            <div class="col-md-10">
-                                                <div class="input-group">
-                                                    <input class="form-control" id="input_buscar_encomienda" name="input_buscar_encomienda" placeholder="Buscar Documento de Mercaderia">
-                                                    <input type="hidden" id="hidden_id_guia" name="hidden_id_guia">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 control-label">Datos</label>
-                                            <div class="col-md-3">
-                                                <input class="form-control text-center" id="input_placa" name="input_placa" value="GR | E001 - 00001" readonly>
-                                            </div>
-                                            <div class="col-md-2">
-                                                <input class="form-control text-center" id="input_fecha" name="input_fecha" value="2019-03-30" readonly>
-                                            </div>
-                                            <label class="col-md-3 control-label">Total Peso</label>
-                                            <div class="col-md-2">
-                                                <input class="form-control text-center" id="input_fecha" name="input_fecha" value="25" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 control-label">Remitente</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" id="input_placa" name="input_placa" placeholder="Nombre Remitente" value="CONMETAL Y SERVICIOS EIRL" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 control-label">Destintario</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" id="input_brevete" name="input_brevete" placeholder="Nombre Destintario" value="OYANGUREN GIRON LUIS ENRIQUE" readonly>
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 control-label">Direccion</label>
-                                            <div class="col-md-10">
-                                                <input class="form-control" id="input_brevete" name="input_brevete" placeholder="Direccion Entrega" value="URB. EL TRAPECIO MZ S LT 3 1ERA ETAPA CHIMBOTE SANTA ANCASH" readonly>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
+                                <form class="" method="post" action="../controller/re_hoja_ruta.php">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0 table-hover">
+                                            <caption></caption>
+                                            <thead>
+                                            <tr>
+                                                <th>Seleccionar</th>
+                                                <th width="8%">Fecha</th>
+                                                <th width="11%">Doc. Remision</th>
+                                                <th >Remitente</th>
+                                                <th >Destinatario</th>
+                                                <th >Direccion</th>
+                                                <th width="6%">Usuario</th>
+                                                <th width="5%">Estado</th>
+                                                <th width="10%">Acciones</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+
+
+                                            foreach ($c_envio->verFilas() as $fila) {
+                                                $doc_remision = $fila['abreviatura'] . " | " . $c_varios->zerofill($fila['serie'], 4) . " - " . $c_varios->zerofill($fila['numero'], 4);
+                                                ?>
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <div class="form-group form-check">
+                                                            <input type="checkbox" class="form-check-input" id="checkbox" name="checkbox[]" value="<?php echo $fila['id']?>">
+                                                        </div>
+                                                    </td>
+                                                    <td><?php echo $fila['fecha_recepcion']?></td>
+                                                    <td class="text-center"><?php echo $doc_remision?></td>
+                                                    <td><?php echo $fila['remitente']?></td>
+                                                    <td><?php echo $fila['destinatario']?></td>
+                                                    <td><?php echo $fila['destino'] . " - " . $fila['direntrega']?></td>
+                                                    <td><?php echo $fila['usuario']?></td>
+                                                    <td><span class="badge badge-success">Activo</span></td>
+                                                    <td class="text-center">
+                                                        <a href="ver_detalle_pago_frecuente.php"><button type="button"class="btn btn-success"><i class="fa fa-eye"></i></button></a>
+                                                    </td>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <button class="btn btn-info"><i class="fa font-family-secondary"></i><spam>Generear Hoja de Ruta</spam></button>
+                                </form>
                             </div>
-                            </div>
-                        </form>
                         </div>
                     </div>
                 </div>
@@ -187,8 +193,6 @@
         <!-- ============================================================== -->
         <!-- End Page content -->
         <!-- ============================================================== -->
-
-
 
         <!-- Footer Start -->
         <?php require '../fixed/footer.php'?>
