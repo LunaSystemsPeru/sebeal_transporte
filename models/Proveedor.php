@@ -180,6 +180,13 @@ class Proveedor
         order by razon_social asc";
         return $this->c_conectar->get_Cursor($sql);
     }
+    public function buscarProveedorTransportistaJson($term)
+    {
+        $sql = "SELECT * FROM proveedor
+        where tipo=2 AND razon_social like '%$term%' or documento like '%$term%' 
+        order by razon_social asc";
+        return $this->c_conectar->get_Cursor($sql);
+    }
 
     public function insertar()
     {

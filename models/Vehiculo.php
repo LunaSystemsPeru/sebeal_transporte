@@ -115,6 +115,19 @@ private $c_conectar;
         $this->capacidad = $capacidad;
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from vehiculo 
+        where id_vehiculo = '$this->id_vehiculo'" ;
+        $resultado = $this->c_conectar->get_Row($sql);
+        $this->placa = $resultado['placa'];
+        $this->marca = $resultado['marca'];
+        $this->modelo = $resultado['modelo'];
+        $this->mtc = $resultado['mtc'];
+        //$this->id = $resultado['id_proveedor'];
+        $this->capacidad = $resultado['capacidad'];
+    }
+
     public function verFilas()
     {
         $sql = "SELECT id_vehiculo, placa, marca, modelo, mtc, capacidad

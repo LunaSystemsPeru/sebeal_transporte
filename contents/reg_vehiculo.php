@@ -71,28 +71,17 @@ session_start();
 
                                         <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0"
                                                  class="body current" aria-hidden="false">
-                                            <div class="form-group" id="error_ruc">
-                                                <div v-if="estado_consulta==1" class="alert alert-success"><strong>
-                                                        Espere! </strong> Estamos procesando su peticion.
-                                                </div>
-                                                <div v-if="estado_consulta==2" class="alert alert-danger"><strong>
-                                                        Error! </strong> El numero de RUC es incorrecto.
-                                                </div>
-                                                <div v-if="estado_consulta==3" class="alert alert-warning"><strong>
-                                                        Error! </strong> Ocurrio un error al procesar.
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
 
+                                            <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="userName2">Numero de
                                                     Placa</label>
                                                 <div class="col-lg-3">
-                                                    <input v-on:keyup.enter=""  required v-model="" class="form-control" id=""
+                                                    <input  required class="form-control" id=""
                                                            name="documento"
                                                            type="text">
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <button @click="validar_documento()" type="button"
+                                                    <button type="button"
                                                             class="btn waves-effect waves-light btn-primary">Validar
                                                     </button>
                                                 </div>
@@ -100,7 +89,7 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="password2">Marca:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="razon_social" name="razon_social" type="text"
+                                                    <input name="razon_social" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -108,7 +97,7 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Modelo:</label>
                                                 <div class="col-lg-2">
-                                                    <input v-model="modelo" id="modelo"
+                                                    <input  id="modelo"
                                                            name="modelo" type="text"
                                                            class="required form-control">
 
@@ -118,7 +107,7 @@ session_start();
                                                 <label class="col-lg-2 control-label "
                                                        for="">Mtc:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="direcion" name="direccion" type="text"
+                                                    <input  name="direccion" type="text"
                                                            class="required form-control">
 
                                                 </div>
@@ -126,12 +115,12 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Capacidad:</label>
                                                 <div class="col-lg-2">
-                                                    <input v-model="direcion" name="direccion" type="number"
+                                                    <input name="direccion" type="number"
                                                            class="required form-control">
                                                 </div>
                                             </div>
                                         </section>
-                                        <button type="button" @click=" enviarFormulario" class="btn btn-purple waves-effect waves-light mt-3">
+                                        <button type="button"  class="btn btn-purple waves-effect waves-light mt-3">
                                             Guardar
                                         </button>
                                     </div>
