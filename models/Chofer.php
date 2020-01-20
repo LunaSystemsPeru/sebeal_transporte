@@ -98,6 +98,12 @@ private $c_conectar;
         $this->categoria = $categoria;
     }
 
+    public function generarCodigo()
+    {
+        $sql = "select ifnull(max(id_chofer) +1, 1) as codigo from chofer";
+        $this->id_chofer = $this->c_conectar->get_valor_query($sql, "codigo");
+    }
+
     public function verFilas()
     {
         $sql = "SELECT id_chofer, brevete, datos, vencimiento, categoria

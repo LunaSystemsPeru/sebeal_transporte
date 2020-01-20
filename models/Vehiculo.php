@@ -115,6 +115,12 @@ private $c_conectar;
         $this->capacidad = $capacidad;
     }
 
+    public function generarCodigo()
+    {
+        $sql = "select ifnull(max(id_vehiculo) +1, 1) as codigo from vehiculo";
+        $this->id_vehiculo = $this->c_conectar->get_valor_query($sql, "codigo");
+    }
+
     public function verFilas()
     {
         $sql = "SELECT id_vehiculo, placa, marca, modelo, mtc, capacidad
@@ -122,4 +128,18 @@ private $c_conectar;
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function insertar()
+    {
+        $sql = "INSERT INTO vehiculo
+                VALUES
+                  (
+                    '$this->id_vehiculo',
+                    '$this->placa',
+                    '$this->marca',
+                    '$this->modelo',
+                    '$this->mtc',
+                    '$this->capacidad'
+                  ) ;";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
 }
