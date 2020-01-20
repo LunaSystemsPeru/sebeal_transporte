@@ -50,7 +50,7 @@ session_start();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
-                            <li class="breadcrumb-item active"><a href="ver_contratos.php">Compras</a></li>
+                            <li class="breadcrumb-item active"><a href="ver_chofer.php">Chofer</a></li>
                             <li class="breadcrumb-item active">Registrar</li>
                         </ol>
                     </div>
@@ -64,11 +64,10 @@ session_start();
                 <div class="card">
                     <div class="card-body">
 
-                        <form id="fmr_registro_chofer" method="post" action="../controller/.php">
+                        <form id="fmr_registro_chofer" method="post" action="../controller/reg_vehiculo.php">
                             <div role="application" class="wizard clearfix" id="steps-uid-1">
                                 <div class="row">
                                     <div class="content clearfix col-md-12">
-
                                         <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0"
                                                  class="body current" aria-hidden="false">
                                             <div class="form-group" id="error_ruc">
@@ -87,12 +86,12 @@ session_start();
                                                 <label class="col-lg-2 control-label " for="userName2">Numero de
                                                     Placa</label>
                                                 <div class="col-lg-3">
-                                                    <input v-on:keyup.enter=""  required v-model="" class="form-control" id=""
-                                                           name="documento"
+                                                    <input class="form-control" id=""
+                                                           name="placa"
                                                            type="text">
                                                 </div>
                                                 <div class="col-lg-2">
-                                                    <button @click="validar_documento()" type="button"
+                                                    <button @click="" type="button"
                                                             class="btn waves-effect waves-light btn-primary">Validar
                                                     </button>
                                                 </div>
@@ -100,9 +99,8 @@ session_start();
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="password2">Marca:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="razon_social" name="razon_social" type="text"
+                                                    <input v-model="marca" name="marca" type="text"
                                                            class="required form-control">
-
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -111,22 +109,20 @@ session_start();
                                                     <input v-model="modelo" id="modelo"
                                                            name="modelo" type="text"
                                                            class="required form-control">
-
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label "
                                                        for="">Mtc:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="direcion" name="direccion" type="text"
+                                                    <input v-model="mtc" name="mtc" type="text"
                                                            class="required form-control">
-
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Capacidad:</label>
                                                 <div class="col-lg-2">
-                                                    <input v-model="direcion" name="direccion" type="number"
+                                                    <input v-model="capacidad" name="capacidad" type="number"
                                                            class="required form-control">
                                                 </div>
                                             </div>
@@ -137,8 +133,6 @@ session_start();
                                     </div>
                                 </div>
                             </div>
-
-
                     </div>
                     </form>
                 </div>
@@ -186,96 +180,6 @@ session_start();
 <script src="../public/assets/libs/vue-swal/vue-swal.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-
-<script>
-
-    /*
-    * estado
-    *   0 => inactivo
-    *   1 => procesando
-    *   2 => error
-    * */
-    const alerta = swal;
-    var estado = false;
-
-
-    $(document).ready(function(){
-        $("#fmr_registro_proveedor").submit(function (e) {
-           // e.preventDefault();
-            console.log("........");
-            return estado;
-
-            //resto código
-
-        });
-    });
-
-
-    const app = new Vue({
-        el: "#fmr_registro_proveedor",
-        data: {
-            documento: "",
-            razon_social: "",
-            nombre_comercial: "",
-            direcion: "",
-            estado_consulta: 0
-        },
-        methods: {
-            enviarFormulario(){
-                estado=true;
-                $("#fmr_registro_proveedor").submit();
-            },
-            validar_documento() {
-                if (app._data.documento.length == 8 || app._data.documento.length == 11) {
-                    this.estado_consulta = 1;
-                    $.ajax({
-                        type: "POST",
-                        url: "../controller/ajax/validar_documento.php",
-                        data: {"numero": this.documento},
-                        success: function (data) {
-                            console.log(data);
-                            var json = JSON.parse(data);
-                            if (app._data.documento.length == 11) {
-
-
-                                if (json.success === false) {
-                                    app._data.estado_consulta = 2;
-                                }
-                                if (json.success === true) {
-                                    app._data.estado_consulta = 0;
-                                    app._data.razon_social = json.result.RazonSocial;
-                                    app._data.nombre_comercial = json.result.NombreComercial;
-                                    app._data.direcion = json.result.Direccion;
-                                }
-                            } else {
-                                if (json.success === false) {
-                                    app._data.estado_consulta = 2;
-                                }
-                                if (json.success === true) {
-                                    app._data.estado_consulta = 0;
-                                    app._data.razon_social = json.result.apellidos + " " + json.result.Nombres;
-                                    app._data.nombre_comercial = "";
-                                    app._data.direcion = "";
-                                }
-
-                            }
-
-
-                        },
-                        error: function () {
-                            app._data.estado_consulta = 3;
-                            $("#nombre_comercial").focus();
-                        }
-                    });
-                } else {
-                    alerta("SOLO PUEDEN INGRESAR 11 O 8 DIGITOS");
-                }
-
-            }
-        }
-    });
-</script>
 
 </body>
 </html>

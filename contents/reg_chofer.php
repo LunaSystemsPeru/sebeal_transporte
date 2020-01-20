@@ -1,5 +1,9 @@
 <?php
 session_start();
+require '../models/Chofer.php';
+
+$c_chofer = new Chofer();
+$lista = $c_chofer->verFilas();
 
 ?>
 <!DOCTYPE html>
@@ -59,6 +63,8 @@ session_start();
             </div>
         </div>
         <!-- end page title -->
+
+
         <div class="row justify-content-md-center">
             <div class="col-sm-12">
                 <div class="card">
@@ -71,62 +77,51 @@ session_start();
 
                                         <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0"
                                                  class="body current" aria-hidden="false">
-                                            <div class="form-group" id="error_ruc">
-                                                <div v-if="estado_consulta==1" class="alert alert-success"><strong>
-                                                        Espere! </strong> Estamos procesando su peticion.
-                                                </div>
-                                                <div v-if="estado_consulta==2" class="alert alert-danger"><strong>
-                                                        Error! </strong> El numero de RUC es incorrecto.
-                                                </div>
-                                                <div v-if="estado_consulta==3" class="alert alert-warning"><strong>
-                                                        Error! </strong> Ocurrio un error al procesar.
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
 
-                                                <label class="col-lg-2 control-label " for="userName2">Numero de
-                                                    Brevete</label>
-                                                <div class="col-lg-3">
-                                                    <input   required v-model="brevete" class="form-control" id=""
-                                                           name="brevete"
-                                                           type="text">
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <button type="button"
-                                                            class="btn waves-effect waves-light btn-primary">Validar
-                                                    </button>
-                                                </div>
-                                            </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-2 control-label " for="password2">Datos:</label>
+                                                <label class="col-lg-2 control-label " for="proveedor">Proveedor</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="datos" name="datos" type="text"
-                                                           class="required form-control">
-
+                                                    <select  class="form-control" id="" name="proveedor" type="text">
+                                                        <?php
+                                                        foreach ($lista as $prov){
+                                                        ?>
+                                                        <option value="0">SELECCIONAR</option>
+                                                        <option value="<?php echo $prov['id_proveedor']?>"><?php echo $prov['razon_social'] ?></option>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 control-label " for="brevete">Brevete</label>
+                                                <div class="col-lg-3">
+                                                    <input   class="form-control" id="" name="brevete" type="text">
+                                                </div>
+                                            </div>
+                                                <div class="form-group row">
+                                                <label class="col-lg-2 control-label " for="">Datos:</label>
+                                                <div class="col-lg-9">
+                                                    <input name="datos" type="text" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Vencimiento:</label>
                                                 <div class="col-lg-2">
-                                                    <input v-model="vencimiento" id="vencimiento"
-                                                           name="vencimiento" type="date"
-                                                           class="required form-control">
+                                                    <input id="vencimiento" name="vencimiento" type="date" class="form-control">
 
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-2 control-label "
-                                                       for="password2">Categoria:</label>
+                                                <label class="col-lg-2 control-label " for="">Categoria:</label>
                                                 <div class="col-lg-9">
-                                                    <input v-model="categoria" name="categoria" type="text"
-                                                           class="required form-control">
+                                                    <input name="categoria" type="text" class="form-control">
 
                                                 </div>
                                             </div>
                                         </section>
-                                        <button type="button"  class="btn btn-purple waves-effect waves-light mt-3">
-                                            Guardar
-                                        </button>
+                                        <input type="submit" class="btn btn-purple waves-effect waves-light mt-3" placeholder="Guardar">
+                                        
                                     </div>
                                 </div>
                             </div>
