@@ -105,4 +105,14 @@ private $c_conectar;
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function insertar()
+    {
+        $sql = "INSERT INTO envios 
+                VALUES ('$this->id_chofer',
+                        '$this->brevete',
+                        '$this->datos',
+                        '$this->vencimiento',
+                        '$this->categoria');";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
 }
