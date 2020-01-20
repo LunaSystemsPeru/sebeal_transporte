@@ -115,17 +115,10 @@ private $c_conectar;
         $this->capacidad = $capacidad;
     }
 
-    public function obtenerDatos()
+    public function generarCodigo()
     {
-        $sql = "select * from vehiculo 
-        where id_vehiculo = '$this->id_vehiculo'" ;
-        $resultado = $this->c_conectar->get_Row($sql);
-        $this->placa = $resultado['placa'];
-        $this->marca = $resultado['marca'];
-        $this->modelo = $resultado['modelo'];
-        $this->mtc = $resultado['mtc'];
-        //$this->id = $resultado['id_proveedor'];
-        $this->capacidad = $resultado['capacidad'];
+        $sql = "select ifnull(max(id_vehiculo) +1, 1) as codigo from vehiculo";
+        $this->id_vehiculo = $this->c_conectar->get_valor_query($sql, "codigo");
     }
 
     public function verFilas()
@@ -135,4 +128,18 @@ private $c_conectar;
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function insertar()
+    {
+        $sql = "INSERT INTO vehiculo
+                VALUES
+                  (
+                    '$this->id_vehiculo',
+                    '$this->placa',
+                    '$this->marca',
+                    '$this->modelo',
+                    '$this->mtc',
+                    '$this->capacidad'
+                  ) ;";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
 }
