@@ -17,6 +17,7 @@ $c_envio->setIdAorigen($_SESSION['id_origen']);
 $c_envio->setIdAdestino(filter_input(INPUT_POST, 'selectDestino'));
 $c_envio->setIdUsuario($_SESSION['id_usuario']);
 $c_envio->setTotalPactado(filter_input(INPUT_POST, 'inputTotal'));
+$c_envio->setReferencia(filter_input(INPUT_POST, 'inputReferencia'));
 
 $c_envio->generarCodigo();
 $registrado = $c_envio->insertar();

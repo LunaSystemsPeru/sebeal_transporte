@@ -3,7 +3,10 @@ session_start();
 $_SESSION['enviodetalle'] = array();
 
 require '../models/Destino.php';
+require '../models/UnidadMedida.php';
+
 $c_destino = new Destino();
+$c_unidad = new UnidadMedida();
 $c_destino->setId($_SESSION['id_origen']);
 ?>
 <!DOCTYPE html>
@@ -173,15 +176,22 @@ $c_destino->setId($_SESSION['id_origen']);
                                     </div>
 
                                     <div class="form-group row">
+                                        <label class="col-md-2 col-form-label" for="inputPeso">Referemcia</label>
+                                        <div class="col-md-4">
+                                            <div class="input-group">
+                                                <input type="text" id="inputReferencia" name="inputReferencia" class="form-control">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
                                         <label class="col-md-2 col-form-label" for="inputPeso">Peso</label>
                                         <div class="col-md-2">
                                             <div class="input-group">
                                                 <input type="text" id="inputPeso" name="inputPeso" class="form-control text-right" placeholder="" value="0">
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group row">
                                         <label class="col-md-2 col-form-label" for="inputTotal">Total</label>
                                         <div class="col-md-2">
                                             <div class="input-group">
@@ -221,7 +231,11 @@ $c_destino->setId($_SESSION['id_origen']);
                                     <label class="col-md-1 col-form-label">Und. Med</label>
                                     <div class="col-md-2">
                                         <select class="form-control" name="select_und_medida" id="select_und_medida">
-                                            <option value="1">Cajas</option>
+                                            <?php
+                                            foreach ($c_unidad->verFilas() as $fila) {
+                                                echo "<option value='".$fila['id_und']."'>".$fila['descripcion']."</option>";
+                                            }
+                                            ?>
                                         </select>
                                     </div>
                                     <label class="col-md-1 col-form-label" for="inputPeso">Kgs. Total</label>
