@@ -235,6 +235,21 @@
                     </li>
                     <li class="has-submenu">
                         <a href="#">
+                            <i class="fe-briefcase"></i>Transportistas
+                            <div class="arrow-down"></div>
+                        </a>
+                        <ul class="submenu megamenu">
+                            <li>
+                                <ul>
+                                    <li><a href="ver_transportistas.php">Ver Transportistas</a></li>
+                                    <li><a href="ver_vehiculo.php">Ver Vehiculos</a></li>
+                                    <li><a href="ver_chofer.php">Ver Choferes</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="has-submenu">
+                        <a href="#">
                             <i class="fe-briefcase"></i>Compras y Pagos
                             <div class="arrow-down"></div>
                         </a>
