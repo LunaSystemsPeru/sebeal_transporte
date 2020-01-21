@@ -4,6 +4,7 @@ require_once 'Conectar.php';
 class Chofer
 {
 private $id_chofer;
+private $id_proveedor;
 private $brevete;
 private $datos;
 private $vencimiento;
@@ -32,6 +33,22 @@ private $c_conectar;
     public function setIdChofer($id_chofer)
     {
         $this->id_chofer = $id_chofer;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdProveedor()
+    {
+        return $this->id_proveedor;
+    }
+
+    /**
+     * @param mixed $id_proveedor
+     */
+    public function setIdProveedor($id_proveedor)
+    {
+        $this->id_proveedor = $id_proveedor;
     }
 
     /**
@@ -98,11 +115,27 @@ private $c_conectar;
         $this->categoria = $categoria;
     }
 
-    public function verFilas()
+    public function generarCodigo()
     {
-        $sql = "SELECT id_chofer, brevete, datos, vencimiento, categoria
-                FROM chofer";
-        return $this->c_conectar->get_Cursor($sql);
+        $sql = "select ifnull(max(id_chofer) +1, 1) as codigo from chofer";
+        $this->id_chofer = $this->c_conectar->get_valor_query($sql, "codigo");
     }
 
+    public function verFilas()
+    {
+        $sql = "SELECT chf.id_chofer, chf.brevete, chf.datos, chf.vencimiento, chf.categoria, prv.id_proveedor, prv.razon_social
+                FROM chofer AS chf INNER JOIN proveedor  AS prv ON chf.id_chofer = prv.id_proveedor";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+    public function insertar()
+    {
+        $sql = "INSERT INTO chofer 
+                VALUES ('$this->id_chofer',
+                        '$this->brevete',
+                        '$this->datos',
+                        '$this->vencimiento',
+                        '$this->id_proveedor',
+                        '$this->categoria');";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
 }

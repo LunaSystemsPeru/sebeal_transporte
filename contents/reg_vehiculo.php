@@ -50,7 +50,7 @@ session_start();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">Inicio</a></li>
-                            <li class="breadcrumb-item active"><a href="ver_contratos.php">Compras</a></li>
+                            <li class="breadcrumb-item active"><a href="ver_chofer.php">Chofer</a></li>
                             <li class="breadcrumb-item active">Registrar</li>
                         </ol>
                     </div>
@@ -64,22 +64,20 @@ session_start();
                 <div class="card">
                     <div class="card-body">
 
-                        <form id="fmr_registro_chofer" method="post" action="../controller/.php">
+                        <form id="fmr_registro_chofer" method="post" action="../controller/reg_vehiculo.php">
                             <div role="application" class="wizard clearfix" id="steps-uid-1">
                                 <div class="row">
                                     <div class="content clearfix col-md-12">
-
                                         <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0"
                                                  class="body current" aria-hidden="false">
-                                            <div class="form-group" id="error_ruc">
-                                                <div v-if="estado_consulta==1" class="alert alert-success"><strong>
-                                                        Espere! </strong> Estamos procesando su peticion.
-                                                </div>
-                                                <div v-if="estado_consulta==2" class="alert alert-danger"><strong>
-                                                        Error! </strong> El numero de RUC es incorrecto.
-                                                </div>
-                                                <div v-if="estado_consulta==3" class="alert alert-warning"><strong>
-                                                        Error! </strong> Ocurrio un error al procesar.
+                                            <div class="form-group row">
+
+                                                <label class="col-lg-2 control-label " for="">Ruc</label>
+                                                <div class="col-lg-3">
+                                                    <input class="form-control" id="input_razon_social"
+                                                           type="text">
+                                                    <input class="form-control" id="id_proveedor"
+                                                           type="hidden" name="id_proveedor">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -87,58 +85,48 @@ session_start();
                                                 <label class="col-lg-2 control-label " for="userName2">Numero de
                                                     Placa</label>
                                                 <div class="col-lg-3">
-                                                    <input v-on:keyup.enter=""  required v-model="" class="form-control" id=""
-                                                           name="documento"
+                                                    <input class="form-control" id=""
+                                                           name="placa"
                                                            type="text">
-                                                </div>
-                                                <div class="col-lg-2">
-                                                    <button @click="validar_documento()" type="button"
-                                                            class="btn waves-effect waves-light btn-primary">Validar
-                                                    </button>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="password2">Marca:</label>
-                                                <div class="col-lg-9">
-                                                    <input v-model="razon_social" name="razon_social" type="text"
+                                                <div class="col-lg-7">
+                                                    <input name="marca" type="text"
                                                            class="required form-control">
-
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Modelo:</label>
                                                 <div class="col-lg-2">
-                                                    <input v-model="modelo" id="modelo"
+                                                    <input  id="modelo"
                                                            name="modelo" type="text"
                                                            class="required form-control">
-
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label "
                                                        for="">Mtc:</label>
-                                                <div class="col-lg-9">
-                                                    <input v-model="direcion" name="direccion" type="text"
+                                                <div class="col-lg-7">
+                                                    <input name="mtc" type="text"
                                                            class="required form-control">
-
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Capacidad:</label>
                                                 <div class="col-lg-2">
-                                                    <input v-model="direcion" name="direccion" type="number"
+                                                    <input  name="capacidad" type="number"
                                                            class="required form-control">
                                                 </div>
                                             </div>
                                         </section>
-                                        <button type="button" @click=" enviarFormulario" class="btn btn-purple waves-effect waves-light mt-3">
+                                        <button type="submit"  class="btn btn-purple waves-effect waves-light mt-3">
                                             Guardar
                                         </button>
                                     </div>
                                 </div>
                             </div>
-
-
                     </div>
                     </form>
                 </div>
@@ -184,98 +172,21 @@ session_start();
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
 <script src="../public/assets/libs/vue-swal/vue-swal.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script>
-
-    /*
-    * estado
-    *   0 => inactivo
-    *   1 => procesando
-    *   2 => error
-    * */
-    const alerta = swal;
-    var estado = false;
-
-
-    $(document).ready(function(){
-        $("#fmr_registro_proveedor").submit(function (e) {
-           // e.preventDefault();
-            console.log("........");
-            return estado;
-
-            //resto código
-
+    $(document).ready(function () {
+        $("#input_razon_social").autocomplete({
+            source: "../controller/ajax/buscar_proveedor_transportista.php",
+            minLength: 2,
+            select: function (event, ui) {
+                event.preventDefault();
+                console.log(ui);
+                $("#id_proveedor").val(ui.item.id);
+            }
         });
     });
-
-
-    const app = new Vue({
-        el: "#fmr_registro_proveedor",
-        data: {
-            documento: "",
-            razon_social: "",
-            nombre_comercial: "",
-            direcion: "",
-            estado_consulta: 0
-        },
-        methods: {
-            enviarFormulario(){
-                estado=true;
-                $("#fmr_registro_proveedor").submit();
-            },
-            validar_documento() {
-                if (app._data.documento.length == 8 || app._data.documento.length == 11) {
-                    this.estado_consulta = 1;
-                    $.ajax({
-                        type: "POST",
-                        url: "../controller/ajax/validar_documento.php",
-                        data: {"numero": this.documento},
-                        success: function (data) {
-                            console.log(data);
-                            var json = JSON.parse(data);
-                            if (app._data.documento.length == 11) {
-
-
-                                if (json.success === false) {
-                                    app._data.estado_consulta = 2;
-                                }
-                                if (json.success === true) {
-                                    app._data.estado_consulta = 0;
-                                    app._data.razon_social = json.result.RazonSocial;
-                                    app._data.nombre_comercial = json.result.NombreComercial;
-                                    app._data.direcion = json.result.Direccion;
-                                }
-                            } else {
-                                if (json.success === false) {
-                                    app._data.estado_consulta = 2;
-                                }
-                                if (json.success === true) {
-                                    app._data.estado_consulta = 0;
-                                    app._data.razon_social = json.result.apellidos + " " + json.result.Nombres;
-                                    app._data.nombre_comercial = "";
-                                    app._data.direcion = "";
-                                }
-
-                            }
-
-
-                        },
-                        error: function () {
-                            app._data.estado_consulta = 3;
-                            $("#nombre_comercial").focus();
-                        }
-                    });
-                } else {
-                    alerta("SOLO PUEDEN INGRESAR 11 O 8 DIGITOS");
-                }
-
-            }
-        }
-    });
 </script>
-
 </body>
 </html>

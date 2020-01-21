@@ -1,10 +1,11 @@
 <?php
 session_start();
 
-require '../models/Chofer.php';
+require '../models/HojaRuta.php';
 
-$chofer=new Chofer();
-$lista =$chofer->verFilas();
+$hojaRuta = new HojaRuta();
+
+$listaHojaRuta=$hojaRuta->ver_filas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +13,7 @@ $lista =$chofer->verFilas();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Choferes - Mi Chofer - desarrollado por Luna Systems Peru</title>
+    <title>Mis Envios - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -53,7 +54,7 @@ $lista =$chofer->verFilas();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Chofer</li>
+                            <li class="breadcrumb-item active">Mis Bancos</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -62,49 +63,52 @@ $lista =$chofer->verFilas();
         </div>
         <!-- end page title -->
         <div class="row">
-            <h1 class="page-title col-md-1" style="text-align: center; margin-bottom: 25px;">CHOFERES:</h1>
+
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Choferes</h2>
-                        <a href="reg_chofer.php">
-                            <button style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                                </i><span data-toggle="modal" data-target="#modal_pago_fre">Agregar</span>
-                            </button>
-                        </a>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Hojas de Ruta</h2>
+                        <a href="reg_hoja_ruta.php" style="margin-bottom: 10px;" type="button" class="btn btn-success waves-effect waves-light"><i class="dripicons-box mr-1">
+                            </i><span>Registrar</span></a>
                         <div class="table-responsive">
-                            <table id="table-choferes" class="table table-striped table-bordered table-hover">
+                            <table class="table mb-0 table-hover">
+                                <caption></caption>
                                 <thead>
                                 <tr>
-                                    <th>Id.</th>
-                                    <th>Brevete</th>
-                                    <th>Datos</th>
-                                    <th>Vencimiento</th>
-                                    <th>Categoria</th>
-                                    <th>Accionens</th>
+                                    <th >ID</th>
+                                    <th >Fecha</th>
+                                    <th >Origen</th>
+                                    <th >Destino</th>
+                                    <th >Chofer</th>
+                                    <th >Veiculo</th>
+                                    <th >Capacidad</th>
+                                    <th >Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php
+                                foreach ($listaHojaRuta as $fila) {
 
-
-                                    <?php
-                                        foreach ($lista  as $item){?>
-                                         <tr>
-                                            <td><?php echo $item["id_chofer"] ;?></td>
-                                            <td class="text-center"><?php echo $item["brevete"] ;?></td>
-                                            <td><?php echo $item["datos"] ;?></td>
-                                            <td><?php echo $item["vencimiento"] ;?></td>
-                                             <td><?php echo $item["categoria"] ;?></td>
-                                            <td class="text-center">
-                                                <a href="ver_vehiculo.php" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-eye"></i></a>
-                                            </td>
-                                        </tr>
-                                        <?php    }
                                     ?>
-
-
+                                    <tr>
+                                        <td><?php echo $fila['id_hoja_ruta']?></td>
+                                        <td><?php echo $fila['fecha']?></td>
+                                        <td><?php echo $fila['origen']?></td>
+                                        <td><?php echo $fila['destino']?></td>
+                                        <td><?php echo $fila['datos']?></td>
+                                        <td><?php echo $fila['placa']?></td>
+                                        <td><?php echo $fila['capacidad_contratada']?></td>
+                                        <td class="text-center">
+                                            <button class="btn btn-success"><i class="fa fa-eye"></i></button>
+                                            <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
 
                                 </tbody>
+
                             </table>
                         </div>
                     </div>
@@ -119,42 +123,6 @@ $lista =$chofer->verFilas();
 <!-- ============================================================== -->
 <!-- End Page content -->
 <!-- ============================================================== -->
-
-
-<!-- modales-->
-<div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header custom-modal-title" style="padding: 15px;">
-                <h4 class="custom-modal-title">Registrar</h4>
-
-            </div>
-            <div class="modal-body">
-                <div class="panel-body">
-                    <form id="reg-banco">
-                        <div class="form-group">
-                            <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Monto</label>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <!-- Footer Start -->
