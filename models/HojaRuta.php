@@ -173,6 +173,22 @@ class HojaRuta
         $this->id_hoja_ruta = $this->c_conectar->get_valor_query($sql, "codigo");
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from hoja_ruta 
+        where id_hoja_ruta = '$this->id_hoja_ruta'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        if ($resultado) {
+            $this->fecha = $resultado['fecha'];
+            $this->idOrigen = $resultado['id_origen'];
+            $this->idDestino = $resultado['id_destino'];
+            $this->idChofer = $resultado['id_chofer'];
+            $this->idVehiculo = $resultado['id_vehiculo'];
+            $this->idUsuario = $resultado['id_usuario'];
+            $this->capacidad_contratada = $resultado['capacidad_contratada'];
+        }
+    }
+
     public function inserta(){
         $sql = "insert into hoja_ruta values ('$this->id_hoja_ruta', '$this->fecha', '$this->idOrigen', '$this->idDestino', '$this->idChofer', '$this->idVehiculo', '$this->idUsuario', '$this->idContrato', '$this->capacidad_contratada')";
         return $this->c_conectar->ejecutar_idu($sql);

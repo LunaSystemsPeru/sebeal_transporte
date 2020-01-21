@@ -156,6 +156,23 @@ private $c_conectar;
         $sql="SELECT id_proveedor, razon_social FROM `proveedor` WHERE tipo=2";
         return$this->c_conectar->get_Cursor($sql);
     }
+
+    public function obtenerDatos()
+    {
+        $sql = "select * from vehiculo 
+        where id_vehiculo = '$this->id_vehiculo'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        if ($resultado) {
+            $this->placa = $resultado['placa'];
+            $this->marca = $resultado['marca'];
+            $this->modelo = $resultado['modelo'];
+            $this->mtc = $resultado['mtc'];
+            $this->idProveedor = $resultado['id_proveedor'];
+            $this->capacidad = $resultado['capacidad'];
+        }
+    }
+
+
     public function insertar()
     {
         $sql = "INSERT INTO vehiculo  

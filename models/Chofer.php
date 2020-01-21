@@ -121,6 +121,20 @@ private $c_conectar;
         $this->id_chofer = $this->c_conectar->get_valor_query($sql, "codigo");
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from chofer 
+        where id_chofer = '$this->id_chofer'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        if ($resultado) {
+            $this->brevete = $resultado['brevete'];
+            $this->datos = $resultado['datos'];
+            $this->vencimiento = $resultado['vencimiento'];
+            $this->id_proveedor = $resultado['id_proveedor'];
+            $this->categoria = $resultado['categoria'];
+        }
+    }
+
     public function verFilas()
     {
         $sql = "SELECT chf.id_chofer, chf.brevete, chf.datos, chf.vencimiento, chf.categoria, prv.id_proveedor, prv.razon_social
