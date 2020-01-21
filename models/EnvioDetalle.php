@@ -144,8 +144,9 @@ class EnvioDetalle
 
     public function verFilas()
     {
-        $sql = "SELECT *
-        from envios_detalle 
+        $sql = "SELECT ed.id_envio_detalle, ed.descripcion, ed.costo, ed.cantidad, ed.peso, um.descripcion as unidad, um.abreviatura as und_corto
+        from envios_detalle as ed 
+        inner join unidad_medida um on ed.id_und_medida = um.id_und
         where id_envio = '$this->id_envio' 
         order by descripcion asc";
         return $this->c_conectar->get_Cursor($sql);

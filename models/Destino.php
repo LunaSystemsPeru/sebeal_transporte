@@ -94,8 +94,8 @@ class Destino
         where id_destino = '$this->id'";
         $resultado = $this->c_conectar->get_Row($sql);
         $this->nombre = $resultado['nombre'];
-        $this->nombre = $resultado['direccion'];
-        $this->nombre = $resultado['ubigeo'];
+        $this->direccion = $resultado['direccion'];
+        $this->ubigeo = $resultado['ubigeo'];
     }
 
     public function insertar()

@@ -191,6 +191,21 @@ class Cliente
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from clientes 
+        where id_clientes = '$this->id_cliente'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        $this->documento = $resultado['documento'];
+        $this->razon_social = $resultado['razon_social'];
+        $this->direccion_factura = $resultado['direccion_factura'];
+        $this->telefono = $resultado['telefono'];
+        $this->tipo_cliente = $resultado['tipo_cliente'];
+        $this->ultimo_envio= $resultado['ultimo_envio'];
+        $this->costo_kilo = $resultado['costo_kilo'];
+        $this->costo_caja = $resultado['costo_caja'];
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO clientes 
