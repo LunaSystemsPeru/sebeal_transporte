@@ -104,8 +104,6 @@ $listaDestino = $destino->verFilas();
                                     <select @change="selectVeiculo($event, $event.target.selectedIndex)"
                                             class="form-control" id="select_placa"
                                             name="select_n_placa">
-                                        <option disabled selected value="-1"> Seleccione
-                                        </option>
 
                                         <option v-for="item of veiculos" v-bind:value="item.id_vehiculo">
                                             {{item.placa}}
@@ -135,8 +133,6 @@ $listaDestino = $destino->verFilas();
                                 <div class="col-md-2">
                                     <select  @change="selectChofer($event, $event.target.selectedIndex)" class="form-control" id="select_chofer"
                                             name="select_chofer">
-                                        <option disabled selected value="-1"> Seleccione
-                                        </option>
                                         <option v-for="item of choferes" v-bind:value="item.id_chofer">{{item.datos}}
                                         </option>
                                     </select>
@@ -318,7 +314,7 @@ $listaDestino = $destino->verFilas();
         methods: {
             selectVeiculo: function (event, selectedIndex) {
                 console.log(selectedIndex);
-                var obj=this.veiculos[selectedIndex-1];
+                var obj=this.veiculos[selectedIndex];
                 console.log(obj);
                 this.marca_nodelo= obj.marca+" - " +obj.modelo;
                 this.mtc=obj.mtc;
@@ -326,7 +322,7 @@ $listaDestino = $destino->verFilas();
             },
             selectChofer: function (event, selectedIndex) {
                 console.log(selectedIndex);
-                var obj=this.choferes[selectedIndex-1];
+                var obj=this.choferes[selectedIndex];
                 console.log(obj);
                 this.dato= obj.datos;
                 this.vct=obj.vencimiento;
@@ -345,7 +341,17 @@ $listaDestino = $destino->verFilas();
                 if (IsJsonString(data)) {
                     var json = JSON.parse(data);
                     app._data.choferes = json.chofer;
+
                     app._data.veiculos = json.veiculo;
+                    if (json.chofer.length>0){
+                        app._data.dato= json.chofer[0].datos;
+                        app._data.vct=json.chofer[0].vencimiento;
+                    }
+                    if (json.veiculo.length>0){
+                        app._data.marca_nodelo= json.veiculo[0].marca+" - " +json.veiculo[0].modelo;
+                        app._data.mtc=json.veiculo[0].mtc;
+                        app._data.capacidad=json.veiculo[0].capacidad;
+                    }
                 }
             }
         });
