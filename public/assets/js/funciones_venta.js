@@ -106,7 +106,11 @@ function obtenerMisDocumentosSunat() {
 }
 
 function agregarDetalle() {
-    if ($("#inputDescripcion").val() !== "" && $("#inputCantidad").val() !== "" && $("#inputCantidad").val() !== "0") {
+    if ($("#inputDescripcion").val() !== "" &&
+        $("#inputCantidad").val() !== "" &&
+        $("#inputCantidad").val() !== "0" &&
+        $("#inputPesoItem").val() !== "" &&
+        $("#input_unitario").val() !== "") {
         var parametros = {
             "action": 1,
             "descripcion": $("#inputDescripcion").val(),
@@ -118,6 +122,8 @@ function agregarDetalle() {
         };
         enviarDetalle(parametros);
         limpiarBusqueda();
+    } else {
+        alert("Faltan Ingresar Datos");
     }
 }
 

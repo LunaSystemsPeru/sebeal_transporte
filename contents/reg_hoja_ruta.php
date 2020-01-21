@@ -84,8 +84,8 @@ $listaDestino = $destino->verFilas();
                             Documento</h2>
                         <form class="" id="form_datas_ruta" method="post" action="../controller/banco.php">
                             <div class="form-group row">
-                                <label class="col-md-2" for="inputProveedor">Proveedor</label>
-                                <div class="col-md-8">
+                                <label class="col-md-1" for="inputProveedor">Proveedor</label>
+                                <div class="col-md-9">
                                     <div class="input-group">
                                         <input class="form-control" id="input_razon_social"
                                                placeholder="Buscar Empresa de Transporte" required>

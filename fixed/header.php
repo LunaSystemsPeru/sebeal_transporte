@@ -226,8 +226,8 @@
                                 <ul>
                                     <li><a href="ver_clientes.php">Ver Clientes</a></li>
                                     <li><a href="ver_envios.php">Ver Encomiendas de Hoy</a></li>
-                                    <li><a href="ver_ventas.php">Ver Cobranzas</a></li>
-                                    <li><a href="ver_ventas_sunat.php">Ver Ventas SUNAT</a></li>
+                                    <li><a href="ver_cobranzas.php">Ver Cobranzas</a></li>
+                                    <li><a href="ver_ventas.php">Ver Ventas SUNAT</a></li>
                                     <li><a href="ver_hojas_rutas.php">Hoja de Ruta</a></li>
                                 </ul>
                             </li>
