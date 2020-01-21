@@ -10,6 +10,7 @@ require '../models/HojaRutaEnvio.php';
 require '../models/Proveedor.php';
 require '../models/Vehiculo.php';
 require '../models/Chofer.php';
+require '../models/Destino.php';
 require '../tools/cl_varios.php';
 
 require('../tools/fpdf/fpdf.php');
@@ -32,6 +33,14 @@ $chofer->obtenerDatos();
 $transporte = new Proveedor();
 $transporte->setIdProveedor($vehiculo->getIdProveedor());
 $transporte->obtenerDatos();
+
+$origen = new Destino();
+$origen->setId($hoja->getIdOrigen());
+$origen->obtenerDatos();
+
+$destino = new Destino();
+$destino->setId($hoja->getIdDestino());
+$destino->obtenerDatos();
 
 $varios = new cl_varios();
 
@@ -93,10 +102,13 @@ $pdf->Cell(30, 4, "TRANSPORTISTA: ", 0, 0, 'L');
 $pdf->Cell(145, 4, $transporte->getRazonSocial() . " | " . $transporte->getDocumento(), 0, 1, 'L');
 
 $pdf->Cell(30, 4, "VEHICULO: ", 0, 0, 'L');
-$pdf->Cell(145, 4, "Placa: " . $vehiculo->getPlaca() . " - " . $vehiculo->getMarca() . " - Mod: " . $vehiculo->getModelo() . " - Capac.: " . $vehiculo->getCapacidad() , 0, 1, 'L');
+$pdf->Cell(145, 4, "Placa: " . $vehiculo->getPlaca() . " - Marca: " . $vehiculo->getMarca() . " - Mod: " . $vehiculo->getModelo() . " - Capac.: " . $vehiculo->getCapacidad() , 0, 1, 'L');
 
 $pdf->Cell(30, 4, "CHOFER: ", 0, 0, 'L');
 $pdf->Cell(145, 4, $chofer->getBrevete() . " | " . $chofer->getDatos() . " | " . $chofer->getCategoria() , 0, 1, 'L');
+
+$pdf->Cell(30, 4, "RUTA: ", 0, 0, 'L');
+$pdf->Cell(145, 4, $origen->getNombre() . " A " . $destino->getNombre() , 0, 1, 'L');
 $pdf->Ln();
 $pdf->SetFont('Arial', 'B', 9);
 $pdf->SetTextColor(255, 255, 255);  // Establece el color del texto (en este caso es blanco)
