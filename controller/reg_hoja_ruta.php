@@ -36,4 +36,3 @@ if ($hojaRuta->inserta()){
     }
     echo '{ "resul":true}';
 }
-
