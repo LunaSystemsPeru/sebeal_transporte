@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+$id_envio = filter_input(INPUT_GET, 'id_envio', FILTER_SANITIZE_NUMBER_INT);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -66,6 +67,9 @@ session_start();
                         <a href="reg_envio.php" class="btn btn-info"> <i class="fa fa-plus"></i> Enviar Mercaderia</a>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-12">
+                <iframe class="col-lg-12" height="500px" src="../reports/rpt_ticket_recepcion.php?id_envio=<?php echo $id_envio?>"></iframe>
             </div>
         </div>
         <!-- end row -->

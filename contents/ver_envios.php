@@ -104,7 +104,7 @@ $c_varios = new cl_varios();
                                         <td><?php echo $fila['usuario']?></td>
                                         <td><span class="badge badge-success">por Enviar</span></td>
                                         <td class="text-center">
-                                            <button class="btn btn-success"><i class="fa fa-eye"></i></button>
+                                            <a href="ver_preimpresion_envio.php?id_envio=<?php echo $fila['id']?>" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>

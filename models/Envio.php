@@ -340,6 +340,30 @@ class Envio
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from envios 
+        where id_envio = '$this->id_envio'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        $this->fecha_recepcion = $resultado['fecha_recepcion'];
+        $this->fecha_envio = $resultado['fecha_envio'];
+        $this->fecha_entrega = $resultado['fecha_entrega'];
+        $this->id_documento = $resultado['id_documento'];
+        $this->serie = $resultado['serie'];
+        $this->numero = $resultado['numero'];
+        $this->id_destinatario = $resultado['id_destinatario'];
+        $this->id_remitente = $resultado['id_remitente'];
+        $this->id_direccion = $resultado['id_direccion'];
+        $this->id_aorigen = $resultado['id_aorigen'];
+        $this->id_adestino = $resultado['id_adestino'];
+        $this->id_usuario = $resultado['id_usuario'];
+        $this->total_pactado = $resultado['total_pactado'];
+        $this->total_facturado = $resultado['total_facturado'];
+        $this->total_pagado = $resultado['total_pagado'];
+        $this->estado = $resultado['estado'];
+
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO envios 
