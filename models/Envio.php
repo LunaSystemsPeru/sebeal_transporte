@@ -21,6 +21,7 @@ class Envio
     private $total_facturado;
     private $total_pagado;
     private $estado; //1 para pendiente, 2 para enviado, 3 para entregado, 4 anulado
+    private $referencia;
     private $c_conectar;
 
     /**
@@ -303,6 +304,22 @@ class Envio
         $this->estado = $estado;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getReferencia()
+    {
+        return $this->referencia;
+    }
+
+    /**
+     * @param mixed $referencia
+     */
+    public function setReferencia($referencia)
+    {
+        $this->referencia = $referencia;
+    }
+
     public function generarCodigo()
     {
         $sql = "select ifnull(max(id_envio) +1, 1) as codigo from envios";
@@ -342,7 +359,8 @@ class Envio
                         '$this->total_pactado',
                         '0',
                         '0',
-                        '1');";
+                        '1',
+                        '$this->referencia');";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 

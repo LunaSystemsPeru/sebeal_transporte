@@ -162,7 +162,8 @@ function guardarEnvio() {
             "hidden_id_destinatario": $("#hidden_id_destinatario").val(),
             "select_direccion": $("#select_direccion").val(),
             "selectDestino": $("#selectDestino").val(),
-            "inputTotal": $("#inputTotal").val()
+            "inputTotal": $("#inputTotal").val(),
+            "inputReferencia": $("#inputReferencia").val()
         };
         $.ajax({
             data: parametros,
