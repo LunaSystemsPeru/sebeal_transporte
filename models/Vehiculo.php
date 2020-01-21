@@ -151,6 +151,11 @@ private $c_conectar;
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function verProveedor_transportista()
+    {
+        $sql="SELECT id_proveedor, razon_social FROM `proveedor` WHERE tipo=2";
+        return$this->c_conectar->get_Cursor($sql);
+    }
     public function insertar()
     {
         $sql = "INSERT INTO vehiculo  

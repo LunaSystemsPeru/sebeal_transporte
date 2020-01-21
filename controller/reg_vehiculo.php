@@ -8,7 +8,7 @@ $vehiculo->setPlaca(filter_input(INPUT_POST,'placa'));
 $vehiculo->setMarca(filter_input(INPUT_POST,'marca'));
 $vehiculo->setModelo(filter_input(INPUT_POST,'modelo'));
 $vehiculo->setMtc(filter_input(INPUT_POST,'mtc'));
-$vehiculo->setIdProveedor(filter_input(INPUT_POST,'id_proveedor'));
+$vehiculo->setIdProveedor(filter_input(INPUT_POST,'proveedor'));
 $vehiculo->setCapacidad(filter_input(INPUT_POST,'capacidad'));
 $vehiculo->insertar();
 

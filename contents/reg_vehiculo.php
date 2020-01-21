@@ -3,9 +3,13 @@ session_start();
 
 require '../models/Chofer.php';
 require '../models/Proveedor.php';
+require '../models/Vehiculo.php';
 
 $c_proveedor = new Proveedor();
 $idprov = $c_proveedor->verFilas();
+$c_vehiculo = new Vehiculo();
+$prov_transp = $c_vehiculo->verProveedor_transportista();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -80,7 +84,7 @@ $idprov = $c_proveedor->verFilas();
                                                 <div class="col-lg-9">
                                                     <select  class="form-control" id="" name="proveedor" type="text">
                                                         <?php
-                                                        foreach ($idprov as $prov){
+                                                        foreach ($prov_transp as $prov){
                                                             ?>
                                                             <option value="<?php echo $prov['id_proveedor']?>"><?php echo $prov['razon_social'] ?></option>
                                                             <?php
