@@ -391,6 +391,7 @@ $listaDestino = $destino->verFilas();
             select: function (event, ui) {
                 event.preventDefault();
                 console.log(ui);
+                $("#input_razon_social").val(ui.item.value);
                 $("#hidden_id_proveedor").val(ui.item.id);
                 obtener_chofer_veiculo(ui.item.id);
             }
