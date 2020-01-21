@@ -147,6 +147,12 @@ private $c_conectar;
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function verFilas_proveedor()
+    {
+        $sql = "SELECT * FROM vehiculo WHERE id_proveedor = '$this->idProveedor'";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO vehiculo  

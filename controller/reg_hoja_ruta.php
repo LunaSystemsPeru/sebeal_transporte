@@ -10,7 +10,7 @@ $hojaRutaEnvio=new HojaRutaEnvio();
 
 $hojaRuta->generarCodigo();
 
-$idProveedor= filter_input(INPUT_POST, 'hidden_id_proveedor');
+
 
 $hojaRuta->setFecha($c_varios->fecha_web_mysql(filter_input(INPUT_POST, 'input_fecha')));
 $hojaRuta->setIdOrigen($_SESSION['id_origen']);
