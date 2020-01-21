@@ -15,7 +15,7 @@ $destino = new Destino();
 
 $listaVeiculos = $vehiculo->verFilas();
 $litaChoferes = $chofer->verFilas();
-$listaDestino=$destino->verFilas();
+$listaDestino = $destino->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -100,14 +100,14 @@ $listaDestino=$destino->verFilas();
                             <div class="form-group row">
                                 <label class="col-md-1" for="inputVehiculo">Vehiculo</label>
                                 <div class="col-md-2">
-                                    <select onchange="selectVehiculo()" class="form-control" id="select_placa"
+                                    <select @change="selectChofer($event, $event.target.selectedIndex)"
+                                            class="form-control" id="select_placa"
                                             name="select_n_placa">
-                                        <?php
-                                        echo "<option selected value='0' disabled >Seleccione</option>";
-                                        foreach ($listaVeiculos as $item) {
-                                            echo "<option value='{$item['id_vehiculo']}' data='{$item['marca']} - {$item['modelo']}/{$item['mtc']}/{$item['capacidad']}'>{$item['placa']}</option>";
-                                        }
-                                        ?>
+
+                                        <option v-for="item of veiculos" v-bind:value="item.id_vehiculo">
+                                            {{item.placa}}
+                                        </option>
+
 
                                     </select>
                                 </div>
@@ -120,11 +120,11 @@ $listaDestino=$destino->verFilas();
                                            readonly>
                                 </div>
                                 <div class="col-md-2">
-                                   <a href="reg_vehiculo.php">
-                                       <button type="button" id="btn_crear_vehiculo" class="btn btn-info btn-sm"
-                                               ><i class="fa fa-plus"></i> Crear Vehiculo
-                                       </button>
-                                   </a>
+                                    <a href="reg_vehiculo.php">
+                                        <button type="button" id="btn_crear_vehiculo" class="btn btn-info btn-sm"
+                                        ><i class="fa fa-plus"></i> Crear Vehiculo
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -132,13 +132,8 @@ $listaDestino=$destino->verFilas();
                                 <div class="col-md-2">
                                     <select onchange="selectChofer()" class="form-control" id="select_chofer"
                                             name="select_chofer">
-                                        <?php
-                                        echo "<option selected value='0' disabled >Seleccione</option>";
-                                        foreach ($litaChoferes as $item) {
-                                            echo "<option value='{$item['id_chofer']}' data='{$item['datos']}/{$item['vencimiento']}' >{$item['brevete']}</option>";
-                                        }
-                                        ?>
-
+                                        <option v-for="item of choferes" v-bind:value="item.id_chofer">{{item.datos}}
+                                        </option>
                                     </select>
                                 </div>
                                 <div class="col-md-5">
@@ -152,7 +147,7 @@ $listaDestino=$destino->verFilas();
                                 <div class="col-md-2">
                                     <a href="reg_chofer.php">
                                         <button type="button" id="btn_crear_chofer" class="btn btn-info btn-sm"
-                                                ><i class="fa fa-plus"></i> Agr. Chofer
+                                        ><i class="fa fa-plus"></i> Agr. Chofer
                                         </button>
                                     </a>
 
@@ -165,8 +160,8 @@ $listaDestino=$destino->verFilas();
                                     <select class="form-control" name="select_ciudad" id="select_ciudad">
                                         <?php
                                         foreach ($listaDestino as $item) {
-                                            if ($item['id_destino']!=$_SESSION['id_origen'])
-                                            echo "<option value='{$item['id_destino']}'>{$item['nombre']}</option>";
+                                            if ($item['id_destino'] != $_SESSION['id_origen'])
+                                                echo "<option value='{$item['id_destino']}'>{$item['nombre']}</option>";
                                         }
                                         ?>
 
@@ -248,7 +243,8 @@ $listaDestino=$destino->verFilas();
                                     </tbody>
                                 </table>
                             </div>
-                            <div onclick="enviarFormulario()" class="btn btn-info"><i class="fa font-family-secondary"></i>
+                            <div onclick="enviarFormulario()" class="btn btn-info"><i
+                                        class="fa font-family-secondary"></i>
                                 <spam>Generear Hoja de Ruta</spam>
                             </div>
                         </form>
@@ -294,7 +290,42 @@ $listaDestino=$destino->verFilas();
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="../public/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script>
+    const app = new Vue({
+        el: "#form_datas_ruta",
+        data: {
+            choferes: [],
+            veiculos: []
+        },
+        methods: {
+            selectChofer: function (event, selectedIndex) {
+                console.log(selectedIndex);
+
+            },
+            selectVeiculo: function (event, selectedIndex) {
+                console.log(selectedIndex);
+
+            }
+        }
+    });
+
+    function obtener_chofer_veiculo(id) {
+        $.ajax({
+            type: "GET",
+            url: "../controller/ajax/obtener_veiculos_chofer.php?id_proveedor=" + id,
+            success: function (data) {
+                console.log(data);
+                if (IsJsonString(data)) {
+                    var json = JSON.parse(data);
+                    app._data.choferes = json.chofer;
+                    app._data.veiculos = json.veiculo;
+                }
+            }
+        });
+    }
+
+
     function IsJsonString(str) {
         try {
             JSON.parse(str);
@@ -304,26 +335,27 @@ $listaDestino=$destino->verFilas();
         return true;
     }
 
-    function enviarFormulario(){
+    function enviarFormulario() {
 
         $.ajax({
             type: "POST",
             url: "../controller/re_hoja_ruta.php",
-            data: $("#form_datas_ruta").serialize()+"&"+$("#data_envios").serialize(),
+            data: $("#form_datas_ruta").serialize() + "&" + $("#data_envios").serialize(),
             success: function (data) {
                 console.log(data);
-                if (IsJsonString(data)){
-                    location.href="ver_hojas_rutas.php";
-                   /*Swal.fire(
-                        'Eliminado!',
-                        'Se registro con exito la Guia de Remision',
-                        'success'
-                    ).then((result) => {
-                    });*/
+                if (IsJsonString(data)) {
+                    location.href = "ver_hojas_rutas.php";
+                    /*Swal.fire(
+                         'Eliminado!',
+                         'Se registro con exito la Guia de Remision',
+                         'success'
+                     ).then((result) => {
+                     });*/
                 }
             }
         });
     }
+
     $(document).ready(function () {
         $("#input_razon_social").autocomplete({
             source: "../controller/ajax/buscar_proveedor_transportista.php",
@@ -332,6 +364,7 @@ $listaDestino=$destino->verFilas();
                 event.preventDefault();
                 console.log(ui);
                 $("#hidden_id_proveedor").val(ui.item.id);
+                obtener_chofer_veiculo(ui.item.id);
             }
         });
     });

@@ -44,8 +44,6 @@ private $c_conectar;
         $this->idProveedor = $idProveedor;
     }
 
-
-
     /**
      * @param mixed $id_vehiculo
      */
@@ -144,6 +142,12 @@ private $c_conectar;
     {
         $sql = "SELECT id_vehiculo, placa, marca, modelo, mtc, capacidad
                 FROM vehiculo";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
+    public function verFilas_proveedor()
+    {
+        $sql = "SELECT * FROM vehiculo WHERE id_proveedor = '$this->idProveedor'";
         return $this->c_conectar->get_Cursor($sql);
     }
 

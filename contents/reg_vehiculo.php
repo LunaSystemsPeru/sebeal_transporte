@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+require '../models/Chofer.php';
+require '../models/Proveedor.php';
+
+$c_proveedor = new Proveedor();
+$idprov = $c_proveedor->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -71,53 +76,49 @@ session_start();
                                         <section id="steps-uid-1-p-0" role="tabpanel" aria-labelledby="steps-uid-1-h-0"
                                                  class="body current" aria-hidden="false">
                                             <div class="form-group row">
-
-                                                <label class="col-lg-2 control-label " for="">Ruc</label>
-                                                <div class="col-lg-3">
-                                                    <input class="form-control" id="input_razon_social"
-                                                           type="text">
-                                                    <input class="form-control" id="id_proveedor"
-                                                           type="hidden" name="id_proveedor">
+                                                <label class="col-lg-2 control-label " for="proveedor">Proveedor</label>
+                                                <div class="col-lg-9">
+                                                    <select  class="form-control" id="" name="proveedor" type="text">
+                                                        <?php
+                                                        foreach ($idprov as $prov){
+                                                            ?>
+                                                            <option value="<?php echo $prov['id_proveedor']?>"><?php echo $prov['razon_social'] ?></option>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
+
                                             <div class="form-group row">
 
-                                                <label class="col-lg-2 control-label " for="userName2">Numero de
-                                                    Placa</label>
+                                                <label class="col-lg-2 control-label " for="userName2">Numero de Placa</label>
                                                 <div class="col-lg-3">
-                                                    <input class="form-control" id=""
-                                                           name="placa"
-                                                           type="text">
+                                                    <input class="form-control" id="" name="placa" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="password2">Marca:</label>
                                                 <div class="col-lg-7">
-                                                    <input name="marca" type="text"
-                                                           class="required form-control">
+                                                    <input name="marca" type="text" class="required form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Modelo:</label>
                                                 <div class="col-lg-2">
-                                                    <input  id="modelo"
-                                                           name="modelo" type="text"
-                                                           class="required form-control">
+                                                    <input  id="modelo" name="modelo" type="text" class="required form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-2 control-label "
-                                                       for="">Mtc:</label>
+                                                <label class="col-lg-2 control-label " for="">Mtc:</label>
                                                 <div class="col-lg-7">
-                                                    <input name="mtc" type="text"
-                                                           class="required form-control">
+                                                    <input name="mtc" type="text" class="required form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Capacidad:</label>
                                                 <div class="col-lg-2">
-                                                    <input  name="capacidad" type="number"
-                                                           class="required form-control">
+                                                    <input  name="capacidad" type="number" class="required form-control">
                                                 </div>
                                             </div>
                                         </section>
