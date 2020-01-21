@@ -149,7 +149,7 @@ private $c_conectar;
 
     public function insertar()
     {
-        $sql = "INSERT INTO vehiculo
+        $sql = "INSERT INTO vehiculo  
                 VALUES
                   (
                     '$this->id_vehiculo',
