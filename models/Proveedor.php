@@ -154,6 +154,11 @@ class Proveedor
             $this->tipo= $resultado['tipo'];
         }
     }
+    public function verTransportista()
+    {
+        $sql = "SELECT id_proveedor, documento, razon_social, direccion, nombre_comercial, tipo FROM `proveedor` WHERE tipo=2";
+        return $this->c_conectar->get_Cursor($sql);
+    }
 
     public function obtenerDatos()
     {

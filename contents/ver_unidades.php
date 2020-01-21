@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require '../models/Usuario.php';
-$c_usuario = new Usuario();
+require '../models/UnidadMedida.php';
+$c_unidad = new UnidadMedida();
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ $c_usuario = new Usuario();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Usuarios - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
+    <title>Unidades - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -52,7 +52,7 @@ $c_usuario = new Usuario();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Usuarios</li>
+                            <li class="breadcrumb-item active">Unidades</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -65,35 +65,31 @@ $c_usuario = new Usuario();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Usuarios</h2>
-                        <a href="reg_usuario.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                            </i><span>Nuevo usuario</span></a>
+                        <h2 class="page-title col-md-12" style="text-align: center;">Unidades</h2>
+                        <a href="reg_unidad_medida.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
+                            </i><span>Nueva Unidad</span></a>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">F. Nac.</th>
-                                    <th scope="col">Agencia</th>
-                                    <th scope="col">F. Ingreso</th>
+                                    <th scope="col">Descripcion</th>
+                                    <th scope="col">Abreviado</th>
+                                    <th scope="col">Cod. Sunat</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <?php
-                                $a_usuarios = $c_usuario->verFila_usuario();
+                                $a_usuarios = $c_unidad->verFila_Medida();
                                 foreach ($a_usuarios as $filas) {
                                     ?>
                                     <tr>
-                                        <td><?php echo $filas['id_usuario'] ?></td>
-                                        <td><?php echo $filas['usuario'] ?></td>
-                                        <td><?php echo $filas['datos'] ?></td>
-                                        <td><?php echo $filas['fecha_nacimiento'] ?></td>
-                                        <td><?php echo $filas['id_agencia'] ?></td>
-                                        <td><?php echo $filas['fecha_ingreso'] ?></td>
+                                        <td><?php echo $filas['id_und'] ?></td>
+                                        <td><?php echo $filas['descripcion'] ?></td>
+                                        <td><?php echo $filas['abreviatura'] ?></td>
+                                        <td><?php echo $filas['cod_sunat'] ?></td>
                                         <td class="text-center">
                                             <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
                                             <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
