@@ -3,12 +3,10 @@ session_start();
 require '../models/HojaRuta.php';
 require '../tools/cl_varios.php';
 require '../models/HojaRutaEnvio.php';
-require '../models/Vehiculo.php';
 
 $hojaRuta=new HojaRuta();
 $c_varios=new cl_varios();
 $hojaRutaEnvio=new HojaRutaEnvio();
-$vehiculo=new Vehiculo();
 
 $hojaRuta->generarCodigo();
 
@@ -22,14 +20,10 @@ $hojaRuta->setIdVehiculo(filter_input(INPUT_POST, 'select_n_placa'));
 $hojaRuta->setIdUsuario($_SESSION['id_usuario']);
 $hojaRuta->setIdContrato(1);
 
-$vehiculo->setIdVehiculo($hojaRuta->getIdVehiculo());
-$vehiculo->obtenerDatos();
 
-
-$hojaRuta->setCapacidadContratada($vehiculo->getCapacidad());
 $hojaRutaEnvio->setIdHojaRuta($hojaRuta->getIdHojaRuta());
 
-//$hojaRuta->setCapacidadContratada(filter_input(INPUT_POST, ''));
+$hojaRuta->setCapacidadContratada(filter_input(INPUT_POST, 'input_capacidad'));
 
 if ($hojaRuta->inserta()){
 

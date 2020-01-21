@@ -105,7 +105,7 @@ $listaDestino=$destino->verFilas();
                                         <?php
                                         echo "<option selected value='0' disabled >Seleccione</option>";
                                         foreach ($listaVeiculos as $item) {
-                                            echo "<option value='{$item['id_vehiculo']}' data='{$item['marca']} - {$item['modelo']}/{$item['mtc']}'>{$item['placa']}</option>";
+                                            echo "<option value='{$item['id_vehiculo']}' data='{$item['marca']} - {$item['modelo']}/{$item['mtc']}/{$item['capacidad']}'>{$item['placa']}</option>";
                                         }
                                         ?>
 
@@ -178,6 +178,17 @@ $listaDestino=$destino->verFilas();
                                            value="<?php echo date("d/m/Y") ?>" readonly>
                                 </div>
                             </div>
+                            <div class="form-group row">
+                                <label class="col-md-1 control-label">Capacidad</label>
+
+                                <div class="col-md-2">
+                                    <input id="cap_veiculo" class="form-control" disabled>
+                                </div>
+                                <label class="col-md-1 control-label">Solicitada</label>
+                                <div class="col-md-2">
+                                    <input id="" name="input_capacidad" class="form-control" type="number">
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -186,7 +197,7 @@ $listaDestino=$destino->verFilas();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <form id="data_envios" class="" method="post" action="../controller/re_hoja_ruta.php">
+                        <form id="data_envios" class="" method="post" action="../controller/reg_hoja_ruta.php">
                             <div class="table-responsive">
                                 <table class="table mb-0 table-hover">
                                     <caption></caption>
@@ -331,6 +342,7 @@ $listaDestino=$destino->verFilas();
         var valor = combo.options[combo.selectedIndex].getAttribute("data").split("/");
         $("#input_marca").val(valor[0]);
         $("#input_mtc").val(valor[1]);
+        $("#cap_veiculo").val(valor[2]);
     }
 
     function selectChofer() {

@@ -127,6 +127,14 @@ private $c_conectar;
                 FROM chofer AS chf INNER JOIN proveedor  AS prv ON chf.id_chofer = prv.id_proveedor";
         return $this->c_conectar->get_Cursor($sql);
     }
+
+    public function verFilas_proveedor()
+    {
+        $sql = "SELECT chf.id_chofer, chf.brevete, chf.datos, chf.vencimiento, chf.categoria, prv.id_proveedor, prv.razon_social
+                FROM chofer AS chf INNER JOIN proveedor  AS prv ON chf.id_chofer = prv.id_proveedor";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO chofer 
