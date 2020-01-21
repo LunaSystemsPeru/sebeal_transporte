@@ -12,6 +12,8 @@ class HojaRuta
     private $idUsuario;
     private $idContrato;
     private $capacidad_contratada;
+    private $monto_contrato;
+    private $monto_facturado;
 
     private $c_conectar;
 
@@ -22,6 +24,39 @@ class HojaRuta
     {
         $this->c_conectar = Conectar::getInstancia();
     }
+
+    /**
+     * @return mixed
+     */
+    public function getMontoContrato()
+    {
+        return $this->monto_contrato;
+    }
+
+    /**
+     * @param mixed $monto_contrato
+     */
+    public function setMontoContrato($monto_contrato)
+    {
+        $this->monto_contrato = $monto_contrato;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMontoFacturado()
+    {
+        return $this->monto_facturado;
+    }
+
+    /**
+     * @param mixed $monto_facturado
+     */
+    public function setMontoFacturado($monto_facturado)
+    {
+        $this->monto_facturado = $monto_facturado;
+    }
+
 
     /**
      * @return mixed
@@ -190,7 +225,7 @@ class HojaRuta
     }
 
     public function inserta(){
-        $sql = "insert into hoja_ruta values ('$this->id_hoja_ruta', '$this->fecha', '$this->idOrigen', '$this->idDestino', '$this->idChofer', '$this->idVehiculo', '$this->idUsuario', '$this->idContrato', '$this->capacidad_contratada')";
+        $sql = "insert into hoja_ruta values ('$this->id_hoja_ruta', '$this->fecha', '$this->idOrigen', '$this->idDestino', '$this->idChofer', '$this->idVehiculo', '$this->idUsuario', '$this->capacidad_contratada','$this->monto_contrato','$this->monto_facturado')";
         return $this->c_conectar->ejecutar_idu($sql);
     }
     public function ver_filas(){

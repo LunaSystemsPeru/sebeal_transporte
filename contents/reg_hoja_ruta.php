@@ -42,6 +42,7 @@ $listaDestino = $destino->verFilas();
     <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css"/>
     <link href="../public/assets/libs/sweetalert2/sweetalert2.min.css"/>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
 
 
 </head>
@@ -100,9 +101,11 @@ $listaDestino = $destino->verFilas();
                             <div class="form-group row">
                                 <label class="col-md-1" for="inputVehiculo">Vehiculo</label>
                                 <div class="col-md-2">
-                                    <select @change="selectChofer($event, $event.target.selectedIndex)"
+                                    <select @change="selectVeiculo($event, $event.target.selectedIndex)"
                                             class="form-control" id="select_placa"
                                             name="select_n_placa">
+                                        <option disabled selected value="-1"> Seleccione
+                                        </option>
 
                                         <option v-for="item of veiculos" v-bind:value="item.id_vehiculo">
                                             {{item.placa}}
@@ -112,11 +115,11 @@ $listaDestino = $destino->verFilas();
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <input class="form-control" id="input_marca" name="input_marca"
+                                    <input v-model="marca_nodelo" class="form-control" id="input_marca" name="input_marca"
                                            placeholder="Marca y Modelo" readonly>
                                 </div>
                                 <div class="col-md-3">
-                                    <input class="form-control" id="input_mtc" name="input_mtc" placeholder="MTC"
+                                    <input v-model="mtc" class="form-control" id="input_mtc" name="input_mtc" placeholder="MTC"
                                            readonly>
                                 </div>
                                 <div class="col-md-2">
@@ -130,18 +133,20 @@ $listaDestino = $destino->verFilas();
                             <div class="form-group row">
                                 <label class="col-md-1 control-label">Chofer</label>
                                 <div class="col-md-2">
-                                    <select onchange="selectChofer()" class="form-control" id="select_chofer"
+                                    <select  @change="selectChofer($event, $event.target.selectedIndex)" class="form-control" id="select_chofer"
                                             name="select_chofer">
+                                        <option disabled selected value="-1"> Seleccione
+                                        </option>
                                         <option v-for="item of choferes" v-bind:value="item.id_chofer">{{item.datos}}
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-md-5">
-                                    <input class="form-control" id="input_datos" name="input_datos"
+                                    <input v-model="dato" class="form-control" id="input_datos" name="input_datos"
                                            placeholder="Apellidos y Nombres del Chofer" readonly>
                                 </div>
                                 <div class="col-md-2">
-                                    <input class="form-control" id="input_vcto" name="input_vcto"
+                                    <input v-model="vct" class="form-control" id="input_vcto" name="input_vcto"
                                            placeholder="Vcto Brevete" readonly>
                                 </div>
                                 <div class="col-md-2">
@@ -177,11 +182,15 @@ $listaDestino = $destino->verFilas();
                                 <label class="col-md-1 control-label">Capacidad</label>
 
                                 <div class="col-md-2">
-                                    <input id="cap_veiculo" class="form-control" disabled>
+                                    <input v-model="capacidad"  id="cap_veiculo" class="form-control" disabled>
                                 </div>
                                 <label class="col-md-1 control-label">Solicitada</label>
                                 <div class="col-md-2">
-                                    <input id="" name="input_capacidad" class="form-control" type="number">
+                                    <input id="" name="input_capacidad" class="form-control" >
+                                </div>
+                                <label class="col-md-1 control-label">Monto Contrato</label>
+                                <div class="col-md-2">
+                                    <input   name="input_monto_contrato" class="form-control" >
                                 </div>
                             </div>
                         </form>
@@ -202,8 +211,9 @@ $listaDestino = $destino->verFilas();
                                         <th width="8%">Fecha</th>
                                         <th width="11%">Doc. Remision</th>
                                         <th>Remitente</th>
+                                        <th width="11%">Doc Remite</th>
                                         <th>Destinatario</th>
-                                        <th>Direccion</th>
+                                        <th>Destino</th>
                                         <th width="6%">Usuario</th>
                                         <th width="5%">Estado</th>
                                         <th width="10%">Acciones</th>
@@ -226,8 +236,9 @@ $listaDestino = $destino->verFilas();
                                             <td><?php echo $fila['fecha_recepcion'] ?></td>
                                             <td class="text-center"><?php echo $doc_remision ?></td>
                                             <td><?php echo $fila['remitente'] ?></td>
+                                            <td><?php echo "GR | " . $fila['referencia'] ?></td>
                                             <td><?php echo $fila['destinatario'] ?></td>
-                                            <td><?php echo $fila['destino'] . " - " . $fila['direntrega'] ?></td>
+                                            <td><?php echo $fila['destino'] ?></td>
                                             <td><?php echo $fila['usuario'] ?></td>
                                             <td><span class="badge badge-success">Activo</span></td>
                                             <td class="text-center">
@@ -296,15 +307,30 @@ $listaDestino = $destino->verFilas();
         el: "#form_datas_ruta",
         data: {
             choferes: [],
-            veiculos: []
+            marca_nodelo:"",
+            mtc:"",
+            veiculos: [],
+            dato:"",
+            vct:"",
+            capacidad:""
+
         },
         methods: {
-            selectChofer: function (event, selectedIndex) {
-                console.log(selectedIndex);
-
-            },
             selectVeiculo: function (event, selectedIndex) {
                 console.log(selectedIndex);
+                var obj=this.veiculos[selectedIndex-1];
+                console.log(obj);
+                this.marca_nodelo= obj.marca+" - " +obj.modelo;
+                this.mtc=obj.mtc;
+                this.capacidad=obj.capacidad;
+            },
+            selectChofer: function (event, selectedIndex) {
+                console.log(selectedIndex);
+                var obj=this.choferes[selectedIndex-1];
+                console.log(obj);
+                this.dato= obj.datos;
+                this.vct=obj.vencimiento;
+
 
             }
         }
@@ -315,7 +341,7 @@ $listaDestino = $destino->verFilas();
             type: "GET",
             url: "../controller/ajax/obtener_veiculos_chofer.php?id_proveedor=" + id,
             success: function (data) {
-                console.log(data);
+               // console.log(data);
                 if (IsJsonString(data)) {
                     var json = JSON.parse(data);
                     app._data.choferes = json.chofer;
@@ -339,7 +365,7 @@ $listaDestino = $destino->verFilas();
 
         $.ajax({
             type: "POST",
-            url: "../controller/re_hoja_ruta.php",
+            url: "../controller/reg_hoja_ruta.php",
             data: $("#form_datas_ruta").serialize() + "&" + $("#data_envios").serialize(),
             success: function (data) {
                 console.log(data);
@@ -351,6 +377,8 @@ $listaDestino = $destino->verFilas();
                          'success'
                      ).then((result) => {
                      });*/
+                }else{
+                    alert("Error al registrar");
                 }
             }
         });
@@ -370,20 +398,6 @@ $listaDestino = $destino->verFilas();
     });
 
 
-    function selectVehiculo() {
-        var combo = document.getElementById("select_placa");
-        var valor = combo.options[combo.selectedIndex].getAttribute("data").split("/");
-        $("#input_marca").val(valor[0]);
-        $("#input_mtc").val(valor[1]);
-        $("#cap_veiculo").val(valor[2]);
-    }
-
-    function selectChofer() {
-        var combo = document.getElementById("select_chofer");
-        var valor = combo.options[combo.selectedIndex].getAttribute("data").split("/");
-        $("#input_datos").val(valor[0]);
-        $("#input_vcto").val(valor[1]);
-    }
 </script>
 
 
