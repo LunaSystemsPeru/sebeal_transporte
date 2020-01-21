@@ -175,7 +175,7 @@ $listaDestino = $destino->verFilas();
                                 <label class="col-md-1 control-label">Fecha</label>
                                 <div class="col-md-2">
                                     <input id="input_fecha" name="input_fecha" class="form-control text-center"
-                                           value="<?php echo date("d/m/Y") ?>" readonly>
+                                           value="<?php echo date("d/m/Y") ?>" >
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -242,7 +242,7 @@ $listaDestino = $destino->verFilas();
                                             <td><?php echo $fila['usuario'] ?></td>
                                             <td><span class="badge badge-success">Activo</span></td>
                                             <td class="text-center">
-                                                <a href="ver_detalle_pago_frecuente.php">
+                                                <a href="ver_detalle_pago_frecuente.php" target="_blank">
                                                     <button type="button" class="btn btn-success"><i
                                                                 class="fa fa-eye"></i></button>
                                                 </a>
