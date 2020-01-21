@@ -1,4 +1,4 @@
-<?php
+mfg245<?php
 
 require '../models/Vehiculo.php';
 
@@ -9,6 +9,8 @@ $vehiculo->setMarca(filter_input(INPUT_POST,'marca'));
 $vehiculo->setModelo(filter_input(INPUT_POST,'modelo'));
 $vehiculo->setMtc(filter_input(INPUT_POST,'mtc'));
 $vehiculo->setCapacidad(filter_input(INPUT_POST,'capacidad'));
+$vehiculo->setIdProveedor(filter_input(INPUT_POST,'id_proveedor'));
+
 $vehiculo->insertar();
 
-header('location: /contents/ver_vehiculo.php');
+header('location: ../contents/ver_vehiculo.php');

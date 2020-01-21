@@ -96,7 +96,7 @@ $lista =$chofer->verFilas();
                                             <td><?php echo $item["vencimiento"] ;?></td>
                                              <td><?php echo $item["categoria"] ;?></td>
                                             <td class="text-center">
-                                                <a href="ver_vehivulo.php" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-eye"></i></a>
+                                                <a href="ver_vehiculo.php" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-eye"></i></a>
                                             </td>
                                         </tr>
                                         <?php    }

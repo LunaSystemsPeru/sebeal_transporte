@@ -9,6 +9,7 @@ private $marca;
 private $modelo;
 private $mtc;
 private $capacidad;
+private $idProveedor;
 private $c_conectar;
 
     /**
@@ -26,6 +27,24 @@ private $c_conectar;
     {
         return $this->id_vehiculo;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getIdProveedor()
+    {
+        return $this->idProveedor;
+    }
+
+    /**
+     * @param mixed $idProveedor
+     */
+    public function setIdProveedor($idProveedor)
+    {
+        $this->idProveedor = $idProveedor;
+    }
+
+
 
     /**
      * @param mixed $id_vehiculo
@@ -138,6 +157,7 @@ private $c_conectar;
                     '$this->marca',
                     '$this->modelo',
                     '$this->mtc',
+                    '$this->idProveedor',
                     '$this->capacidad'
                   ) ;";
         return $this->c_conectar->ejecutar_idu($sql);
