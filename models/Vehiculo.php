@@ -44,8 +44,6 @@ private $c_conectar;
         $this->idProveedor = $idProveedor;
     }
 
-
-
     /**
      * @param mixed $id_vehiculo
      */
