@@ -123,5 +123,11 @@ order by descripcion asc";
 
         return $this->c_conectar->ejecutar_idu($sql);
     }
+    public function verFila_Medida()
+    {
+        $sql = "SELECT id_und, descripcion, abreviatura, cod_sunat
+                from unidad_medida";
+        return $this->c_conectar->get_Cursor($sql);
+    }
 
 }

@@ -256,6 +256,12 @@ class Usuario
                     where id_usuario = '$this->id_usuario'";
         return $this->c_conectar->ejecutar_idu($sql);
     }
+    public function verFila_usuario()
+    {
+        $sql = "SELECT id_usuario, usuario, datos, fecha_nacimiento, id_agencia, fecha_ingreso
+                FROM usuarios";
+        return $this->c_conectar->get_Cursor($sql);
+    }
 
     public function verFilas()
     {

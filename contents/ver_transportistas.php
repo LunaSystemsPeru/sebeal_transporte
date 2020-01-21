@@ -1,9 +1,10 @@
 <?php
 session_start();
 
-require '../models/Usuario.php';
-$c_usuario = new Usuario();
+require '../models/Proveedor.php';
 
+$proveedor=new Proveedor();
+$lista =$proveedor->verTransportista();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -11,7 +12,7 @@ $c_usuario = new Usuario();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Usuarios - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
+    <title>Mis Transportistas - Mi Agente - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -52,7 +53,7 @@ $c_usuario = new Usuario();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Usuarios</li>
+                            <li class="breadcrumb-item active">Mis Transportistas</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -61,48 +62,42 @@ $c_usuario = new Usuario();
         </div>
         <!-- end page title -->
         <div class="row">
-
+            <h1 class="page-title col-md-1" style="text-align: center; margin-bottom: 25px;">TRANSPORTISTAS:</h1>
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">Usuarios</h2>
-                        <a href="reg_usuario.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                            </i><span>Nuevo usuario</span></a>
-
+                        <h2 class="page-title col-md-12" style="text-align: center;">Mis Transportistas</h2>
                         <div class="table-responsive">
-                            <table class="table mb-0 table-hover">
+                            <table id="table-proveedores" class="table table-striped table-bordered table-hover">
                                 <thead>
                                 <tr>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Username</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">F. Nac.</th>
-                                    <th scope="col">Agencia</th>
-                                    <th scope="col">F. Ingreso</th>
-                                    <th scope="col">Acciones</th>
+                                    <th>Id.</th>
+                                    <th>Documento</th>
+                                    <th>Nombre / Razon Social</th>
+                                    <th>Tipo</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php
-                                $a_usuarios = $c_usuario->verFila_usuario();
-                                foreach ($a_usuarios as $filas) {
-                                    ?>
-                                    <tr>
-                                        <td><?php echo $filas['id_usuario'] ?></td>
-                                        <td><?php echo $filas['usuario'] ?></td>
-                                        <td><?php echo $filas['datos'] ?></td>
-                                        <td><?php echo $filas['fecha_nacimiento'] ?></td>
-                                        <td><?php echo $filas['id_agencia'] ?></td>
-                                        <td><?php echo $filas['fecha_ingreso'] ?></td>
-                                        <td class="text-center">
-                                            <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
-                                            <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
-                                            <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
-                                        </td>
-                                    </tr>
+
+
                                     <?php
-                                }
-                                ?>
+                                        foreach ($lista  as $item){?>
+                                         <tr>
+                                            <td><?php echo $item["id_proveedor"] ;?></td>
+                                            <td class="text-center"><?php echo $item["documento"] ;?></td>
+                                            <td><?php echo $item["razon_social"] ;?></td>
+                                            <td><?php echo ($item["tipo"]==1)?"NORMAL":"TRANSPORTISTA" ;?></td>
+                                            <td class="text-center">
+                                                <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
+                                                <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
+                                            </td>
+                                        </tr>
+                                        <?php    }
+                                    ?>
+
+
+
                                 </tbody>
                             </table>
                         </div>
@@ -124,32 +119,33 @@ $c_usuario = new Usuario();
 <div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <form id="reg-banco" method="post" action="../controller/banco.php">
             <div class="modal-header custom-modal-title" style="padding: 15px;">
                 <h4 class="custom-modal-title">Registrar</h4>
+
             </div>
             <div class="modal-body">
                 <div class="panel-body">
+                    <form id="reg-banco">
                         <div class="form-group">
                             <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control" name="inputNombre" required>
+                            <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control" name="inputCuenta" required>
+                            <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="control-label">Monto</label>
-                            <input type="text" class="form-control" name="inputMonto" value="0" required>
+                            <input type="text" class="form-control">
                         </div>
+                    </form>
                 </div>
 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
             </div>
-            </form>
         </div>
     </div>
 </div>
