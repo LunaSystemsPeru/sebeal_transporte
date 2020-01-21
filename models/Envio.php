@@ -361,6 +361,7 @@ class Envio
         $this->total_facturado = $resultado['total_facturado'];
         $this->total_pagado = $resultado['total_pagado'];
         $this->estado = $resultado['estado'];
+        $this->referencia = $resultado['referencia'];
 
     }
 
