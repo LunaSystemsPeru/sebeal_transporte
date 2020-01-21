@@ -123,7 +123,7 @@ $listaDestino = $destino->verFilas();
                                            readonly>
                                 </div>
                                 <div class="col-md-2">
-                                    <a href="reg_vehiculo.php">
+                                    <a href="reg_vehiculo.php" target="_blank">
                                         <button type="button" id="btn_crear_vehiculo" class="btn btn-info btn-sm"
                                         ><i class="fa fa-plus"></i> Crear Vehiculo
                                         </button>
@@ -150,7 +150,7 @@ $listaDestino = $destino->verFilas();
                                            placeholder="Vcto Brevete" readonly>
                                 </div>
                                 <div class="col-md-2">
-                                    <a href="reg_chofer.php">
+                                    <a href="reg_chofer.php" target="_blank">
                                         <button type="button" id="btn_crear_chofer" class="btn btn-info btn-sm"
                                         ><i class="fa fa-plus"></i> Agr. Chofer
                                         </button>

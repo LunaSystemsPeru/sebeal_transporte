@@ -89,16 +89,19 @@ $pdf->Ln(1);
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFont('Arial', '', 9);
 
-$pdf->Cell(25, 4, "TRANSPORTE: ", 0, 0, 'L');
+$pdf->Cell(30, 4, "TRANSPORTISTA: ", 0, 0, 'L');
 $pdf->Cell(145, 4, $transporte->getRazonSocial() . " | " . $transporte->getDocumento(), 0, 1, 'L');
 
-$pdf->Cell(25, 4, "VEHICULO: ", 0, 0, 'L');
+$pdf->Cell(30, 4, "VEHICULO: ", 0, 0, 'L');
 $pdf->Cell(145, 4, "Placa: " . $vehiculo->getPlaca() . " - " . $vehiculo->getMarca() . " - Mod: " . $vehiculo->getModelo() . " - Capac.: " . $vehiculo->getCapacidad() , 0, 1, 'L');
 
+$pdf->Cell(30, 4, "CHOFER: ", 0, 0, 'L');
+$pdf->Cell(145, 4, $chofer->getBrevete() . " | " . $chofer->getDatos() . " | " . $chofer->getCategoria() , 0, 1, 'L');
+$pdf->Ln();
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->SetTextColor(255, 255, 255);  // Establece el color del texto (en este caso es blanco)
+$pdf->SetFillColor($r, $g, $b);
+$pdf->Cell(190, 6, "DETALLE DEL MANIFESTO", 0, 1, 'C', 1);
+$pdf->Ln(1);
 
-$pdf->Cell(118, 4, utf8_decode("xaa"), 0, 0, 'L');
-$pdf->Cell(32, 4, "MONEDA:", 0, 0, 'R');
-$pdf->Cell(40, 4, "s", 0, 1, 'C');
-
-$pdf->Cell(25, 4, "DIRECCION:", 0, 0, 'L');
 $pdf->Output();
