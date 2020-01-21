@@ -1,9 +1,12 @@
 <?php
 session_start();
 require '../models/Chofer.php';
+require '../models/Proveedor.php';
 
 $c_chofer = new Chofer();
 $lista = $c_chofer->verFilas();
+$c_proveedor = new Proveedor();
+$idprov = $c_proveedor->verFilas();
 
 ?>
 <!DOCTYPE html>
@@ -83,9 +86,8 @@ $lista = $c_chofer->verFilas();
                                                 <div class="col-lg-9">
                                                     <select  class="form-control" id="" name="proveedor" type="text">
                                                         <?php
-                                                        foreach ($lista as $prov){
+                                                        foreach ($idprov as $prov){
                                                         ?>
-                                                        <option value="0">SELECCIONAR</option>
                                                         <option value="<?php echo $prov['id_proveedor']?>"><?php echo $prov['razon_social'] ?></option>
                                                             <?php
                                                         }
@@ -99,19 +101,19 @@ $lista = $c_chofer->verFilas();
                                                     <input   class="form-control" id="" name="brevete" type="text">
                                                 </div>
                                             </div>
-                                                <div class="form-group row">
-                                                <label class="col-lg-2 control-label " for="">Datos:</label>
-                                                <div class="col-lg-9">
-                                                    <input name="datos" type="text" class="form-control">
+                                            <div class="form-group row">
+                                                <label class="col-lg-2 control-label " for="" >Datos</label>
+                                                <div class="col-lg-3">
+                                                    <input   class="form-control" id="" name="datos" type="text">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
-                                                <label class="col-lg-2 control-label " for="">Vencimiento:</label>
-                                                <div class="col-lg-2">
-                                                    <input id="vencimiento" name="vencimiento" type="date" class="form-control">
-
+                                                <label class="col-lg-2 control-label " for="" >Vencimiento</label>
+                                                <div class="col-lg-3">
+                                                    <input   class="form-control" id="" name="vencimiento" type="date">
                                                 </div>
                                             </div>
+
                                             <div class="form-group row">
                                                 <label class="col-lg-2 control-label " for="">Categoria:</label>
                                                 <div class="col-lg-9">
@@ -121,7 +123,7 @@ $lista = $c_chofer->verFilas();
                                             </div>
                                         </section>
                                         <input type="submit" class="btn btn-purple waves-effect waves-light mt-3" placeholder="Guardar">
-                                        
+
                                     </div>
                                 </div>
                             </div>

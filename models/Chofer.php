@@ -129,12 +129,12 @@ private $c_conectar;
     }
     public function insertar()
     {
-        $sql = "INSERT INTO envios 
+        $sql = "INSERT INTO chofer 
                 VALUES ('$this->id_chofer',
-                        '$this->id_proveedor',
                         '$this->brevete',
                         '$this->datos',
                         '$this->vencimiento',
+                        '$this->id_proveedor',
                         '$this->categoria');";
         return $this->c_conectar->ejecutar_idu($sql);
     }
