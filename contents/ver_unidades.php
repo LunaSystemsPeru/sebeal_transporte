@@ -66,8 +66,7 @@ $c_unidad = new UnidadMedida();
                 <div class="card">
                     <div class="card-body">
                         <h2 class="page-title col-md-12" style="text-align: center;">Unidades</h2>
-                        <a href="reg_unidad_medida.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-plus mr-1">
-                            </i><span>Nueva Unidad</span></a>
+                        <span data-toggle="modal" data-target="#modal-add-unidad" class="btn btn-success"><i class="fa fa-plus"></i>Agregar</span>
 
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
@@ -117,7 +116,7 @@ $c_unidad = new UnidadMedida();
 
 
 <!-- modales-->
-<div class="modal fade" id="modal-add-bank" tabindex="-1" role="dialog">
+<div class="modal fade" id="modal-add-unidad" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <form id="reg-banco" method="post" action="../controller/banco.php">
@@ -127,16 +126,18 @@ $c_unidad = new UnidadMedida();
             <div class="modal-body">
                 <div class="panel-body">
                         <div class="form-group">
-                            <label class="control-label">Nombre</label>
-                            <input type="text" class="form-control" name="inputNombre" required>
+                            <label class="control-label">Descripcion</label>
+                            <input type="text" class="form-control" name="inputDescripcion" required>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Nro. Cuenta</label>
-                            <input type="text" class="form-control" name="inputCuenta" required>
+                            <label class="control-label">Abreviatura</label>
+                            <input type="text" class="form-control" name="inputAbreviatura" required>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Monto</label>
-                            <input type="text" class="form-control" name="inputMonto" value="0" required>
+                            <label class="control-label">Cod. Sunat</label>
+                            <select class="form-control" name="inputCod_sunat" required>
+                                <option value="0">ftp</option>
+                            </select>
                         </div>
                 </div>
 
