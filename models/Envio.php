@@ -328,7 +328,7 @@ class Envio
 
     public function verFilas()
     {
-        $sql = "SELECT e.id_envio as id, e.fecha_recepcion, ds.abreviatura, e.serie, e.numero, cd.razon_social as destinatario, cr.razon_social as remitente, c.direccion as direntrega, u.usuario, e.estado, de.nombre as destino  
+        $sql = "SELECT e.id_envio as id, e.fecha_recepcion, ds.abreviatura, e.serie, e.numero, cd.razon_social as destinatario, cr.razon_social as remitente, c.direccion as direntrega, u.usuario, e.estado, de.nombre as destino, e.referencia  
         FROM envios as e 
         inner join documentos_sunat ds on e.id_documento = ds.id_documento
         inner join clientes cr on e.id_remitente = cr.id_clientes
@@ -336,7 +336,8 @@ class Envio
         inner join clientes_direccion c on cd.id_clientes = c.id_clientes 
         inner join usuarios u on e.id_usuario = u.id_usuario 
         inner join destinos_empresa de on c.id_destino = de.id_destino
-        where e.estado = 1";
+        where e.estado = 1 and e.id_aorigen = ".$_SESSION['id_origen']."
+        order by e.fecha_recepcion asc, cr.razon_social asc, e.referencia asc";
         return $this->c_conectar->get_Cursor($sql);
     }
 

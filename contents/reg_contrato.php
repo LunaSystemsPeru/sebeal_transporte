@@ -32,6 +32,7 @@ $listaClasi=$clasificacion->verFilas();
         <link href="../public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="../public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
         <link href="../public/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"/>
 
     </head>
 

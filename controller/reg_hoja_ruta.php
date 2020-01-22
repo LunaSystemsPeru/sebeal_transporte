@@ -18,7 +18,8 @@ $hojaRuta->setIdDestino(filter_input(INPUT_POST, 'select_ciudad'));
 $hojaRuta->setIdChofer(filter_input(INPUT_POST, 'select_chofer'));
 $hojaRuta->setIdVehiculo(filter_input(INPUT_POST, 'select_n_placa'));
 $hojaRuta->setIdUsuario($_SESSION['id_usuario']);
-$hojaRuta->setIdContrato(1);
+$hojaRuta->setMontoFacturado(0);
+$hojaRuta->setMontoContrato(filter_input(INPUT_POST, 'input_monto_contrato'));
 
 
 $hojaRutaEnvio->setIdHojaRuta($hojaRuta->getIdHojaRuta());

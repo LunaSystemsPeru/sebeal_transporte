@@ -66,24 +66,23 @@ $c_banco = new Banco();
                 <div class="card">
                     <div class="card-body">
                         <h2 class="page-title col-md-12" style="text-align: center;">VENTAS</h2>
-                        <a href="reg_venta.php" style="margin-bottom: 10px;" type="button" class="btn btn-success waves-effect waves-light"><i class="dripicons-box mr-1">
-                            </i><span>Agregar Documento</span></a>
-                        <button data-toggle="modal" data-target="#modalbuscar" style="margin-bottom: 10px;" type="button" class="btn btn-warning waves-effect waves-light"><i class="dripicons-search mr-1">
-                            </i><span>Buscar</span></button>
+                        <div class="btn-group">
+                            <button class="btn btn-warning" data-toggle="modal" data-target="#modalbuscar">Buscar Documento</button>
+                        </div>
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <caption></caption>
                                 <thead>
                                 <tr>
-                                    <th>Fecha</th>
-                                    <th>Cliente</th>
-                                    <th>Documento</th>
-                                    <th>G. Remision</th>
-                                    <th>Usuario</th>
-                                    <th>Sub Total</th>
-                                    <th>IGV</th>
-                                    <th>Total</th>
-                                    <th>Acciones</th>
+                                    <th width="11%">Fecha</th>
+                                    <th width="13%">Cliente</th>
+                                    <th width="15%">Documento</th>
+                                    <th width="13%">G. Remision</th>
+                                    <th width="9%">Usuario</th>
+                                    <th width="10%">Total</th>
+                                    <th width="10%">Pagado</th>
+                                    <th width="12%">Estado</th>
+                                    <th width="30%">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -93,12 +92,15 @@ $c_banco = new Banco();
                                     <td>FT | E001 - 000201</td>
                                     <td>GR | E001 - 000018</td>
                                     <td class="text-center">loyangureng</td>
-                                    <td class="text-right">211.86</td>
-                                    <td class="text-right">38.14</td>
+                                    <td class="text-right">250.00</td>
                                     <td class="text-right">250.00</td>
                                     <td class="text-center">
-                                        <button class="btn btn-info" title="Ver Detalle" onclick="obtener_detalle('<?php echo $fila['id_venta'] ?>', '<?php echo $fila['periodo'] ?>')"><i class="fa fa-eye"></i></button>
-                                        <button class="btn btn-danger" title="Anular Documento"><i class="fa fa-trash"></i></button>
+                                        <label class="ct-label">Pagado</label>
+                                    </td>
+                                    <td class="text-center">
+                                        <button class="btn btn-info btn-sm" title="Ver Detalle" onclick="obtener_detalle('<?php echo $fila['id_venta']?>', '<?php echo $fila['periodo']?>')"><i class="fa fa-eye-slash"></i></button>
+                                        <!--<button class="btn btn-success btn-sm" title="Ver Pagos"><i class="fa fa-money"></i></button>-->
+                                        <button class="btn btn-danger btn-lg" title="Anular Documento"><i class="fa fa-close"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
