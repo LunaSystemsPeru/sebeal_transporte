@@ -17,6 +17,7 @@ class Envio
     private $id_aorigen;
     private $id_adestino;
     private $id_usuario;
+    private $id_cliente;
     private $total_pactado;
     private $total_facturado;
     private $total_pagado;
@@ -320,6 +321,22 @@ class Envio
         $this->referencia = $referencia;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIdCliente()
+    {
+        return $this->id_cliente;
+    }
+
+    /**
+     * @param mixed $id_cliente
+     */
+    public function setIdCliente($id_cliente)
+    {
+        $this->id_cliente = $id_cliente;
+    }
+
     public function generarCodigo()
     {
         $sql = "select ifnull(max(id_envio) +1, 1) as codigo from envios";
@@ -333,11 +350,25 @@ class Envio
         inner join documentos_sunat ds on e.id_documento = ds.id_documento
         inner join clientes cr on e.id_remitente = cr.id_clientes
         inner join clientes cd on e.id_destinatario = cd.id_clientes
-        inner join clientes_direccion c on cd.id_clientes = c.id_clientes 
+        inner join clientes_direccion c on cd.id_clientes = c.id_clientes and c.id_direccion = e.id_direccion
         inner join usuarios u on e.id_usuario = u.id_usuario 
         inner join destinos_empresa de on c.id_destino = de.id_destino
         where e.estado = 1 and e.id_aorigen = ".$_SESSION['id_origen']."
         order by e.fecha_recepcion asc, cr.razon_social asc, e.referencia asc";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
+    public function verFilasCobranzas()
+    {
+        $sql = "SELECT e.id_envio as id, e.fecha_recepcion, ds.abreviatura, e.serie, e.numero, c2.razon_social as destinatario, c2.razon_social as remitente, c.direccion as direntrega, u.usuario, e.estado, de.nombre as destino, e.referencia, e.total_facturado, e.total_pactado, e.total_pagado  
+        FROM envios as e 
+        inner join documentos_sunat ds on e.id_documento = ds.id_documento
+        inner join clientes c2 on e.id_cliente = c2.id_clientes
+        inner join clientes_direccion c on c2.id_clientes = c.id_clientes and c.id_direccion = e.id_direccion
+        inner join usuarios u on e.id_usuario = u.id_usuario 
+        inner join destinos_empresa de on c.id_destino = de.id_destino
+        where e.estado = 2 and e.id_aorigen = ".$_SESSION['id_origen']."
+        order by e.fecha_recepcion asc, c2.razon_social asc, e.referencia asc";
         return $this->c_conectar->get_Cursor($sql);
     }
 
@@ -358,6 +389,7 @@ class Envio
         $this->id_aorigen = $resultado['id_aorigen'];
         $this->id_adestino = $resultado['id_adestino'];
         $this->id_usuario = $resultado['id_usuario'];
+        $this->id_cliente = $resultado['id_cliente'];
         $this->total_pactado = $resultado['total_pactado'];
         $this->total_facturado = $resultado['total_facturado'];
         $this->total_pagado = $resultado['total_pagado'];
@@ -382,6 +414,7 @@ class Envio
                         '$this->id_aorigen',
                         '$this->id_adestino',
                         '$this->id_usuario',
+                        '$this->id_cliente',
                         '$this->total_pactado',
                         '0',
                         '0',

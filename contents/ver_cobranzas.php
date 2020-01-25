@@ -1,8 +1,12 @@
 <?php
 session_start();
 
-require '../models/Banco.php';
-$c_banco = new Banco();
+
+require '../models/Envio.php';
+require '../tools/cl_varios.php';
+
+$c_envio = new Envio();
+$c_varios = new cl_varios();
 
 ?>
 <!DOCTYPE html>
@@ -65,44 +69,55 @@ $c_banco = new Banco();
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="page-title col-md-12" style="text-align: center;">VENTAS</h2>
-                        <div class="btn-group">
-                            <button class="btn btn-warning" data-toggle="modal" data-target="#modalbuscar">Buscar Documento</button>
-                        </div>
+                        <h2 class="page-title col-md-12" style="text-align: center;">COBRANZAS</h2>
+                        <button data-toggle="modal" data-target="#modalbuscar" style="margin-bottom: 10px;" type="button" class="btn btn-warning waves-effect waves-light"><i class="dripicons-search mr-1">
+                            </i><span>Busca Documento</span></button>
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <caption></caption>
                                 <thead>
                                 <tr>
-                                    <th width="11%">Fecha</th>
-                                    <th width="13%">Cliente</th>
-                                    <th width="15%">Documento</th>
-                                    <th width="13%">G. Remision</th>
-                                    <th width="9%">Usuario</th>
-                                    <th width="10%">Total</th>
-                                    <th width="10%">Pagado</th>
-                                    <th width="12%">Estado</th>
-                                    <th width="30%">Acciones</th>
+                                    <th width="8%">Fecha</th>
+                                    <th width="11%">Doc. Remision</th>
+                                    <th>Cliente</th>
+                                    <th width="11%">Doc Remite</th>
+                                    <th>M. Facturado</th>
+                                    <th>M. Pactado</th>
+                                    <th>M. Deuda</th>
+                                    <th width="6%">Usuario</th>
+                                    <th width="5%">Estado</th>
+                                    <th width="10%">Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="text-center">2019-03-20</td>
-                                    <td>LUNA SYSTEMS PERU</td>
-                                    <td>FT | E001 - 000201</td>
-                                    <td>GR | E001 - 000018</td>
-                                    <td class="text-center">loyangureng</td>
-                                    <td class="text-right">250.00</td>
-                                    <td class="text-right">250.00</td>
-                                    <td class="text-center">
-                                        <label class="ct-label">Pagado</label>
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-info btn-sm" title="Ver Detalle" onclick="obtener_detalle('<?php echo $fila['id_venta']?>', '<?php echo $fila['periodo']?>')"><i class="fa fa-eye-slash"></i></button>
-                                        <!--<button class="btn btn-success btn-sm" title="Ver Pagos"><i class="fa fa-money"></i></button>-->
-                                        <button class="btn btn-danger btn-lg" title="Anular Documento"><i class="fa fa-close"></i></button>
-                                    </td>
-                                </tr>
+                                <?php
+                                foreach ($c_envio->verFilasCobranzas() as $fila) {
+                                    $doc_remision = $fila['abreviatura'] . " | " . $c_varios->zerofill($fila['serie'], 4) . " - " . $c_varios->zerofill($fila['numero'], 4);
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $fila['fecha_recepcion'] ?></td>
+                                        <td class="text-center">
+                                            <a href="../reports/rpt_ticket_recepcion.php?id_envio=<?php echo $fila['id'] ?>" target="_blank">
+                                                <?php echo $doc_remision ?>
+                                            </a>
+                                        </td>
+                                        <td><?php echo $fila['destinatario'] ?></td>
+                                        <td><?php echo "GR | " . $fila['referencia'] ?></td>
+                                        <td class="text-right"><?php echo number_format($fila['total_facturado'], 2) ?></td>
+                                        <td class="text-right"><?php echo number_format($fila['total_pactado'], 2) ?></td>
+                                        <td class="text-right"><?php echo number_format($fila['total_pactado'] - $fila['total_pagado'], 2) ?></td>
+                                        <td><?php echo $fila['usuario'] ?></td>
+                                        <td><span class="badge badge-success">por Enviar</span></td>
+                                        <td class="text-center">
+                                            <a href="ver_detalle_cobranza.php?envio=<?php echo $fila['id'] ?>" class="btn btn-info" onclick="">
+                                                <i class="fa fa-dollar-sign"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                }
+                                ?>
+
                                 </tbody>
 
                             </table>

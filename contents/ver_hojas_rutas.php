@@ -99,7 +99,7 @@ $listaHojaRuta=$hojaRuta->ver_filas();
                                         <td><?php echo $fila['placa']?></td>
                                         <td><?php echo $fila['capacidad_contratada']?></td>
                                         <td class="text-center">
-                                            <button class="btn btn-success"><i class="fa fa-eye"></i></button>
+                                            <a href="../reports/rpt_hoja_ruta.php?id=<?php echo $fila['id_hoja_ruta']?>" class="btn btn-success"><i class="fa fa-eye"></i></a>
                                             <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                         </td>
                                     </tr>

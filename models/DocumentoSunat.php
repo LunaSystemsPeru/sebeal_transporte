@@ -88,6 +88,19 @@ class DocumentoSunat
         $this->id_documento = $this->c_conectar->get_valor_query($sql, "codigo");
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from documentos_sunat 
+        where id_documento = '$this->id_documento'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        if (!empty($resultado)) {
+            $this->nombre = $resultado["nombre"];
+            $this->abreviatura = $resultado["abreviatura"];
+            $this->cod_sunat = $resultado["cod_sunat"];
+        }
+        return $resultado;
+    }
+
     public function verFilas()
     {
         $sql = "SELECT * FROM documentos_sunat order by nombre asc";

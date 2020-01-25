@@ -25,7 +25,7 @@ $compra->insertar();
 $c_proveedor->setIdProveedor($compra->getIdProveedor());
 $c_proveedor->obtenerDatos();
 
-$c_movimiento->setDescripcion("PAGO A " . $c_proveedor->getRazonSocial() ." x  FACT: " . $compra->getSerie() + "-" + $compra->getNumero() );
+$c_movimiento->setDescripcion("PAGO A " . $c_proveedor->getRazonSocial() ." x  FACT: " . $compra->getSerie() . "-" . $compra->getNumero() );
 $c_movimiento->setSale($compra->getTotal());
 $c_movimiento->setIdClasificacion($compra->getIdClasificacion());
 $c_movimiento->setFecha($compra->getFecha());

@@ -246,7 +246,18 @@ class HojaRuta
               INNER JOIN destinos_empresa AS origen  ON 
                   hoja_ruta.id_origen = origen.id_destino 
               INNER JOIN destinos_empresa AS destino ON
-                  hoja_ruta.id_destino = destino.id_destino ";
+                  hoja_ruta.id_destino = destino.id_destino 
+                  order by hoja_ruta.fecha asc";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
+
+    public function verTransportistas () {
+        $sql = "select p.id_proveedor, p.documento, p.razon_social, sum(hr.monto_contrato) as contratado
+from hoja_ruta as hr
+inner join vehiculo v on hr.id_vehiculo = v.id_vehiculo
+inner join chofer c on hr.id_chofer = c.id_chofer
+inner join proveedor p on c.id_proveedor = p.id_proveedor
+group by p.id_proveedor";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 }

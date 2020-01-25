@@ -99,6 +99,18 @@ class ClienteDireccion
         return $this->c_conectar->get_json_rows($sql);
     }
 
+    public function obtenerDatos()
+    {
+        $sql = "select * from clientes_direccion 
+        where id_clientes = '$this->id_cliente' and id_direccion = '$this->id_direccion'";
+        $resultado = $this->c_conectar->get_Row($sql);
+        if (!empty($resultado)) {
+            $this->direccion = $resultado["direccion"];
+            $this->id_destino = $resultado["id_destino"];
+        }
+        return $resultado;
+    }
+
     public function insertar()
     {
         $sql = "INSERT INTO clientes_direccion 

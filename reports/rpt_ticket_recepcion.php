@@ -57,9 +57,9 @@ $pdf->SetFont('Arial', '', 8);
 $pdf->Cell(64, $altura_linea, "FECHA RECEPCION: " . $envio->getFechaRecepcion(), 0, 1, 'L');
 $pdf->Ln();
 
-$pdf->MultiCell(64, $altura_linea, "REMITENTE: " . $remitente->getRazonSocial(), 0, "J", 0);
+$pdf->MultiCell(64, $altura_linea, "REMITENTE: " . utf8_decode($remitente->getRazonSocial()), 0, "J", 0);
 $pdf->Cell(64, $altura_linea, "DOC REMITENTE: GR | " . $envio->getReferencia(), 0, 1, 'L');
-$pdf->MultiCell(64, $altura_linea, "DESTINATARIO: " . $destinatario->getRazonSocial(), 0, "J", 0);
+$pdf->MultiCell(64, $altura_linea, "DESTINATARIO: " . utf8_decode($destinatario->getRazonSocial()), 0, "J", 0);
 $pdf->Ln();
 
 $pdf->Cell(10, $altura_linea, "CANT", 0, 0, 'L');
