@@ -58,7 +58,7 @@ class EnvioCobro
     }
 
     public function verFilas () {
-        $sql = "SELECT bm.id_movimiento, bm.fecha, bm.sale, cb.nombre
+        $sql = "SELECT bm.id_movimiento, bm.fecha, bm.ingresa, cb.nombre
         FROM envios_cobro AS ec 
         INNER JOIN bancos_movimientos bm ON ec.id_movimiento = bm.id_movimiento
         INNER JOIN caja_bancos cb ON bm.id_banco = cb.id_banco

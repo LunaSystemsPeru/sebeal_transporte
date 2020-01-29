@@ -12,7 +12,7 @@ $hojaRuta->generarCodigo();
 
 
 
-$hojaRuta->setFecha($c_varios->fecha_web_mysql(filter_input(INPUT_POST, 'input_fecha')));
+$hojaRuta->setFecha(filter_input(INPUT_POST, 'input_fecha'));
 $hojaRuta->setIdOrigen($_SESSION['id_origen']);
 $hojaRuta->setIdDestino(filter_input(INPUT_POST, 'select_ciudad'));
 $hojaRuta->setIdChofer(filter_input(INPUT_POST, 'select_chofer'));

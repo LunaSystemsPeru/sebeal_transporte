@@ -91,7 +91,7 @@ $c_banco = new Banco();
                                         <td><?php echo $filas['nro_cuenta'] ?></td>
                                         <td><?php echo $filas['monto'] ?></td>
                                         <td class="text-center">
-                                            <a href="ver_movimientos_banco.php?id_banco=1" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
+                                            <a href="ver_movimientos_banco.php?id_banco=<?php echo $filas['id_banco'] ?>" class="btn btn-icon waves-effect waves-light btn-success"><i class="dripicons-view-list"></i></a>
                                             <button class="btn btn-icon waves-effect waves-light btn-primary"><i class="dripicons-pencil"></i></button>
                                             <button class="btn btn-icon waves-effect waves-light btn-danger" id="sa-warning"><i class="dripicons-trash"></i></button>
                                         </td>

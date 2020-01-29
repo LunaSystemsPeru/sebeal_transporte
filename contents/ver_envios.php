@@ -74,7 +74,7 @@ $c_varios = new cl_varios();
                         <a href="reg_hoja_ruta.php" style="margin-bottom: 10px;" type="button" class="btn btn-info waves-effect waves-light"><i class="dripicons-cart mr-1">
                             </i><span>Asignar a Vehiculo</span></a>
                         <button data-toggle="modal" data-target="#modalbuscar" style="margin-bottom: 10px;" type="button" class="btn btn-warning waves-effect waves-light"><i class="dripicons-search mr-1">
-                            </i><span>Asignar a Vehiculo</span></button>
+                            </i><span>Buscar x Criterios</span></button>
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <caption></caption>

@@ -372,6 +372,16 @@ class Envio
         return $this->c_conectar->get_Cursor($sql);
     }
 
+    public function verFilasClientesCobranzas()
+    {
+        $sql = "SELECT e.id_cliente, c.documento, c.razon_social, sum(e.total_pactado)as pactado, sum(e.total_pagado) as pagado
+        from envios as e 
+        inner join clientes c on e.id_cliente = c.id_clientes
+        where e.estado = 2 and e.total_pagado != e.total_pactado
+        group by e.id_cliente";
+        return $this->c_conectar->get_Cursor($sql);
+    }
+
     public function obtenerDatos()
     {
         $sql = "select * from envios 

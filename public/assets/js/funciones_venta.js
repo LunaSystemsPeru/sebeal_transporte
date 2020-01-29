@@ -127,6 +127,13 @@ function agregarDetalle() {
     }
 }
 
+function calcular_subtotal() {
+    var cantidad = $("#inputCantidad").val();
+    var precio = $("#input_unitario").val();
+    var subtotal = cantidad * precio;
+    $("#input_subtotal").val(subtotal);
+}
+
 function eliminarItem(iditem) {
     var parametros = {
         "action": 2,
@@ -144,6 +151,7 @@ function enviarDetalle(parametros) {
             $('#tabla-detalle tbody').html("");
         },
         success: function (response) {
+            console.log(response)
             $('#tabla-detalle tbody').append(response);
         }
     });
@@ -158,7 +166,7 @@ function limpiarBusqueda() {
 }
 
 function guardarEnvio() {
-    if ($("#hidden_id_remitente").val() !== "0" && $("#hidden_id_destinatario").val() !== "0") {
+    if ($("#hidden_id_remitente").val() !== "0" && $("#hidden_id_destinatario").val() !== "0" && $("#inputReferencia").val() !== "") {
         var parametros = {
             "inputFecha": $("#inputFecha").val(),
             "select_documento": $("#select_documento").val(),

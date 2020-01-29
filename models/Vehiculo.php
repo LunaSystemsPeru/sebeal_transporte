@@ -140,8 +140,9 @@ private $c_conectar;
 
     public function verFilas()
     {
-        $sql = "SELECT id_vehiculo, placa, marca, modelo, mtc, capacidad
-                FROM vehiculo";
+        $sql = "SELECT id_vehiculo, placa, marca, modelo, mtc, capacidad, p.documento
+                FROM vehiculo 
+                inner join proveedor p on vehiculo.id_proveedor = p.id_proveedor";
         return $this->c_conectar->get_Cursor($sql);
     }
 

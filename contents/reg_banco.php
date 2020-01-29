@@ -4,7 +4,7 @@
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
         <meta charset="utf-8" />
-        <title>Agregar Banco - Mi Agente - desarrollado por Luna Systems Peru</title>
+        <title>Agregar Banco - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
         <meta content="Coderthemes" name="author" />

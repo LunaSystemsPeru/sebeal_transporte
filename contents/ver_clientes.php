@@ -98,7 +98,7 @@ $c_cliente = new Cliente();
                                         <td class="text-right">0</td>
                                         <td class="text-center">0000-00-00</td>
                                         <td class="text-center">
-                                            <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
+                                            <a href="reg_cliente.php?id_cliente=<?php echo $item['id_clientes']?>" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
                                             <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
                                         </td>
                                     </tr>

@@ -176,7 +176,7 @@ $c_destino->setId($_SESSION['id_origen']);
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-md-2 col-form-label" for="inputPeso">Referemcia</label>
+                                        <label class="col-md-2 col-form-label" for="inputReferencia">Referemcia</label>
                                         <div class="col-md-4">
                                             <div class="input-group">
                                                 <input type="text" id="inputReferencia" name="inputReferencia" class="form-control">
@@ -249,7 +249,7 @@ $c_destino->setId($_SESSION['id_origen']);
                                 <div class="form-group row">
                                     <label class="col-md-1 col-form-label">P. Unit.</label>
                                     <div class="col-md-2">
-                                        <input type="text" class="form-control text-center" id="input_unitario" name="input_unitario" value="0">
+                                        <input type="text" class="form-control text-center" id="input_unitario" name="input_unitario" value="0" onkeyup="calcular_subtotal()">
                                     </div>
                                     <label class="col-md-1 col-form-label">Sub Total</label>
                                     <div class="col-md-2">

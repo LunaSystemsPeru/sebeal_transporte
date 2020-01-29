@@ -89,7 +89,7 @@ class HojaRutaEnvio
         inner join envios e on hre.idenvio = e.id_envio
         inner join documentos_sunat ds on e.id_documento = ds.id_documento
         inner join clientes c on e.id_destinatario = c.id_clientes 
-        inner join clientes_direccion cd on c.id_clientes = cd.id_clientes
+        inner join clientes_direccion cd on e.id_direccion = cd.id_direccion and e.id_destinatario = cd.id_clientes
         where hre.id_hoja_ruta = '$this->idHojaRuta' 
         order by c.razon_social asc";
         return $this->c_conectar->ejecutar_idu($sql);

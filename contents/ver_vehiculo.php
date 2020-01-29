@@ -3,8 +3,8 @@ session_start();
 
 require '../models/Vehiculo.php';
 
-$vehiculo=new Vehiculo();
-$lista =$vehiculo->verFilas();
+$vehiculo = new Vehiculo();
+$lista = $vehiculo->verFilas();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -12,7 +12,7 @@ $lista =$vehiculo->verFilas();
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:57:38 GMT -->
 <head>
     <meta charset="utf-8"/>
-    <title>Mis Vehiculos - Mi Vehiculo - desarrollado por Luna Systems Peru</title>
+    <title>Mis Vehiculos - Sebeal Transporte - desarrollado por Luna Systems Peru</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description"/>
     <meta content="Coderthemes" name="author"/>
@@ -77,29 +77,35 @@ $lista =$vehiculo->verFilas();
                                 <thead>
                                 <tr>
                                     <th>Id.</th>
+                                    <th>Proveedor</th>
                                     <th>Placa</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
                                     <th>MTC</th>
                                     <th>Capacidad</th>
+                                    <th>Acciones</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
 
-                                    <?php
-                                        foreach ($lista  as $item){?>
-                                         <tr>
-                                            <td><?php echo $item["id_vehiculo"] ;?></td>
-                                            <td class="text-center"><?php echo $item["placa"] ;?></td>
-                                            <td><?php echo $item["marca"] ;?></td>
-                                            <td><?php echo $item["modelo"] ;?></td>
-                                            <td><?php echo $item["mtc"] ;?></td>
-                                            <td><?php echo $item["capacidad"] ;?></td>
-                                        </tr>
-                                        <?php    }
+                                <?php
+                                foreach ($lista as $item) {
                                     ?>
-
+                                    <tr>
+                                        <td><?php echo $item["id_vehiculo"]; ?></td>
+                                        <td><?php echo $item["documento"]; ?></td>
+                                        <td class="text-center"><?php echo $item["placa"]; ?></td>
+                                        <td><?php echo $item["marca"]; ?></td>
+                                        <td><?php echo $item["modelo"]; ?></td>
+                                        <td><?php echo $item["mtc"]; ?></td>
+                                        <td><?php echo $item["capacidad"]; ?></td>
+                                        <td>
+                                            <button class="btn btn-info" type="button"><i class="fa fa-edit"></i></button>
+                                        </td>
+                                    </tr>
+                                <?php }
+                                ?>
 
 
                                 </tbody>

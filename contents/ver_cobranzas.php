@@ -56,7 +56,7 @@ $c_varios = new cl_varios();
                     <div class="page-title-right">
                         <ol class="breadcrumb m-0">
                             <li class="breadcrumb-item"><a href="javascript: void(0);">inicio</a></li>
-                            <li class="breadcrumb-item active">Mis Bancos</li>
+                            <li class="breadcrumb-item active">Mis Cobros</li>
                         </ol>
                     </div>
                     <h3 class="page-title"></h3>
@@ -72,6 +72,8 @@ $c_varios = new cl_varios();
                         <h2 class="page-title col-md-12" style="text-align: center;">COBRANZAS</h2>
                         <button data-toggle="modal" data-target="#modalbuscar" style="margin-bottom: 10px;" type="button" class="btn btn-warning waves-effect waves-light"><i class="dripicons-search mr-1">
                             </i><span>Busca Documento</span></button>
+                        <a href="ver_clientes_cobranza.php" style="margin-bottom: 10px;" type="button" class="btn btn-success waves-effect waves-light"><i class="dripicons-search mr-1">
+                            </i><span>Ver Clientes por Cobrar</span></a>
                         <div class="table-responsive">
                             <table class="table mb-0 table-hover">
                                 <caption></caption>
@@ -91,8 +93,16 @@ $c_varios = new cl_varios();
                                 </thead>
                                 <tbody>
                                 <?php
+                                $suma_pactado = 0;
+                                $suma_deuda = 0;
                                 foreach ($c_envio->verFilasCobranzas() as $fila) {
+                                    $suma_pactado +=$fila['total_pactado'];
+                                    $suma_deuda += ($fila['total_pactado'] - $fila['total_pagado']);
                                     $doc_remision = $fila['abreviatura'] . " | " . $c_varios->zerofill($fila['serie'], 4) . " - " . $c_varios->zerofill($fila['numero'], 4);
+                                    $label_estado = '<span class="badge badge-warning">por Cobrar</span>';
+                                    if ( $fila['total_pagado'] ==  $fila['total_pactado']) {
+                                        $label_estado = '<span class="badge badge-success">Pagado</span>';
+                                    }
                                     ?>
                                     <tr>
                                         <td><?php echo $fila['fecha_recepcion'] ?></td>
@@ -107,7 +117,7 @@ $c_varios = new cl_varios();
                                         <td class="text-right"><?php echo number_format($fila['total_pactado'], 2) ?></td>
                                         <td class="text-right"><?php echo number_format($fila['total_pactado'] - $fila['total_pagado'], 2) ?></td>
                                         <td><?php echo $fila['usuario'] ?></td>
-                                        <td><span class="badge badge-success">por Enviar</span></td>
+                                        <td class="text-center"><?php echo $label_estado?></td>
                                         <td class="text-center">
                                             <a href="ver_detalle_cobranza.php?envio=<?php echo $fila['id'] ?>" class="btn btn-info" onclick="">
                                                 <i class="fa fa-dollar-sign"></i>
@@ -119,6 +129,13 @@ $c_varios = new cl_varios();
                                 ?>
 
                                 </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td colspan="5" class="text-right"> Suma total</td>
+                                    <td class="text-right"><?php echo number_format($suma_pactado, 2) ?></td>
+                                    <td class="text-right"> <?php echo number_format($suma_deuda, 2) ?></td>
+                                </tr>
+                                </tfoot>
 
                             </table>
                         </div>

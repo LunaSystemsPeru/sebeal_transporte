@@ -28,7 +28,6 @@ $total_peso = 0;
 $item = 1;
 $array_detalle = $_SESSION['enviodetalle'];
 foreach ($array_detalle as $fila) {
-    print_r($fila);
     $total_precio += ($fila['cantidad'] * $fila['costo']);
     $total_peso += $fila['peso'];
     ?>

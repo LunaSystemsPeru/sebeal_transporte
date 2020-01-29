@@ -233,12 +233,12 @@ $listaPagos = $cobro->verFilas();
                                 <?php
                                 $saldo = $envio->getTotalPagado();
                                 foreach ($listaPagos as $fila) {
-                                    $saldo -= $fila['sale'];
+                                    $saldo -= $fila['ingresa'];
                                     ?>
                                     <tr>
                                         <td class="text-center"><?php echo $tools->fecha_mysql_web($fila['fecha']) ?></td>
                                         <td><?php echo $fila['nombre'] ?></td>
-                                        <td class="text-right"><?php echo number_format($fila['sale'], 2) ?></td>
+                                        <td class="text-right"><?php echo number_format($fila['ingresa'], 2) ?></td>
                                         <td class="text-right"><?php echo number_format($saldo, 2) ?></td>
                                         <td class="text-center">
                                             <button onclick="eliminarPago(<?php echo $contrato->getId() . "," . $fila["id_movimiento"] ?>)" class="btn btn-icons btn-danger" title="Eliminar Pago"><i class="fa fa-trash"></i></button>
@@ -278,7 +278,8 @@ $listaPagos = $cobro->verFilas();
                     </button>
                 </div>
                 <div class="modal-body">
-                    <input id="id_contrato" type="hidden" name="id_contrato" value="<?php echo $envio->getIdEnvio() ?>">
+                    <input id="id_envio" type="hidden" name="id_envio" value="<?php echo $envio->getIdEnvio() ?>">
+                    <input id="detalle_envio" type="hidden" name="detalle_envio" value="<?php echo  $sunat->getAbreviatura() . " | " . $envio->getSerie() . " - " . $envio->getNumero()   ?>">
                     <div class="form-group">
                         <label for="banco" class="col-form-label">Banco:</label>
                         <select name="id_banco" class="form-control" id="banco">
@@ -300,7 +301,7 @@ $listaPagos = $cobro->verFilas();
                     </div>
                     <div class="form-group">
                         <label for="monto" class="col-form-label">Monto:</label>
-                        <input required type="number" name="monto" class="form-control" id="monto">
+                        <input required type="number" name="monto" class="form-control" id="monto" value="<?php echo $envio->getTotalPactado() - $envio->getTotalPagado() ?>">
                     </div>
                     <div class="form-group">
                         <label for="fecha" class="col-form-label">Fecha:</label>

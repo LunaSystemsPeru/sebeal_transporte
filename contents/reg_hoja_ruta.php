@@ -133,7 +133,7 @@ $listaDestino = $destino->verFilas();
                                 <div class="col-md-2">
                                     <select  @change="selectChofer($event, $event.target.selectedIndex)" class="form-control" id="select_chofer"
                                             name="select_chofer">
-                                        <option v-for="item of choferes" v-bind:value="item.id_chofer">{{item.datos}}
+                                        <option v-for="item of choferes" v-bind:value="item.id_chofer">{{item.brevete}}
                                         </option>
                                     </select>
                                 </div>
@@ -170,8 +170,8 @@ $listaDestino = $destino->verFilas();
                                 </div>
                                 <label class="col-md-1 control-label">Fecha</label>
                                 <div class="col-md-2">
-                                    <input id="input_fecha" name="input_fecha" class="form-control text-center"
-                                           value="<?php echo date("d/m/Y") ?>" >
+                                    <input type="date" id="input_fecha" name="input_fecha" class="form-control text-center"
+                                           value="<?php echo date("Y-m-d") ?>" >
                                 </div>
                             </div>
                             <div class="form-group row">
