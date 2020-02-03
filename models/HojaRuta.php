@@ -250,14 +250,44 @@ class HojaRuta
                   order by hoja_ruta.fecha asc";
         return $this->c_conectar->ejecutar_idu($sql);
     }
+    public function ver_ruta_transportista(){
+        $sql = "SELECT `id_hoja_ruta`, 
+                    `fecha`,
+                    `origen`.`nombre`, 
+                    `destinos_empresa`.`nombre`, 
+                    `chofer`.`datos`, 
+                    `vehiculo`.`placa`, 
+                    `capacidad_contratada` AS `capacidad` 
+                FROM 
+                    `hoja_ruta` 
+                INNER JOIN `chofer` ON 
+                    `hoja_ruta`.`id_hoja_ruta` = `chofer`.`id_chofer` 
+                INNER JOIN `vehiculo` ON 
+                    `hoja_ruta`.`id_vehiculo` = `vehiculo`.`id_vehiculo` 
+                INNER JOIN `destinos_empresa` ON 
+                    `hoja_ruta`.`id_destino` = `destinos_empresa`.`id_destino` 
+                INNER JOIN `destinos_empresa` AS `origen` ON 
+                    `hoja_ruta`.`id_origen` = `origen`.`id_destino`
+                WHERE 
+                    `chofer`.`id_chofer` = '$this->idChofer'";
+        return $this->c_conectar->ejecutar_idu($sql);
+    }
 
     public function verTransportistas () {
-        $sql = "select p.id_proveedor, p.documento, p.razon_social, sum(hr.monto_contrato) as contratado
-from hoja_ruta as hr
-inner join vehiculo v on hr.id_vehiculo = v.id_vehiculo
-inner join chofer c on hr.id_chofer = c.id_chofer
-inner join proveedor p on c.id_proveedor = p.id_proveedor
-group by p.id_proveedor";
+        $sql = "select 
+                    p.id_proveedor, 
+                    p.documento, 
+                    p.razon_social, 
+                    sum(hr.monto_contrato) as contratado
+                from 
+                    hoja_ruta as hr
+                inner join vehiculo v on 
+                    hr.id_vehiculo = v.id_vehiculo
+                inner join chofer c on 
+                    hr.id_chofer = c.id_chofer
+                inner join proveedor p on  
+                    c.id_proveedor = p.id_proveedor
+                group by p.id_proveedor";
         return $this->c_conectar->ejecutar_idu($sql);
     }
 }

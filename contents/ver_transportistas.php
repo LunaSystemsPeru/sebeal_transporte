@@ -89,8 +89,7 @@ $lista =$proveedor->verTransportistas();
                                             <td><?php echo $item["razon_social"] ;?></td>
                                             <td><?php echo $item["contratado"]?></td>
                                             <td class="text-center">
-                                                <a href="reg_proveedor.php?id_proveedor=" class="btn btn-success btn-sm" title="Editar Proveedor"><i class="fa fa-edit"></i></a>
-                                                <button class="btn btn-info btn-sm" title="Ver Documentos"><i class="fa fa-bolt"></i></button>
+                                                <a onclick="send(<?php echo $item["id_proveedor"] ;?>)" href="ver_hojas_rutas.php" class="btn btn-success btn-sm" title="ver Ruta"><i class="fa fa-eye"></i></a>
                                             </td>
                                         </tr>
                                         <?php    }
@@ -177,7 +176,13 @@ $lista =$proveedor->verTransportistas();
 
 <!-- App js -->
 <script src="../public/assets/js/app.min.js"></script>
-
+<script>
+    function send(id, nombre) {
+        console.log(id+"-"+ nombre);
+        $('#nombre').val(nombre);
+        $('#id').val(id);
+    }
+</script>
 </body>
 
 <!-- Mirrored from coderthemes.com/codefox/layouts/light-horizontal/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 07 Nov 2019 15:59:12 GMT -->
