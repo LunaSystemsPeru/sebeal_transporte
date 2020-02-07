@@ -184,8 +184,8 @@ Private $c_conectar;
                     '$this->frecuencia',
                     
                     
-                    '$this->id_clasificacion',
-                    '$this->estado'
+                    '$this->estado',
+                    '$this->id_clasificacion'
                   ) ;";
         return $this->c_conectar->ejecutar_idu($sql);
     }
