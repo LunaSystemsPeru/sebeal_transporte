@@ -30,7 +30,7 @@ if ($hojaRuta->inserta()){
 
     $numero=$_POST["checkbox"];
     $count = count($numero);
-    /*echo $count;*/
+    echo $count;
     for ($i = 0; $i < $count; $i++) {
         $hojaRutaEnvio->setIdenvio($numero[$i]);
         $hojaRutaEnvio->insertar();
