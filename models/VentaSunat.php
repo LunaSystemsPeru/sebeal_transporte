@@ -208,7 +208,7 @@ class VentaSunat
                     '$this->serie',
                     '$this->numero',
                     '$this->monto',
-                    '$this->id_envio',
+                    $this->id_envio,
                    '$this->id_clientes', 
                    1
                   ) ";

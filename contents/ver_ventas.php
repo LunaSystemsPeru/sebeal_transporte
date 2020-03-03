@@ -66,7 +66,7 @@ $c_banco = new Banco();
                 <div class="card">
                     <div class="card-body">
                         <h2 class="page-title col-md-12" style="text-align: center;">VENTAS</h2>
-                        <a href="reg_venta.php" style="margin-bottom: 10px;" type="button" class="btn btn-success waves-effect waves-light"><i class="dripicons-box mr-1">
+                        <a href="reg_documento_venta.php" style="margin-bottom: 10px;" type="button" class="btn btn-success waves-effect waves-light"><i class="dripicons-box mr-1">
                             </i><span>Agregar Documento</span></a>
                         <button data-toggle="modal" data-target="#modalbuscar" style="margin-bottom: 10px;" type="button" class="btn btn-warning waves-effect waves-light"><i class="dripicons-search mr-1">
                             </i><span>Buscar</span></button>
